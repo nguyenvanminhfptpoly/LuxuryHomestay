@@ -45,12 +45,12 @@ public class LuxuryAdapter extends RecyclerView.Adapter<LuxuryAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (luxuries != null) {
             holder.bind(luxuries.get(position));
-            holder.btnDetailLuxury.setOnClickListener(view -> {
-                luxury.onItemClickListener(position);
-            });
-            holder.imgFavorite.setOnClickListener(view -> {
-                luxury.onItemClickDetailListener(position);
-            });
+            holder.btnDetailLuxury.setOnClickListener(view ->
+                luxury.onItemClickListener(position)
+            );
+            holder.imgFavorite.setOnClickListener(view ->
+                luxury.onItemClickDetailListener(position)
+            );
         }
     }
 
@@ -81,7 +81,8 @@ public class LuxuryAdapter extends RecyclerView.Adapter<LuxuryAdapter.ViewHolder
         void bind(Luxury luxury) {
             tvName.setText(luxury.getUsername());
             tvAddress.setText(luxury.getAddress());
-            tvDetail.setText(luxury.getDetail());
+            String detail = luxury.getDetail();
+            tvDetail.setText(detail);
             imgLuxury.setDefaultImageResId(R.drawable.img_home1);
             imgLuxury.setErrorImageResId(R.drawable.uploadfailed);
             imgLuxury.setImageUrl(luxury.getImage());

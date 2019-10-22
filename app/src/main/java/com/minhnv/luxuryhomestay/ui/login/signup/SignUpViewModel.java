@@ -8,6 +8,8 @@ import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
 import com.minhnv.luxuryhomestay.utils.CommonUtils;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
+import io.reactivex.functions.Function;
+
 public class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
     private static final String TAG = "SignUpViewModel";
     public SignUpViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
@@ -19,7 +21,7 @@ public class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
         if(TextUtils.isEmpty(password)){
             return false;
         }
-        if(CommonUtils.isPhoneValid(phonenumber)){
+        if(TextUtils.isEmpty(phonenumber)){
             return false;
         }
         return !TextUtils.isEmpty(address);
@@ -30,11 +32,11 @@ public class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
         getDataManager().doServerSignUp(new UserResponse.ServerSignUpRequest(password,phonenumber,address))
             .subscribeOn(getSchedulerProvider().io())
             .observeOn(getSchedulerProvider().ui())
-            .subscribe(response ->{
-                getNavigator().openSignInActivity();
-            },throwable -> {
-                getNavigator().handleError(throwable);
-            }));
+            .subscribe(response ->
+                getNavigator().openSignInActivity()
+            ,throwable ->
+                getNavigator().handleError(throwable)
+            ));
     }
 
     public void onSignUp(){

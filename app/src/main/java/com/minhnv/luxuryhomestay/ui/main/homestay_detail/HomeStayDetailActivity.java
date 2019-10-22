@@ -7,7 +7,7 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,17 +25,17 @@ import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
-import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 
 public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewModel> implements HomeStayDetailNavigator {
     private static final String TAG = "HomeStayDetailActivity";
-    private TextView tvName, tvAddress, tvHasTag, tvPrice, tvRating, tvEvaLute;
+    private TextView tvName, tvAddress, tvHasTag, tvPrice, tvEvaLute;
     private ReadMoreTextView tvDetail;
     private ANImageView imgDetail;
     private String nameImage;
     private SlidrInterface slide;
+    private Button tvRating;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, HomeStayDetailActivity.class);
@@ -56,16 +56,16 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
         tvPrice = findViewById(R.id.tvPriceHomeStayDetail);
         tvHasTag = findViewById(R.id.tvHastagHomeStayDetail);
         tvDetail = findViewById(R.id.tvDetailHomeStay);
-        tvRating = findViewById(R.id.tvRatingHomeStayDetail);
+        tvRating = findViewById(R.id.viewRating);
         imgDetail = findViewById(R.id.imgHomeStayDetail);
         tvEvaLute = findViewById(R.id.tvEvaluteHomeStayDetail);
         Toolbar toolbar = findViewById(R.id.toolbarHomeStaysDetail);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Chi tiết Homestay");
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        toolbar.setNavigationOnClickListener(view -> {
-            onBackPressed();
-        });
+        toolbar.setNavigationOnClickListener(view ->
+            onBackPressed()
+        );
         initIntent();
     }
 
@@ -100,7 +100,7 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
             imgDetail.setImageUrl(homestay.getImage());
 
             String name = getString(R.string.name_hs) + homestay.getName();
-            String rating = getString(R.string.rating) + homestay.getRating();
+            String rating = homestay.getRating();
             String detail = getString(R.string.detail_hs) + homestay.getDetail();
             String hasTag = getString(R.string.has_tag_home_stay) + homestay.getHastag();
             String address = getString(R.string.addressHs) + homestay.getAddress();
@@ -124,7 +124,7 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
             imgDetail.setErrorImageResId(R.drawable.uploadfailed);
             imgDetail.setImageUrl(price.getImage());
             String name = getString(R.string.name_hs) + price.getTitle();
-            String rating = getString(R.string.rating) + price.getRating();
+            String rating =  price.getRating();
             String detail = "Giá cũ: " + price.getPriceago();
             String hasTag = getString(R.string.has_tag_home_stay) + price.getHastag();
             String address = getString(R.string.addressHs) + price.getAddress();

@@ -79,6 +79,6 @@
 
     <style name="AppTheme.SlideActivityTheme">
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@color/md_white_1000</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
     </style>
 </resources>
