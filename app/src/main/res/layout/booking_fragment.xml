@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/md_white_1000" />
 
-    <ImageView
+    <com.androidnetworking.widget.ANImageView
         android:id="@+id/imgBooking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
 
         <Button
             android:id="@+id/btnDateStart"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/bg_checkin_checkout_selector"
@@ -57,8 +57,9 @@
 
         <Button
             android:id="@+id/btnDateEnd"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/bg_checkin_checkout_selector"
             android:text="@string/date_end"
@@ -102,7 +103,6 @@
             style="@style/TextViewBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/format_date"
             app:layout_constraintStart_toStartOf="@+id/btnDateStart"
             app:layout_constraintTop_toBottomOf="@+id/btnDateStart" />
 
@@ -111,7 +111,6 @@
             style="@style/TextViewBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/format_date"
             app:layout_constraintStart_toStartOf="@+id/btnDateEnd"
             app:layout_constraintTop_toBottomOf="@+id/btnDateEnd" />
 

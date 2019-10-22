@@ -3,7 +3,7 @@ package com.minhnv.luxuryhomestay.data.remote;
 
 
 class ApiEndPoint {
-    private static final String BASE_URL = "http://192.168.1.157/Demo/";
+    private static final String BASE_URL = "https://luxuryhomestay.000webhostapp.com/";
     static final String ENDPOINT_SIGNUP = BASE_URL +  "signup.php";
     static final String ENDPOINT_SIGN_IN = BASE_URL + "login.php";
     static final String ENDPOINT_LIST_HOMESTAYS = BASE_URL + "getlist.php";

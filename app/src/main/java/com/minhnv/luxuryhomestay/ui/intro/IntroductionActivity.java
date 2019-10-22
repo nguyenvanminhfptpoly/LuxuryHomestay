@@ -8,9 +8,11 @@ import androidx.annotation.Nullable;
 
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
+import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrInterface;
 
 public class IntroductionActivity extends BaseActivity<IntroductionViewModel> implements IntroductionNavigator {
-
+    private SlidrInterface slide;
     public static Intent newIntent(Context context) {
         return new Intent(context, IntroductionActivity.class);
 
@@ -23,6 +25,7 @@ public class IntroductionActivity extends BaseActivity<IntroductionViewModel> im
 
     @Override
     public void onCreateActivity(@Nullable Bundle savedInstanceState) {
+        slide = Slidr.attach(this);
     }
 
 

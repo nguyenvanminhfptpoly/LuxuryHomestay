@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.minhnv.luxuryhomestay.data.DataManager;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
+import com.minhnv.luxuryhomestay.utils.CommonUtils;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
 public class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
@@ -18,7 +19,7 @@ public class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
         if(TextUtils.isEmpty(password)){
             return false;
         }
-        if(TextUtils.isEmpty(phonenumber)){
+        if(CommonUtils.isPhoneValid(phonenumber)){
             return false;
         }
         return !TextUtils.isEmpty(address);

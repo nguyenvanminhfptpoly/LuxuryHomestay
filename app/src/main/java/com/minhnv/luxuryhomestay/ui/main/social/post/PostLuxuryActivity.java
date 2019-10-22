@@ -86,6 +86,7 @@ public class PostLuxuryActivity extends BaseActivity<PostLuxuryViewModel> implem
             if(SystemClock.elapsedRealtime() - mLastClickTime < 5000){
                 return;
             }
+            showLoading();
             postLuxury();
         });
     }
@@ -128,15 +129,7 @@ public class PostLuxuryActivity extends BaseActivity<PostLuxuryViewModel> implem
         return path;
     }
 
-    @Override
-    public void HandlerError(Throwable throwable) {
-        Log.d(TAG, "HandlerError: " + throwable);
-    }
 
-    @Override
-    public void onSuccess() {
-        Log.d(TAG, "onUploadImageSuccess: ");
-    }
 
     private void postLuxury() {
         username = edUsername.getText().toString().trim();
@@ -169,6 +162,7 @@ public class PostLuxuryActivity extends BaseActivity<PostLuxuryViewModel> implem
                                 String result = response.body();
                                 assert result != null;
                                 if (result.equals("Success")) {
+                                    hideLoading();
                                     Toast.makeText(PostLuxuryActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
                                 }
                             }

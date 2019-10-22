@@ -9,7 +9,6 @@ import android.text.InputType;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,25 +16,22 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.androidnetworking.widget.ANImageView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
-import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 
 public class BookingActivity extends BaseActivity<BookingViewModel> implements BookingNavigator {
     private static final String TAG = "BookingActivity";
-    private Button btnDateStart;
-    private Button btnDateEnd;
     private TextView tvDateStart, tvDateEnd,tvNameHomeStay,tvAddressHomeStay;
     private EditText edCountMember;
-    private Integer day, mMonth, mYear;
-    private ImageView imgBooking;
-    private SlidrInterface slide;
+
+    private ANImageView imgBooking;
 
 
     public static Intent newIntent(Context context) {
@@ -52,9 +48,8 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
     public void onCreateActivity(@Nullable Bundle savedInstanceState) {
         viewmodel = ViewModelProviders.of(this, factory).get(BookingViewModel.class);
         viewmodel.setNavigator(this);
-        slide = Slidr.attach(this);
+        SlidrInterface slide = Slidr.attach(this);
         bindViewModel();
-        openCalendar();
         initIntent();
     }
 
@@ -64,20 +59,24 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
             assert homestay != null;
             tvNameHomeStay.setText(homestay.getName());
             tvAddressHomeStay.setText(homestay.getAddress());
-            Picasso.get().load(homestay.getImage()).error(R.drawable.uploadfailed).into(imgBooking);
+            imgBooking.setImageUrl(homestay.getImage());
+            imgBooking.setErrorImageResId(R.drawable.uploadfailed);
+            imgBooking.setDefaultImageResId(R.drawable.img_home1);
         }else if(getIntent().getSerializableExtra("detailprice") != null){
             HomestayPrice price = (HomestayPrice) getIntent().getSerializableExtra("detailprice");
             assert price != null;
             tvNameHomeStay.setText(price.getTitle());
             tvAddressHomeStay.setText(price.getAddress());
-            Picasso.get().load(price.getImage()).error(R.drawable.uploadfailed).into(imgBooking);
+            imgBooking.setImageUrl(price.getImage());
+            imgBooking.setErrorImageResId(R.drawable.uploadfailed);
+            imgBooking.setDefaultImageResId(R.drawable.img_home1);
         }
 
     }
 
     private void bindViewModel() {
-        btnDateStart = findViewById(R.id.btnDateStart);
-        btnDateEnd = findViewById(R.id.btnDateEnd);
+        Button btnDateStart = findViewById(R.id.btnDateStart);
+        Button btnDateEnd = findViewById(R.id.btnDateEnd);
         Button btnBooking = findViewById(R.id.btnBookingTrip);
         tvDateEnd = findViewById(R.id.tvDateEnd);
         tvDateStart = findViewById(R.id.tvDateStart);
@@ -106,41 +105,10 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
 
         tvNameHomeStay.setText(getString(R.string.select_name_hs));
         tvAddressHomeStay.setText(getString(R.string.select_address_hs));
-
+        btnDateStart.setOnClickListener(view -> {viewmodel.didSelectCheckIn();});
+        btnDateEnd.setOnClickListener(view -> {viewmodel.didSelectCheckOut();});
     }
 
-    private void openCalendar() {
-        Calendar calendar = Calendar.getInstance();
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        mMonth = calendar.get(Calendar.MONTH);
-        mYear = calendar.get(Calendar.YEAR);
-        String dayStart = "" + mYear + "-" + (mMonth + 1) + "-" + day + "";
-        tvDateStart.setText(dayStart);
-        tvDateEnd.setText(dayStart);
-
-        btnDateStart.setOnClickListener(view -> {
-            DatePickerDialog dialog = new DatePickerDialog(this,
-                    (datePicker, year, month, date) -> {
-                        if (date < day || month < mMonth || year < mYear) {
-                            Toast.makeText(this, getString(R.string.date_valid), Toast.LENGTH_SHORT).show();
-                        }
-                        String dateStart = "" + year + "-" + (month + 1) + "-" + date + "";
-                        tvDateStart.setText(dateStart);
-                    }, mYear, mMonth, day);
-            dialog.show();
-        });
-        btnDateEnd.setOnClickListener(view -> {
-            DatePickerDialog dialog = new DatePickerDialog(this,
-                    (datePicker, year, month, date) -> {
-                        if (date < day || month < mMonth || year < mYear) {
-                            Toast.makeText(this, getString(R.string.date_valid), Toast.LENGTH_SHORT).show();
-                        }
-                        String dateEnd = "" + year + "-" + (month + 1) + "-" + date + "";
-                        tvDateEnd.setText(dateEnd);
-                    }, mYear, mMonth, day);
-            dialog.show();
-        });
-    }
 
 
     @Override
@@ -174,6 +142,31 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
         }
     }
 
+    @Override
+    public void triggerCheckIn(int mYear, int mMonth, int mDay) {
+        DatePickerDialog dialog = new DatePickerDialog(this,
+                (datePicker, year, month, date) -> {
+                    if (date < mDay || month < mMonth || year < mYear) {
+                        Toast.makeText(this, getString(R.string.date_valid), Toast.LENGTH_SHORT).show();
+                    }
+                    String dateEnd = "" + year + "-" + (month + 1) + "-" + date + "";
+                    tvDateStart.setText(dateEnd);
+                }, mYear, mMonth, mDay);
+        dialog.show();
+    }
+
+    @Override
+    public void triggerCheckOut(int mYear, int mMonth, int mDay) {
+        DatePickerDialog dialog = new DatePickerDialog(this,
+                (datePicker, year, month, date) -> {
+                    if (date < mDay || month < mMonth || year < mYear) {
+                        Toast.makeText(this, getString(R.string.date_valid), Toast.LENGTH_SHORT).show();
+                    }
+                    String dateEnd = "" + year + "-" + (month + 1) + "-" + date + "";
+                    tvDateEnd.setText(dateEnd);
+                }, mYear, mMonth, mDay);
+        dialog.show();
+    }
 
 
 }

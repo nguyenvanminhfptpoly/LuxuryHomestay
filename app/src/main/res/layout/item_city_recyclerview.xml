@@ -22,14 +22,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <com.androidnetworking.widget.ANImageView
                 android:id="@+id/imgCity"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/img_home1"
+                android:background="@drawable/img_home1"
                 tools:layout_editor_absoluteX="0dp"
                 tools:ignore="MissingConstraints"
                 android:contentDescription="@string/todo"/>

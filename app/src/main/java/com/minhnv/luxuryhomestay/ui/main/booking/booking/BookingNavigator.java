@@ -4,5 +4,6 @@ public interface BookingNavigator {
     void handleError(Throwable throwable);
     void onSuccess();
     void doServerBooking();
-
+    void triggerCheckIn(int mYear,int mMonth,int mDay);
+    void triggerCheckOut(int mYear,int mMonth,int mDay);
 }

@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.androidnetworking.widget.ANImageView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.squareup.picasso.Picasso;
@@ -63,7 +64,8 @@ public class LuxuryAdapter extends RecyclerView.Adapter<LuxuryAdapter.ViewHolder
     static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvName, tvAddress;
         private TextView tvDetail,tvCountLove;
-        private ImageView imgLuxury, imgFavorite;
+        private ANImageView imgLuxury;
+        ImageView imgFavorite;
         private Button btnDetailLuxury;
 
         ViewHolder(@NonNull View itemView) {
@@ -80,7 +82,9 @@ public class LuxuryAdapter extends RecyclerView.Adapter<LuxuryAdapter.ViewHolder
             tvName.setText(luxury.getUsername());
             tvAddress.setText(luxury.getAddress());
             tvDetail.setText(luxury.getDetail());
-            Picasso.get().load(luxury.getImage()).error(R.drawable.uploadfailed).into(imgLuxury);
+            imgLuxury.setDefaultImageResId(R.drawable.img_home1);
+            imgLuxury.setErrorImageResId(R.drawable.uploadfailed);
+            imgLuxury.setImageUrl(luxury.getImage());
         }
     }
 
