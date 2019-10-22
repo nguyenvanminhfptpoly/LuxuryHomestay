@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.booking.booking.BookingActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarBooking"
+        style="@style/ToolBarHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/md_white_1000" />
+
+    <ImageView
+        android:id="@+id/imgBooking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/img_home3"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarBooking"
+        android:contentDescription="@string/todo"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_card"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarBooking">
+
+        <Button
+            android:id="@+id/btnDateStart"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_checkin_checkout_selector"
+            android:text="@string/date_start"
+            android:textColor="@color/md_black_1000"
+            app:layout_constraintStart_toStartOf="@+id/tvAddressHomeStay"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddressHomeStay" />
+
+        <Button
+            android:id="@+id/btnDateEnd"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_checkin_checkout_selector"
+            android:text="@string/date_end"
+            android:textColor="@color/md_black_1000"
+            app:layout_constraintBottom_toBottomOf="@+id/btnDateStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/btnDateStart"
+            app:layout_constraintTop_toTopOf="@+id/btnDateStart"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <include
+            android:id="@+id/includeCountMember"
+            layout="@layout/include_edittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/btnDateEnd"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/textView12"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+        <Button
+            android:id="@+id/btnBookingTrip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_booking"
+            android:text="@string/booking"
+            android:textColor="@color/md_black_1000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/includeCountMember" />
+
+        <TextView
+            android:id="@+id/tvDateStart"
+            style="@style/TextViewBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/format_date"
+            app:layout_constraintStart_toStartOf="@+id/btnDateStart"
+            app:layout_constraintTop_toBottomOf="@+id/btnDateStart" />
+
+        <TextView
+            android:id="@+id/tvDateEnd"
+            style="@style/TextViewBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/format_date"
+            app:layout_constraintStart_toStartOf="@+id/btnDateEnd"
+            app:layout_constraintTop_toBottomOf="@+id/btnDateEnd" />
+
+        <TextView
+            android:id="@+id/textView12"
+            style="@style/TextViewBackgroundLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/count_member"
+            app:layout_constraintStart_toStartOf="@+id/tvDateStart"
+            app:layout_constraintTop_toBottomOf="@+id/tvDateStart" />
+
+        <TextView
+            android:id="@+id/tvAddressHomeStay"
+            style="@style/TextViewBackgroundLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/addressHs"
+            app:layout_constraintStart_toStartOf="@+id/tvNameHomeStay"
+            app:layout_constraintTop_toBottomOf="@+id/tvNameHomeStay" />
+
+        <TextView
+            android:id="@+id/tvNameHomeStay"
+            style="@style/TextViewBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:maxLines="2"
+            android:text="@string/name_hs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

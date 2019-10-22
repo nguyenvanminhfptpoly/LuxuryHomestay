@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/allerta_stencil</item>
+        <item>@font/amarante</item>
+        <item>@font/arbutus_slab</item>
+        <item>@font/libre_baskerville</item>
+        <item>@font/merriweather_light</item>
+        <item>@font/rubik_light</item>
+        <item>@font/shrikhand</item>
+        <item>@font/varela</item>
+    </array>
+</resources>

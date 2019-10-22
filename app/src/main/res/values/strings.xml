@@ -1,0 +1,88 @@
+<resources>
+    <string name="app_name">Luxury</string>
+    //splash
+    <string name="welcome">Xin Chào</string>
+    <string name="internet_error">Kiểm tra lại kết nối mạng</string>
+    //signIn
+    <string name="title">Đăng Nhập</string>
+    <string name="not_have_account">Chưa có tài khoản? Đăng Ký</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="password">Mật Khẩu</string>
+    <string name="sign_in">Đăng Nhập</string>
+    <string name="login_error">Đăng Nhập Thất Bại</string>
+    <string name="login_success">Đăng Nhập Thành Công</string>
+    <string name="remember_me">Nhớ đến tôi!</string>
+    <string name="need_help">Cần giúp đỡ!</string>
+
+    //signUp
+    <string name="sign_up">Đăng Ký</string>
+    <string name="have_account">Đã có tài khoản? Quay lại</string>
+    <string name="email_password_valid">Sai định dạng</string>
+    <string name="username">Tên Người Dùng</string>
+    <string name="address">Địa Chỉ</string>
+    <string name="add_successfully">Thêm Thành Công</string>
+    <string name="failed">Lỗi Khi Tạo Tài Khoản</string>
+
+    //home
+    <string name="detail">Chi tiết</string>
+    <string name="booking">Đặt Phòng</string>
+    <string name="home_stay_follow_city">Homestay theo thành phố</string>
+    <string name="home_stay_hot">Homestay hot nhất</string>
+    <string name="home_stay_price">Homestay giá tốt nhất</string>
+    <string name="favorite">Homestay Yêu thích</string>
+    <string name="social_network">Mạng xã hội</string>
+    <string name="intro">Về chúng tôi</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="search">Tìm Kiếm</string>
+    <string name="validate">Nhập đủ dữ liệu</string>
+    <string name="hint_search">Đánh giá từ 1 đến 5 sao</string>
+    <string name="price_km">Giá khuyến mãi</string>
+    <string name="price_ago">Giá cũ</string>
+    <string name="name_hs">Tên Homestay: </string>
+    <string name="addressHs">Địa Chỉ Homestay: </string>
+    <string name="detail_hs">Chi tiết :  </string>
+    <string name="has_tag_home_stay">Hastag:  </string>
+    <string name="price">Giá Homestay: </string>
+    <string name="mo_ta">Mô tả Homestay: </string>
+    <string name="rating">Đánh Giá: </string>
+    <string name="luxury_post">Đăng bài </string>
+    <string name="choose_image">Chọn ảnh </string>
+
+    //booking
+    <string name="date_start">Ngày đến</string>
+    <string name="date_end">Ngày đi</string>
+    <string name="count_member">Số lượng người</string>
+    <string name="format_date">dd/mm/yyyy</string>
+    <string name="booking_success">Đặt phòng thành công</string>
+    <string name="date_valid">Ngày được lấy đang nhỏ hơn ngày hiện tại</string>
+    <string name="validate_booking">Nhập đủ giá trị</string>
+    <string name="select_name_hs">Lựa chọn homestay tại màn hình chính</string>
+    <string name="select_address_hs">Lựa chọn địa chỉ homestay tại màn hình chính</string>
+    <string name="size_null">Danh sách đặt phòng hiện đang trống</string>
+    <string name="list_booking">Danh sách đặt phòng </string>
+    <string name="todo">TODO</string>
+    <string name="notification">Một người bạn vừa chia sẻ một địa điểm du lịch</string>
+    <string name="booking_error">Kiểm tra kết nối mạng hoặc nhập đủ giá trị</string>
+
+    //intro
+    <string name="next">TIẾP</string>
+    <string name="skip">BỎ QUA</string>
+    <string name="start">ĐÃ HIỂU</string>
+
+    <string name="slide_1_title">Xin chào</string>
+    <string name="slide_1_desc">Chúng tôi đem đến một sản phẩm mới</string>
+
+    <string name="slide_2_title">Đặt phòng Homestay</string>
+    <string name="slide_2_desc">Đặt phòng nhanh chóng tiện lợi</string>
+
+    <string name="slide_3_title">Homestay</string>
+    <string name="slide_3_desc">Thông tin chi tiết cho từng Homestay !</string>
+
+    <string name="slide_4_title">Kết nối</string>
+    <string name="slide_4_desc">Chia sẻ địa điểm Homestay mà bạn biết!</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+    <string name="privacy">Bản quyền nghiêm cấm sao chép</string>
+    <string name="version">1.1.0</string>
+</resources>

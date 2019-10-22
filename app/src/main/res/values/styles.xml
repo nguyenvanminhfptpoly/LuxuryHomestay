@@ -1,0 +1,84 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="ToolbarBg">
+        <item name="android:background">@color/md_white_1000</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:theme">?attr/actionBarTheme</item>
+        <item name="android:titleTextColor">@color/md_white_1000</item>
+
+    </style>
+
+    <style name="CardViewBackGround">
+        <item name="android:background">@color/md_white_1000</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginTop">64dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginEnd" tools:targetApi="jelly_bean_mr1">16dp</item>
+    </style>
+
+    <style name="EditTextBackGround">
+        <item name="android:background">@drawable/bg_eddittext</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">@dimen/design_text_size</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:padding">15dp</item>
+    </style>
+
+    <style name="TextViewBackground">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="TextViewBackgroundLight">
+        <item name="android:fontFamily">@font/robotocondensed_light</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
+    <style name="ButtonBackGround">
+        <item name="android:background">@drawable/bg_button_rename</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="ToolBarHome">
+        <item name="android:background">@color/md_white_1000</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:maxHeight">?attr/actionBarSize</item>
+        <item name="colorControlNormal">@color/md_white_1000</item>
+    </style>
+
+    <style name="TitleNavigationDrawer">
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="ContentNavigationDrawer">
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:fontFamily">sans-serif-condensed-light</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
+    <style name="AppTheme.SlideActivityTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/md_white_1000</item>
+    </style>
+</resources>

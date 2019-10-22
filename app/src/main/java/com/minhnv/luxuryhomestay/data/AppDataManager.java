@@ -1,0 +1,158 @@
+package com.minhnv.luxuryhomestay.data;
+
+import android.content.Context;
+
+import com.google.gson.Gson;
+import com.minhnv.luxuryhomestay.data.local.PreferenceHelper;
+import com.minhnv.luxuryhomestay.data.model.Booking;
+import com.minhnv.luxuryhomestay.data.model.City;
+import com.minhnv.luxuryhomestay.data.model.Favorite;
+import com.minhnv.luxuryhomestay.data.model.Homestay;
+import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
+import com.minhnv.luxuryhomestay.data.model.Luxury;
+import com.minhnv.luxuryhomestay.data.model.UserResponse;
+import com.minhnv.luxuryhomestay.data.remote.ApiHelper;
+
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+
+@Singleton
+public class AppDataManager implements DataManager {
+    private static final String TAG = "AppDataManager";
+
+    private final ApiHelper apiHelper;
+
+    private final Context context;
+
+    private final PreferenceHelper preferenceHelper;
+    private Gson gson;
+
+    @Inject
+    AppDataManager(ApiHelper apiHelper, Context context, PreferenceHelper preferenceHelper, Gson gson) {
+        this.apiHelper = apiHelper;
+        this.context = context;
+        this.preferenceHelper = preferenceHelper;
+        this.gson = gson;
+    }
+
+
+    public String accessToken(){
+        return preferenceHelper.accessToken();
+    }
+
+    public void setAccessToken(String accessToken){
+        preferenceHelper.setAccessToken(accessToken);
+    }
+
+
+
+    @Override
+    public String getCurrentPhoneNumber() {
+        return preferenceHelper.getCurrentPhoneNumber();
+    }
+
+    @Override
+    public void setCurrentPhoneNumber(String currentPhoneNumber) {
+        preferenceHelper.setCurrentPhoneNumber(currentPhoneNumber);
+    }
+
+    @Override
+    public String getCurrentAddress() {
+        return preferenceHelper.getCurrentAddress();
+    }
+
+    @Override
+    public void setCurrentAddress(String currentAddress) {
+        preferenceHelper.setCurrentAddress(currentAddress);
+    }
+
+    @Override
+    public void updateUserInfo( String password, String phoneNumber, String address) {
+        setCurrentAddress(address);
+        setCurrentPhoneNumber(phoneNumber);
+        setCurrentAddress(address);
+
+    }
+
+    @Override
+    public Observable<String> doServerSignUp(UserResponse.ServerSignUpRequest request) {
+        return apiHelper.doServerSignUp(request);
+    }
+
+    @Override
+    public Observable<String> doServerSignIn(UserResponse.ServerSignInRequest request) {
+        return apiHelper.doServerSignIn(request);
+    }
+
+    @Override
+    public Observable<List<Homestay>> doLoadHomeStay(UserResponse.ServerListHomeStays request) {
+        return apiHelper.doLoadHomeStay(request);
+    }
+
+    @Override
+    public Observable<List<City>> doLoadCity() {
+        return apiHelper.doLoadCity();
+    }
+
+    @Override
+    public Observable<List<Homestay>> doLoadListHomeStayRating(UserResponse.ServerListHomeStaysRating request) {
+        return apiHelper.doLoadListHomeStayRating(request);
+    }
+
+    @Override
+    public Observable<List<HomestayPrice>> doLoadListHomeStayPriceAsc() {
+        return apiHelper.doLoadListHomeStayPriceAsc();
+    }
+
+    @Override
+    public Observable<List<Homestay>> doSearchHomeStayFollowRating(UserResponse.ServerSearchHomeStaysFollowRating rating) {
+        return apiHelper.doSearchHomeStayFollowRating(rating);
+    }
+
+    @Override
+    public Observable<String> doServerBooking(UserResponse.ServerBooking booking) {
+        return apiHelper.doServerBooking(booking);
+    }
+
+    @Override
+    public Observable<List<Booking>> doLoadListBooking() {
+        return apiHelper.doLoadListBooking();
+    }
+
+    @Override
+    public Observable<String> doServerDeleteBooking(UserResponse.ServerDeleteBooking booking) {
+        return apiHelper.doServerDeleteBooking(booking);
+    }
+
+    @Override
+    public Observable<List<Luxury>> doLoadListLuxury() {
+        return apiHelper.doLoadListLuxury();
+    }
+
+    @Override
+    public Observable<String> doServerPostFavorite(UserResponse.ServerAddFavorite favorite) {
+        return apiHelper.doServerPostFavorite(favorite);
+    }
+
+    @Override
+    public Observable<List<Favorite>> doLoadListFavorite() {
+        return apiHelper.doLoadListFavorite();
+    }
+
+    @Override
+    public Observable<String> doDeleteFavorite(UserResponse.ServerDeleteBooking favorite) {
+        return apiHelper.doDeleteFavorite(favorite);
+    }
+
+    @Override
+    public Observable<String> doAddLoveLuxury(UserResponse.ServerAddLove love) {
+        return apiHelper.doAddLoveLuxury(love);
+    }
+
+
+}

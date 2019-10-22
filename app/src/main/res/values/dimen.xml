@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Cards on mobile default to 8dp margins. {@code layout_margin} needs to be set directly on a
+      {@link View} in its layout and won't work when included as part of a style. -->
+    <!-- Default corner radius for {@link MaterialCardView}. -->
+    <dimen name="mtrl_card_corner_radius">4dp</dimen>
+    <!-- Size of the icon to be placed when the card is checked -->
+    <dimen name="mtrl_card_checked_icon_size">24dp</dimen>
+    <!-- Margin between the checked icon and the card -->
+    <dimen name="mtrl_card_checked_icon_margin">8dp</dimen>
+    <!-- TranslationZ for card when it's on dragged state. -->
+    <dimen name="mtrl_card_dragged_z">5dp</dimen>
+
+    <dimen name="design_elevation">10dp</dimen>
+    <dimen name="design_shadow_height">1dp</dimen>
+    <dimen name="design_icon_size">24dp</dimen>
+    <dimen name="design_height">56dp</dimen>
+    <dimen name="design_margin">8dp</dimen>
+    <dimen name="design_text_size">12sp</dimen>
+    <dimen name="design_active_text_size">14sp</dimen>
+    <dimen name="design_item_min_width">56dp</dimen>
+    <dimen name="design_item_max_width">96dp</dimen>
+    <dimen name="design_active_item_max_width">168dp</dimen>
+    <dimen name="design_active_item_min_width">96dp</dimen>
+
+    <dimen name="design_btn_height_detail">35dp</dimen>
+    <dimen name="design_btn_width_detail">116dp</dimen>
+
+    //intro
+    <dimen name="dp16">16dp</dimen>
+    <dimen name="dp30">30dp</dimen>
+    <dimen name="dp20">20dp</dimen>
+    <dimen name="dp120">120dp</dimen>
+    <dimen name="dp40">40dp</dimen>
+
+</resources>

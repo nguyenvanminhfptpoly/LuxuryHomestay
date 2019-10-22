@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.social.post.PostLuxuryActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarPostLuxury"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/md_white_1000"/>
+
+    <include
+        android:id="@+id/includeUsername"
+        layout="@layout/include_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgUploadImage" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/addressHs"
+        app:layout_constraintStart_toStartOf="@+id/includeUsername"
+        app:layout_constraintTop_toBottomOf="@+id/includeUsername" />
+
+    <include
+        android:id="@+id/includeDetail"
+        layout="@layout/include_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/includeAddress"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <include
+        android:id="@+id/includeAddress"
+        layout="@layout/include_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/includeUsername"
+        app:layout_constraintStart_toStartOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/detail_hs"
+        app:layout_constraintStart_toStartOf="@+id/includeAddress"
+        app:layout_constraintTop_toBottomOf="@+id/includeAddress" />
+
+    <ImageView
+        android:id="@+id/imgUploadImage"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/choose_image"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/todo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarPostLuxury" />
+
+    <Button
+        android:id="@+id/btnPostLuxury"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/luxury_post"
+        android:background="@drawable/bg_checkin_checkout_selector"
+        android:textColor="@drawable/text_selected"
+        app:layout_constraintEnd_toEndOf="@+id/includeDetail"
+        app:layout_constraintStart_toStartOf="@+id/includeDetail"
+        app:layout_constraintTop_toBottomOf="@+id/includeDetail" />
+</androidx.constraintlayout.widget.ConstraintLayout>

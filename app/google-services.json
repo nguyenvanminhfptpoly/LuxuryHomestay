@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "128292186819",
+    "firebase_url": "https://luxury-notification.firebaseio.com",
+    "project_id": "luxury-notification",
+    "storage_bucket": "luxury-notification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128292186819:android:dee879c4c9ff9f80bcd076",
+        "android_client_info": {
+          "package_name": "com.minhnv.luxuryhomestay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "128292186819-8oc7pgtccspon3sae9q6thvnj145q76u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8N5KZ9lqKEqjvvGYdZOU5HZI7KdbXwfg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "128292186819-8oc7pgtccspon3sae9q6thvnj145q76u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
