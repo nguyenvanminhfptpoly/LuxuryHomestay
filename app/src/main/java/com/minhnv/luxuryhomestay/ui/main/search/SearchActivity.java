@@ -56,7 +56,7 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
         RecyclerView recyclerViewSearch = findViewById(R.id.recyclerViewSearch);
         edRating = findViewById(R.id.includeSearch);
         edRating.setHint(R.string.hint_search);
-        edRating.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
+        edRating.setFilters(new InputFilter[]{new InputFilterMinMax("1","5")});
 
         //addRecyclerView
         homestays = new ArrayList<>();
@@ -119,9 +119,9 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
                         homestays.addAll(response);
                         adapter.notifyDataSetChanged();
                         hideLoading();
-                    }, throwable -> {
-                        Log.d(TAG, "loadList: " + throwable);
-                    }));
+                    }, throwable ->
+                        Log.d(TAG, "loadList: " + throwable)
+                    ));
         } else {
             Toast.makeText(this, getString(R.string.validate), Toast.LENGTH_SHORT).show();
         }

@@ -13,6 +13,8 @@
     <string name="login_success">Đăng Nhập Thành Công</string>
     <string name="remember_me">Nhớ đến tôi!</string>
     <string name="need_help">Cần giúp đỡ!</string>
+    <string name="denied_permission">Nếu bạn không cấp quyền này chúng tôi sẽ không thể giúp bạn kết nối với mọi người được</string>
+    <string name="number">5</string>
 
     //signUp
     <string name="sign_up">Đăng Ký</string>

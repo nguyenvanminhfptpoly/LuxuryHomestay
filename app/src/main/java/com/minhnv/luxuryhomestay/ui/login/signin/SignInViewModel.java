@@ -14,13 +14,14 @@ public class SignInViewModel extends BaseViewModel<SignInNavigator>  {
 
     private static final String TAG = "SignInViewModel";
 
+
     public SignInViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
 
     }
 
     public boolean isRequestValid(String phoneNumber,String password){
-        if(CommonUtils.isPhoneValid(phoneNumber)){
+        if(TextUtils.isEmpty(phoneNumber)){
             return false;
         }
         return !TextUtils.isEmpty(password);
@@ -29,7 +30,6 @@ public class SignInViewModel extends BaseViewModel<SignInNavigator>  {
     public void signin(String phonenumber,String password){
         getCompositeDisposable().add(getDataManager()
             .doServerSignIn(new UserResponse.ServerSignInRequest(phonenumber,password))
-
             .subscribeOn(getSchedulerProvider().io())
             .observeOn(getSchedulerProvider().ui())
             .subscribe(response -> {

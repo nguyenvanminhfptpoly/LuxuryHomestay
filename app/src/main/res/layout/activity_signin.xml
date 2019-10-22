@@ -27,6 +27,7 @@
             android:fontFamily="@font/robotocondensed_regular"
             android:hint="@string/password"
             android:padding="10dp"
+            android:inputType="textPassword"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -87,7 +88,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbarHomeStaysDetail"
         style="@style/ToolbarBg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

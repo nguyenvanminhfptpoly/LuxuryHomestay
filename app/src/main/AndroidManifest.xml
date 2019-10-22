@@ -26,20 +26,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.social.post.PostLuxuryActivity"/>
-        <activity android:name=".ui.main.homestay_price_ago.HomeStayPriceAgoActivity"/>
-        <activity android:name=".ui.main.homestay_hot.HomeStayHotActivity"/>
-        <activity android:name=".ui.main.booking.list.ListBookingActivity"/>
-        <activity android:name=".ui.main.homestay_detail.HomeStayDetailActivity"/>
-        <activity android:name=".ui.main.homestay_city.HomeStayCityActivity"/>
-        <activity android:name=".ui.main.search.SearchActivity"/>
+        <activity android:name=".ui.main.social.post.PostLuxuryActivity" android:theme="@style/AppTheme.SlideActivityTheme"/>
+        <activity android:name=".ui.main.homestay_price_ago.HomeStayPriceAgoActivity" android:theme="@style/AppTheme.SlideActivityTheme"/>
+        <activity android:name=".ui.main.homestay_hot.HomeStayHotActivity" android:theme="@style/AppTheme.SlideActivityTheme"/>
+        <activity android:name=".ui.main.booking.list.ListBookingActivity" android:theme="@style/AppTheme.SlideActivityTheme"/>
+        <activity android:name=".ui.main.homestay_detail.HomeStayDetailActivity" android:theme="@style/AppTheme.SlideActivityTheme"/>
+        <activity android:name=".ui.main.homestay_city.HomeStayCityActivity" android:theme="@style/AppTheme.SlideActivityTheme"/>
+        <activity android:name=".ui.main.search.SearchActivity" android:theme="@style/AppTheme.SlideActivityTheme"/>
         <activity android:name=".ui.main.HomeActivity"/>
-        <activity android:name=".ui.main.booking.booking.BookingActivity"/>
-        <activity android:name=".ui.main.favorite.FavoriteActivity"/>
-        <activity android:name=".ui.intro.IntroductionActivity"/>
-        <activity android:name=".ui.main.social.list.SocialActivity"/>
-        <activity android:name=".ui.login.signup.SignUpActivity" />
-        <activity android:name=".ui.login.signin.SignInActivity"/>
+        <activity android:name=".ui.main.booking.booking.BookingActivity" android:theme="@style/AppTheme.SlideActivityTheme"/>
+        <activity android:name=".ui.main.favorite.FavoriteActivity" android:theme="@style/AppTheme.SlideActivityTheme"/>
+        <activity android:name=".ui.intro.IntroductionActivity" android:theme="@style/AppTheme.SlideActivityTheme"/>
+        <activity android:name=".ui.main.social.list.SocialActivity" android:theme="@style/AppTheme.SlideActivityTheme"/>
+        <activity android:name=".ui.login.signup.SignUpActivity" android:theme="@style/AppTheme.SlideActivityTheme"/>
+        <activity android:name=".ui.login.signin.SignInActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
