@@ -13,12 +13,12 @@
         android:layout_height="232dp"
         app:cardCornerRadius="5dp">
 
-        <ImageView
+        <com.androidnetworking.widget.ANImageView
             android:id="@+id/imgPriceAsc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/img_home2"
+            android:background="@drawable/img_home2"
             android:contentDescription="@string/todo"/>
 
     </androidx.cardview.widget.CardView>

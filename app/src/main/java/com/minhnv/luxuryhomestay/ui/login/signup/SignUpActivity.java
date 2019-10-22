@@ -55,7 +55,6 @@ public class SignUpActivity extends BaseActivity<SignUpViewModel> implements Sig
             }
             mLastClickTime = SystemClock.elapsedRealtime();
             viewmodel.onSignUp();});
-
     }
 
     @Override

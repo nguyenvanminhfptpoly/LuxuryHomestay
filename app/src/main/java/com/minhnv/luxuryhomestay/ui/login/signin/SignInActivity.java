@@ -40,7 +40,7 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
         return R.layout.activity_signin;
     }
 
-    @SuppressLint("CommitPrefEdits")
+
     @Override
     public void onCreateActivity(@Nullable Bundle savedInstanceState) {
         viewmodel = ViewModelProviders.of(this, factory).get(SignInViewModel.class);
@@ -61,8 +61,7 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
             if(SystemClock.elapsedRealtime() - mLastClickTime < 5000){
                 return;
             }
-            mLastClickTime = SystemClock.elapsedRealtime();
-                viewmodel.onServerSignIn();
+            viewmodel.onServerSignIn();
         });
         SharedPreferences preferences = getSharedPreferences("Login", MODE_PRIVATE);
         editor = preferences.edit();
@@ -123,6 +122,7 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
     @Override
     public void onSuccess() {
         startActivity(HomeActivity.newIntent(SignInActivity.this));
+        finish();
         Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show();
     }
 
@@ -134,7 +134,6 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
 
     @Override
     public void login() {
-
         String InputPhoneNumber = phonenumber.getText().toString().trim();
         String InputPassword = password.getText().toString().trim();
         if(viewmodel.isRequestValid(InputPhoneNumber,InputPassword)){
@@ -144,7 +143,6 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
             viewmodel.signin(InputPhoneNumber,InputPassword);
             hideKeyboard();
             showLoading();
-            finish();
         }else {
             Toast.makeText(this, getString(R.string.email_password_valid), Toast.LENGTH_SHORT).show();
         }

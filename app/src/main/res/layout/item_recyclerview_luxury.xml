@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="@+id/tvNameUser"
         app:layout_constraintTop_toBottomOf="@+id/tvNameUser" />
 
-    <ImageView
+    <com.androidnetworking.widget.ANImageView
         android:id="@+id/imgLuxury"
         android:layout_width="0dp"
         android:layout_height="300dp"
@@ -41,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvAddressUser"
-        app:srcCompat="@drawable/img_home3" />
+        android:background="@drawable/img_home3" />
 
     <View
         android:id="@+id/view4"

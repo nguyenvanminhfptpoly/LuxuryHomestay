@@ -42,6 +42,7 @@
             android:fontFamily="@font/robotocondensed_regular"
             android:hint="@string/phone_number"
             android:padding="10dp"
+            android:inputType="number"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,8 +54,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:paddingStart="50dp"
-            android:paddingEnd="50dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
             android:text="@string/sign_in"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/includePassWords" />

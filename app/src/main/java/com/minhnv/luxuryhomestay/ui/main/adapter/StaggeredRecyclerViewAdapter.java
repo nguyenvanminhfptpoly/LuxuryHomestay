@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.androidnetworking.widget.ANImageView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.squareup.picasso.Picasso;
@@ -50,7 +51,7 @@ public class StaggeredRecyclerViewAdapter extends RecyclerView.Adapter<Staggered
 
     static class ViewHolder extends RecyclerView.ViewHolder{
     private TextView tvName,tvAddress;
-    private ImageView imgView;
+    private ANImageView imgView;
     private Button btnDetail;
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,7 +61,9 @@ public class StaggeredRecyclerViewAdapter extends RecyclerView.Adapter<Staggered
             btnDetail = itemView.findViewById(R.id.btnDetailHomeStayHot);
         }
         void bind(Homestay homestay){
-            Picasso.get().load(homestay.getImage()).error(R.drawable.uploadfailed).into(imgView);
+            imgView.setImageUrl(homestay.getImage());
+            imgView.setErrorImageResId(R.drawable.uploadfailed);
+            imgView.setDefaultImageResId(R.drawable.img_home1);
             tvName.setText(homestay.getName());
             tvAddress.setText(homestay.getAddress());
         }

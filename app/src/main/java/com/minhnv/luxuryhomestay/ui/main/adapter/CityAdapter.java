@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.androidnetworking.widget.ANImageView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.City;
 import com.squareup.picasso.Picasso;
@@ -50,7 +51,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
+        ANImageView imageView;
         TextView tvName;
         ConstraintLayout item_city;
         Context context;
@@ -63,7 +64,9 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
         }
 
         void bind(City city) {
-            Picasso.get().load(city.getImage()).error(R.drawable.uploadfailed).into(imageView);
+            imageView.setErrorImageResId(R.drawable.uploadfailed);
+            imageView.setDefaultImageResId(R.drawable.img_home1);
+            imageView.setImageUrl(city.getImage());
             tvName.setText(city.getName());
         }
     }

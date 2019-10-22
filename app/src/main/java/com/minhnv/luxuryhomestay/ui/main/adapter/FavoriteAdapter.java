@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.androidnetworking.widget.ANImageView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Favorite;
 import com.squareup.picasso.Picasso;
@@ -47,7 +48,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
-    private ImageView imgFavorite;
+    private ANImageView imgFavorite;
     private TextView tvName,tvAddress;
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,7 +57,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             tvName = itemView.findViewById(R.id.tvNameFavorite);
         }
         void bind(Favorite favorite){
-            Picasso.get().load(favorite.getImage()).error(R.drawable.uploadfailed).into(imgFavorite);
+            imgFavorite.setDefaultImageResId(R.drawable.img_home1);
+            imgFavorite.setErrorImageResId(R.drawable.uploadfailed);
+            imgFavorite.setImageUrl(favorite.getImage());
             tvName.setText(favorite.getNamehomestay());
             tvAddress.setText(favorite.getAddress());
         }

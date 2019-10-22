@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.androidnetworking.widget.ANImageView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
 import com.squareup.picasso.Picasso;
@@ -50,7 +51,7 @@ public class HomeStaysPriceAscAdapter extends RecyclerView.Adapter<HomeStaysPric
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgPicture;
+        ANImageView imgPicture;
         TextView tvPrice, tvName, tvDetail, tvPriceAgo;
         Button btnDetail, btnBooking;
         Context context;
@@ -66,7 +67,9 @@ public class HomeStaysPriceAscAdapter extends RecyclerView.Adapter<HomeStaysPric
         }
 
         void bind(HomestayPrice homestay) {
-            Picasso.get().load(homestay.getImage()).error(R.drawable.uploadfailed).into(imgPicture);
+            imgPicture.setDefaultImageResId(R.drawable.img_home1);
+            imgPicture.setErrorImageResId(R.drawable.uploadfailed);
+            imgPicture.setImageUrl(homestay.getImage());
             tvName.setText(homestay.getTitle());
             tvDetail.setText(homestay.getAddress());
             Double price = homestay.getPrice();

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.androidnetworking.widget.ANImageView;
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
@@ -61,7 +62,7 @@ public class HomeStaysAdapter extends RecyclerView.Adapter<HomeStaysAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView image;
+        ANImageView image;
         TextView tvTitle;
         ReadMoreTextView tvDetail;
         Button btnListDetail, btnListBooking;
@@ -81,7 +82,9 @@ public class HomeStaysAdapter extends RecyclerView.Adapter<HomeStaysAdapter.View
         void bind(Homestay homestay) {
             tvTitle.setText(homestay.getName());
             tvDetail.setText(homestay.getDetail());
-            Picasso.get().load(homestay.getImage()).error(R.drawable.uploadfailed).into(image);
+            image.setErrorImageResId(R.drawable.uploadfailed);
+            image.setDefaultImageResId(R.drawable.img_home1);
+            image.setImageUrl(homestay.getImage());
         }
     }
 }

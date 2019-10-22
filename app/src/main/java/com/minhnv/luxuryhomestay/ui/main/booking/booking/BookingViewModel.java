@@ -8,6 +8,8 @@ import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
+import java.util.Calendar;
+
 public class BookingViewModel extends BaseViewModel<BookingNavigator> {
     private static final String TAG = "BookingViewModel";
 
@@ -45,6 +47,15 @@ public class BookingViewModel extends BaseViewModel<BookingNavigator> {
         );
     }
 
+    public void didSelectCheckIn(){
+        Calendar calendar = Calendar.getInstance();
+        getNavigator().triggerCheckIn(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    public void didSelectCheckOut(){
+        Calendar calendar = Calendar.getInstance();
+        getNavigator().triggerCheckOut(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+    }
 
 
 

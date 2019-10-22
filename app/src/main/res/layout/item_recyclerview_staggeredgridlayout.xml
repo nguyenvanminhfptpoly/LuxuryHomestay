@@ -10,12 +10,12 @@
     android:layout_marginTop="8dp"
     android:background="@color/md_white_1000">
 
-    <ImageView
+    <com.androidnetworking.widget.ANImageView
         android:id="@+id/imgHomeStayHot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/img_home1"
+        android:background="@drawable/img_home1"
         android:contentDescription="@string/todo" />
 
     <TextView

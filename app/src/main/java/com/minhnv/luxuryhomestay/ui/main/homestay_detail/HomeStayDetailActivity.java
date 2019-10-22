@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.androidnetworking.widget.ANImageView;
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
@@ -32,7 +33,7 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
     private static final String TAG = "HomeStayDetailActivity";
     private TextView tvName, tvAddress, tvHasTag, tvPrice, tvRating, tvEvaLute;
     private ReadMoreTextView tvDetail;
-    private ImageView imgDetail;
+    private ANImageView imgDetail;
     private String nameImage;
     private SlidrInterface slide;
 
@@ -94,7 +95,9 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
         if (getIntent().getSerializableExtra("detail") != null) {
             Homestay homestay = (Homestay) getIntent().getSerializableExtra("detail");
             assert homestay != null;
-            Picasso.get().load(homestay.getImage()).error(R.drawable.uploadfailed).into(imgDetail);
+            imgDetail.setDefaultImageResId(R.drawable.img_home1);
+            imgDetail.setErrorImageResId(R.drawable.uploadfailed);
+            imgDetail.setImageUrl(homestay.getImage());
 
             String name = getString(R.string.name_hs) + homestay.getName();
             String rating = getString(R.string.rating) + homestay.getRating();
@@ -117,7 +120,9 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
         } else if (getIntent().getSerializableExtra("detailprice") != null) {
             HomestayPrice price = (HomestayPrice) getIntent().getSerializableExtra("detailprice");
             assert price != null;
-            Picasso.get().load(price.getImage()).error(R.drawable.uploadfailed).into(imgDetail);
+            imgDetail.setDefaultImageResId(R.drawable.img_home1);
+            imgDetail.setErrorImageResId(R.drawable.uploadfailed);
+            imgDetail.setImageUrl(price.getImage());
             String name = getString(R.string.name_hs) + price.getTitle();
             String rating = getString(R.string.rating) + price.getRating();
             String detail = "Giá cũ: " + price.getPriceago();
@@ -138,7 +143,9 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
         }else if(getIntent().getSerializableExtra("luxury_detail") != null){
             Luxury luxury = (Luxury) getIntent().getSerializableExtra("luxury_detail");
             assert luxury != null;
-            Picasso.get().load(luxury.getImage()).error(R.drawable.uploadfailed).into(imgDetail);
+            imgDetail.setDefaultImageResId(R.drawable.img_home1);
+            imgDetail.setErrorImageResId(R.drawable.uploadfailed);
+            imgDetail.setImageUrl(luxury.getImage());
             tvHasTag.setText(luxury.getUsername());
             tvDetail.setText(luxury.getDetail());
             tvPrice.setText("");
