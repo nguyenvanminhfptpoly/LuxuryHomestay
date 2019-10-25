@@ -3,14 +3,18 @@ package com.minhnv.luxuryhomestay.data;
 import android.content.Context;
 
 import com.google.gson.Gson;
-import com.minhnv.luxuryhomestay.data.local.PreferenceHelper;
+import com.minhnv.luxuryhomestay.data.local.db.DbHelper;
+import com.minhnv.luxuryhomestay.data.local.preference.PreferenceHelper;
 import com.minhnv.luxuryhomestay.data.model.Booking;
 import com.minhnv.luxuryhomestay.data.model.City;
 import com.minhnv.luxuryhomestay.data.model.Favorite;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
+import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
+import com.minhnv.luxuryhomestay.data.model.User;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
+import com.minhnv.luxuryhomestay.data.model.VinHome;
 import com.minhnv.luxuryhomestay.data.remote.ApiHelper;
 
 import java.util.List;
@@ -19,7 +23,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
-import okhttp3.MultipartBody;
 
 @Singleton
 public class AppDataManager implements DataManager {
@@ -32,23 +35,26 @@ public class AppDataManager implements DataManager {
     private final PreferenceHelper preferenceHelper;
     private Gson gson;
 
+    private DbHelper dbHelper;
+
+
     @Inject
-    AppDataManager(ApiHelper apiHelper, Context context, PreferenceHelper preferenceHelper, Gson gson) {
+    AppDataManager(ApiHelper apiHelper, Context context, PreferenceHelper preferenceHelper, Gson gson, DbHelper dbHelper) {
         this.apiHelper = apiHelper;
         this.context = context;
         this.preferenceHelper = preferenceHelper;
         this.gson = gson;
+        this.dbHelper = dbHelper;
     }
 
 
-    public String accessToken(){
+    public String accessToken() {
         return preferenceHelper.accessToken();
     }
 
-    public void setAccessToken(String accessToken){
+    public void setAccessToken(String accessToken) {
         preferenceHelper.setAccessToken(accessToken);
     }
-
 
 
     @Override
@@ -72,7 +78,17 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void updateUserInfo( String password, String phoneNumber, String address) {
+    public String getCurrentPassword() {
+        return preferenceHelper.getCurrentPassword();
+    }
+
+    @Override
+    public void setCurrentPassword(String currentPassword) {
+        preferenceHelper.setCurrentPassword(currentPassword);
+    }
+
+    @Override
+    public void updateUserInfo(String password, String phoneNumber, String address) {
         setCurrentAddress(address);
         setCurrentPhoneNumber(phoneNumber);
         setCurrentAddress(address);
@@ -154,5 +170,24 @@ public class AppDataManager implements DataManager {
         return apiHelper.doAddLoveLuxury(love);
     }
 
+    @Override
+    public Observable<List<VinHome>> doLoadCityVinHomes() {
+        return apiHelper.doLoadCityVinHomes();
+    }
 
+    @Override
+    public Observable<List<ListVinHomes>> doLoadListHomeStayVinHomes(UserResponse.ServerLoadHomeStayVinHomes homes) {
+        return apiHelper.doLoadListHomeStayVinHomes(homes);
+    }
+
+
+    @Override
+    public Observable<List<User>> getAll() {
+        return dbHelper.getAll();
+    }
+
+    @Override
+    public Observable<Boolean> insertUser(User user) {
+        return dbHelper.insertUser(user);
+    }
 }

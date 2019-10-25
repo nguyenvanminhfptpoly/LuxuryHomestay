@@ -4,6 +4,7 @@ package com.minhnv.luxuryhomestay.data.remote;
 
 class ApiEndPoint {
     private static final String BASE_URL = "https://luxuryhomestay.000webhostapp.com/";
+    private static final String URL_XAMPP = "http://192.168.1.157/Demo/";
     static final String ENDPOINT_SIGNUP = BASE_URL +  "signup.php";
     static final String ENDPOINT_SIGN_IN = BASE_URL + "login.php";
     static final String ENDPOINT_LIST_HOMESTAYS = BASE_URL + "getlist.php";
@@ -19,7 +20,7 @@ class ApiEndPoint {
     static final String ENDPOINT_POST_FAVORITE = BASE_URL + "addfovorite.php";
     static final String ENDPOINT_DELETE_fAVORITE = BASE_URL + "deletefavorite.php";
     static final String ENDPOINT_ADD_LOVE_LUXURY = BASE_URL + "addlovefavorite.php";
-    static final String ENDPOINT_UPLOAD_IMAGE = BASE_URL + "uploadimage.php";
-    static final String ENDPOINT_POST_LUXURY = BASE_URL + "luxurypost.php";
+    static final String ENDPOINT_LIST_VINHOMES_CITY = URL_XAMPP + "getvinhomes.php";
+    static final String ENDPOINT_LIST_HOMESTAYS_VINHOMES = URL_XAMPP + "getlisthomestayvinhomes.php";
 
 }

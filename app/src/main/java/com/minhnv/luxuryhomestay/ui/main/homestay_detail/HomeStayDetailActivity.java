@@ -7,6 +7,7 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,8 +22,11 @@ import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
+import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
+import com.minhnv.luxuryhomestay.utils.CommonUtils;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -35,7 +39,7 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
     private ANImageView imgDetail;
     private String nameImage;
     private SlidrInterface slide;
-    private Button tvRating;
+    private Button viewRating;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, HomeStayDetailActivity.class);
@@ -56,7 +60,7 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
         tvPrice = findViewById(R.id.tvPriceHomeStayDetail);
         tvHasTag = findViewById(R.id.tvHastagHomeStayDetail);
         tvDetail = findViewById(R.id.tvDetailHomeStay);
-        tvRating = findViewById(R.id.viewRating);
+        viewRating = findViewById(R.id.viewRating);
         imgDetail = findViewById(R.id.imgHomeStayDetail);
         tvEvaLute = findViewById(R.id.tvEvaluteHomeStayDetail);
         Toolbar toolbar = findViewById(R.id.toolbarHomeStaysDetail);
@@ -64,7 +68,7 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
         toolbar.setTitle("Chi tiết Homestay");
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(view ->
-            onBackPressed()
+                onBackPressed()
         );
         initIntent();
     }
@@ -81,11 +85,12 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
             if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
                 return false;
             }
-            if(!isNetworkConnected()){
+            mLastClickTime = SystemClock.elapsedRealtime();
+            if (!isNetworkConnected()) {
                 backToLogin();
-            }else {
+            } else {
                 viewmodel.ServerPostFavorite();
-                Toast.makeText(this, "Thêm Yêu Thích", Toast.LENGTH_SHORT).show();
+
             }
         }
         return super.onOptionsItemSelected(item);
@@ -106,16 +111,11 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
             String address = getString(R.string.addressHs) + homestay.getAddress();
             nameImage = homestay.getImage();
             tvName.setText(name);
-            tvRating.setText(rating);
+            viewRating.setText(rating);
             tvDetail.setText(detail);
             tvHasTag.setText(hasTag);
-
             tvAddress.setText(address);
-
-            Double price = homestay.getPrice();
-            DecimalFormat format = new DecimalFormat("#,### VND/đêm");
-            String credit = getString(R.string.price) + format.format(price);
-            tvPrice.setText(credit);
+            tvPrice.setText(CommonUtils.FormatCredits(homestay.getPrice()));
             tvEvaLute.setText(homestay.getEvalute());
         } else if (getIntent().getSerializableExtra("detailprice") != null) {
             HomestayPrice price = (HomestayPrice) getIntent().getSerializableExtra("detailprice");
@@ -124,48 +124,66 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
             imgDetail.setErrorImageResId(R.drawable.uploadfailed);
             imgDetail.setImageUrl(price.getImage());
             String name = getString(R.string.name_hs) + price.getTitle();
-            String rating =  price.getRating();
+            String rating = price.getRating();
             String detail = "Giá cũ: " + price.getPriceago();
             String hasTag = getString(R.string.has_tag_home_stay) + price.getHastag();
             String address = getString(R.string.addressHs) + price.getAddress();
             nameImage = price.getImage();
             tvName.setText(name);
-            tvRating.setText(rating);
+            viewRating.setText(rating);
             tvDetail.setText(detail);
             tvHasTag.setText(hasTag);
             tvAddress.setText(address);
             tvEvaLute.setText("");
-
-            Double price2 = price.getPrice();
-            DecimalFormat format = new DecimalFormat("#,### VND/đêm");
-            String credit = getString(R.string.price) + format.format(price2);
-            tvPrice.setText(credit);
-        }else if(getIntent().getSerializableExtra("luxury_detail") != null){
+            tvPrice.setText(CommonUtils.FormatCredits(price.getPrice()));
+        } else if (getIntent().getSerializableExtra("luxury_detail") != null) {
             Luxury luxury = (Luxury) getIntent().getSerializableExtra("luxury_detail");
             assert luxury != null;
+            nameImage = luxury.getImage();
             imgDetail.setDefaultImageResId(R.drawable.img_home1);
             imgDetail.setErrorImageResId(R.drawable.uploadfailed);
             imgDetail.setImageUrl(luxury.getImage());
-            tvHasTag.setText(luxury.getUsername());
+            tvName.setText(luxury.getUsername());
             tvDetail.setText(luxury.getDetail());
-            tvPrice.setText("");
-            tvRating.setText("");
-            tvName.setText("");
-            tvEvaLute.setText("");
-            tvAddress.setText("");
+            tvPrice.setVisibility(View.GONE);
+            viewRating.setVisibility(View.GONE);
+            tvHasTag.setVisibility(View.GONE);
+            tvEvaLute.setVisibility(View.GONE);
+            tvAddress.setVisibility(View.GONE);
+        } else if(getIntent().getSerializableExtra("vinHomes") != null){
+            ListVinHomes homes = (ListVinHomes) getIntent().getSerializableExtra("vinHomes");
+            assert homes != null;
+            nameImage = homes.getImage();
+            imgDetail.setDefaultImageResId(R.drawable.img_home1);
+            imgDetail.setErrorImageResId(R.drawable.uploadfailed);
+            imgDetail.setImageUrl(homes.getImage());
+            tvName.setText(homes.getName());
+            tvDetail.setText(homes.getDetail());
+            viewRating.setText(homes.getRating());
+            tvHasTag.setVisibility(View.GONE);
+            tvEvaLute.setText(homes.getCreateroom());
+            tvAddress.setText(homes.getAddress());
+
+            tvPrice.setText(CommonUtils.FormatCredits(homes.getPrice()));
         }
 
     }
 
     @Override
     public void HandlerError(Throwable throwable) {
-
-        Log.d(TAG, "HandlerError: "+throwable);
+        AppLogger.d(TAG, "HandlerError: " + throwable);
     }
 
     @Override
     public void onSuccess() {
-        Log.d(TAG, "onSuccess: ");
+        Toast.makeText(this, getString(R.string.add_favorite_success), Toast.LENGTH_SHORT).show();
+        AppLogger.d(TAG, "onSuccess: ");
+    }
+
+    @Override
+    public void onFailed() {
+        hideLoading();
+        Toast.makeText(this, getString(R.string.add_favorite_failed), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -173,6 +191,6 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
         String name = tvName.getText().toString();
         String address = tvAddress.getText().toString();
         String image = nameImage;
-        viewmodel.addFavorite(image,name,address);
+        viewmodel.addFavorite(image, name, address);
     }
 }

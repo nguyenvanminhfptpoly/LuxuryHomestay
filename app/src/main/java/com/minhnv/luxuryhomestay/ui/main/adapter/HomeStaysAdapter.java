@@ -32,10 +32,6 @@ public class HomeStaysAdapter extends RecyclerView.Adapter<HomeStaysAdapter.View
         this.listener = listener;
     }
 
-    public interface OnItemHomeStayClickListener {
-        void OnItemSelected(int position);
-        void OnBookingHomeStay(int position);
-    }
 
     @NonNull
     @Override
@@ -67,7 +63,6 @@ public class HomeStaysAdapter extends RecyclerView.Adapter<HomeStaysAdapter.View
         ReadMoreTextView tvDetail;
         Button btnListDetail, btnListBooking;
         LinearLayout linearLayout;
-        Context context;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,7 +76,7 @@ public class HomeStaysAdapter extends RecyclerView.Adapter<HomeStaysAdapter.View
 
         void bind(Homestay homestay) {
             tvTitle.setText(homestay.getName());
-            tvDetail.setText(homestay.getDetail());
+            tvDetail.setText(homestay.getEvalute());
             image.setErrorImageResId(R.drawable.uploadfailed);
             image.setDefaultImageResId(R.drawable.img_home1);
             image.setImageUrl(homestay.getImage());

@@ -1,12 +1,18 @@
 package com.minhnv.luxuryhomestay.utils;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Patterns;
+import android.view.View;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.minhnv.luxuryhomestay.R;
+
+import java.text.DecimalFormat;
 
 public class CommonUtils {
 
@@ -29,5 +35,15 @@ public class CommonUtils {
     public static boolean isPhoneValid(String phone){
         return Patterns.PHONE.matcher(phone).matches();
     }
+
+    public static String FormatCredits(Double credit ){
+        DecimalFormat format = new DecimalFormat("#,### đ/đêm");
+        String price = format.format(credit);
+        return price;
+    }
+
+
+
+
 
 }

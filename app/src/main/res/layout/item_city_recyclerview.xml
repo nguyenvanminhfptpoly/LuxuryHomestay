@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_city"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="10dp"
     android:orientation="vertical"
+    android:layout_margin="4dp"
     app:cardCornerRadius="5dp">
 
 
@@ -24,7 +24,7 @@
 
             <com.androidnetworking.widget.ANImageView
                 android:id="@+id/imgCity"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -36,21 +36,23 @@
 
             <View
                 android:id="@+id/view"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:background="#ffde03"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/imgCity"
                 app:layout_constraintStart_toStartOf="@+id/imgCity" />
 
-            <TextView
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
                 android:id="@+id/tvNameCity"
-                android:layout_width="wrap_content"
+                style="@style/TextViewBackground"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/name_hs"
-                style="@style/TextViewBackground"
+                android:ellipsize="end"
                 android:textColor="@color/md_black_1000"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

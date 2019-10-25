@@ -1,15 +1,17 @@
 package com.minhnv.luxuryhomestay.ui.main;
 
-import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
@@ -18,14 +20,15 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import com.google.android.material.navigation.NavigationView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.City;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
+import com.minhnv.luxuryhomestay.data.model.VinHome;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.ui.intro.IntroductionActivity;
 import com.minhnv.luxuryhomestay.ui.login.signin.SignInActivity;
@@ -33,6 +36,8 @@ import com.minhnv.luxuryhomestay.ui.main.adapter.CityAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysPriceAscAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
+import com.minhnv.luxuryhomestay.ui.main.adapter.SnapHelperOneByOne;
+import com.minhnv.luxuryhomestay.ui.main.adapter.VinHomeAdapter;
 import com.minhnv.luxuryhomestay.ui.main.booking.booking.BookingActivity;
 import com.minhnv.luxuryhomestay.ui.main.booking.list.ListBookingActivity;
 import com.minhnv.luxuryhomestay.ui.main.favorite.FavoriteActivity;
@@ -42,8 +47,8 @@ import com.minhnv.luxuryhomestay.ui.main.homestay_hot.HomeStayHotActivity;
 import com.minhnv.luxuryhomestay.ui.main.homestay_price_ago.HomeStayPriceAgoActivity;
 import com.minhnv.luxuryhomestay.ui.main.search.SearchActivity;
 import com.minhnv.luxuryhomestay.ui.main.social.list.SocialActivity;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrInterface;
+import com.minhnv.luxuryhomestay.ui.main.vin_homes.VinHomeDetailActivity;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -62,7 +67,12 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
     private HomeStaysPriceAscAdapter ascAdapter;
     private List<HomestayPrice> homestayPrices;
     private ViewFlipper viewFlipper;
-
+    private SnapHelper helper;
+    private Button btnGotoBooking,btnDetailHSH,btnDetailHSP;
+    private List<VinHome> vinHomes;
+    private VinHomeAdapter homeAdapter;
+    private ImageView imgPayment,imgGuideBooking;
+    private TextView tvUserName,tvAddress;
 
     @Override
     public int getLayoutId() {
@@ -79,74 +89,43 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
     public void onCreateActivity(@Nullable Bundle savedInstanceState) {
         viewmodel = ViewModelProviders.of(this, factory).get(HomeViewModel.class);
         viewmodel.setNavigator(this);
-
-        drawerLayout = findViewById(R.id.drawer_layout);
-        Toolbar toolbarHome = findViewById(R.id.toolbar_home);
-        navigationView = findViewById(R.id.navigation_view);
-        Button btnGotoBoking = findViewById(R.id.btnGotoBooking);
-        viewFlipper = findViewById(R.id.viewflipper);
-        Button btnDetailHSH = findViewById(R.id.buttonDetailHSH);
-        Button btnDetailHSP = findViewById(R.id.btnDetailHSP);
-
-
-        setSupportActionBar(toolbarHome);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        toolbarHome.setNavigationIcon(R.drawable.ic_menu_black_24dp);
-        toolbarHome.setNavigationOnClickListener(view -> drawerLayout.openDrawer(GravityCompat.START));
-        toolbarHome.setOnMenuItemClickListener(item -> {
-            if  (item.getItemId() == R.id.ic_search) {
-                startActivity(SearchActivity.newIntent(HomeActivity.this));
-            }
-            return false;
-        });
+        initView();
+        setUpToolBar();
         setUpNavigationView();
-
-        //recyclerViewHomeStays
-        RecyclerView recyclerViewHomeStays = findViewById(R.id.recyclerViewRating);
-        RecyclerView recyclerViewPriceAsc = findViewById(R.id.recyclerViewPriceAsc);
-        homestays = new ArrayList<>();
-        homestayPrices = new ArrayList<>();
-        viewmodel.ServerLoadHomeStaysRating();
-        viewmodel.ServerLoadHomeStaysPriceAsc();
-        ascAdapter = new HomeStaysPriceAscAdapter(homestayPrices, getApplicationContext(), new RecyclerViewNavigator() {
-            @Override
-            public void onItemClickListener(int position) {
-                Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
-                intent.putExtra("detailprice",homestayPrices.get(position));
-                startActivity(intent);
-            }
-
-            @Override
-            public void onItemClickDetailListener(int position) {
-                Intent intent = BookingActivity.newIntent(getApplicationContext());
-                intent.putExtra("detailprice",homestayPrices.get(position));
-                startActivity(intent);
-            }
+        setUpRecyclerViewCity();
+        setUpRecyclerViewHomeStayHot();
+        setUpRecyclerViewHomeStayPriceAsc();
+        setUpRecyclerViewVinHomes();
+        ActionViewFlipper();
+    }
+    private void initView(){
+        drawerLayout = findViewById(R.id.drawer_layout);
+        btnGotoBooking = findViewById(R.id.btnGotoBooking);
+        btnDetailHSH = findViewById(R.id.buttonDetailHSH);
+        btnDetailHSP = findViewById(R.id.btnDetailHSP);
+        btnGotoBooking.setOnClickListener(view -> startActivity(ListBookingActivity.newIntent(getApplicationContext())));
+        btnDetailHSH.setOnClickListener(view -> {startActivity(HomeStayHotActivity.newIntent(HomeActivity.this));});
+        btnDetailHSP.setOnClickListener(view -> {startActivity(HomeStayPriceAgoActivity.newIntent(getApplicationContext()));});
+        imgGuideBooking = findViewById(R.id.imgGuideBooking);
+        imgPayment = findViewById(R.id.imgGuidePayment);
+        imgPayment.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+            View view1 = getLayoutInflater().inflate(R.layout.dialog_guide_payments,null);
+            builder.setView(view1);
+            Dialog dialog = builder.create();
+            dialog.show();
         });
-        adapter = new HomeStaysAdapter(homestays, getApplicationContext(), new RecyclerViewNavigator() {
-            @Override
-            public void onItemClickListener(int position) {
-                Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
-                intent.putExtra("detail",homestays.get(position));
-                startActivity(intent);
-            }
-
-            @Override
-            public void onItemClickDetailListener(int position) {
-                Intent intent = BookingActivity.newIntent(getApplicationContext());
-                intent.putExtra("booking",homestays.get(position));
-                startActivity(intent);
-            }
+        imgGuideBooking.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+            View v = getLayoutInflater().inflate(R.layout.dialog_guide_booking,null);
+            builder.setView(v);
+            Dialog dialog = builder.create();
+            dialog.show();
         });
-        recyclerViewHomeStays.setHasFixedSize(true);
-        recyclerViewHomeStays.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewHomeStays.setAdapter(adapter);
-        recyclerViewPriceAsc.setHasFixedSize(true);
-        recyclerViewPriceAsc.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        recyclerViewPriceAsc.setAdapter(ascAdapter);
-
-
+    }
+    private void setUpRecyclerViewCity(){
         //city
+        helper = new SnapHelperOneByOne();
         RecyclerView recyclerViewCity = findViewById(R.id.recyclerCity);
         cities = new ArrayList<>();
         viewmodel.ServerLoadCity();
@@ -176,18 +155,140 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
             public void onItemClickDetailListener(int position) {
 
             }
+
+            @Override
+            public void onItemSharing(int position) {
+
+            }
         });
         recyclerViewCity.setHasFixedSize(true);
         recyclerViewCity.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         recyclerViewCity.setAdapter(cityAdapter);
+        helper.attachToRecyclerView(recyclerViewCity);
 
-        btnGotoBoking.setOnClickListener(view -> startActivity(ListBookingActivity.newIntent(getApplicationContext())));
-        ActionViewFlipper();
-
-        btnDetailHSH.setOnClickListener(view -> {startActivity(HomeStayHotActivity.newIntent(HomeActivity.this));});
-        btnDetailHSP.setOnClickListener(view -> {startActivity(HomeStayPriceAgoActivity.newIntent(getApplicationContext()));});
     }
+    private void setUpRecyclerViewHomeStayHot(){
+        helper = new SnapHelperOneByOne();
+        RecyclerView recyclerViewHomeStays = findViewById(R.id.recyclerViewRating);
+        homestays = new ArrayList<>();
+        viewmodel.ServerLoadHomeStaysRating();
+        adapter = new HomeStaysAdapter(homestays, getApplicationContext(), new RecyclerViewNavigator() {
+            @Override
+            public void onItemClickListener(int position) {
+                Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
+                intent.putExtra("detail",homestays.get(position));
+                startActivity(intent);
+            }
 
+            @Override
+            public void onItemClickDetailListener(int position) {
+                Intent intent = BookingActivity.newIntent(getApplicationContext());
+                intent.putExtra("booking",homestays.get(position));
+                startActivity(intent);
+            }
+
+            @Override
+            public void onItemSharing(int position) {
+
+            }
+        });
+        recyclerViewHomeStays.setHasFixedSize(true);
+        recyclerViewHomeStays.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewHomeStays.setAdapter(adapter);
+        helper.attachToRecyclerView(recyclerViewHomeStays);
+    }
+    private void setUpRecyclerViewHomeStayPriceAsc(){
+        helper = new SnapHelperOneByOne();
+        RecyclerView recyclerViewPriceAsc = findViewById(R.id.recyclerViewPriceAsc);
+        homestayPrices = new ArrayList<>();
+        viewmodel.ServerLoadHomeStaysPriceAsc();
+        ascAdapter = new HomeStaysPriceAscAdapter(homestayPrices, getApplicationContext(), new RecyclerViewNavigator() {
+            @Override
+            public void onItemClickListener(int position) {
+                Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
+                intent.putExtra("detailprice",homestayPrices.get(position));
+                startActivity(intent);
+            }
+
+            @Override
+            public void onItemClickDetailListener(int position) {
+                Intent intent = BookingActivity.newIntent(getApplicationContext());
+                intent.putExtra("detailprice",homestayPrices.get(position));
+                startActivity(intent);
+            }
+
+            @Override
+            public void onItemSharing(int position) {
+
+            }
+        });
+
+        recyclerViewPriceAsc.setHasFixedSize(true);
+        recyclerViewPriceAsc.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        recyclerViewPriceAsc.setAdapter(ascAdapter);
+        helper.attachToRecyclerView(recyclerViewPriceAsc);
+    }
+    private void setUpToolBar(){
+        Toolbar toolbarHome = findViewById(R.id.toolbar_home);
+        setSupportActionBar(toolbarHome);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolbarHome.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+        toolbarHome.setNavigationOnClickListener(view -> drawerLayout.openDrawer(GravityCompat.START));
+        toolbarHome.setOnMenuItemClickListener(item -> {
+            if  (item.getItemId() == R.id.ic_search) {
+                startActivity(SearchActivity.newIntent(HomeActivity.this));
+            }
+            return false;
+        });
+    }
+    private void setUpRecyclerViewVinHomes(){
+        helper = new SnapHelperOneByOne();
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewVinHomes);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        viewmodel.ServerLoadCityVinHomes();
+        vinHomes = new ArrayList<>();
+        homeAdapter = new VinHomeAdapter(vinHomes, getApplicationContext(), new RecyclerViewNavigator() {
+            @Override
+            public void onItemClickListener(int position) {
+                switch (position){
+                    case 0:
+                        Intent central = VinHomeDetailActivity.newIntent(getApplicationContext());
+                        central.putExtra("central",vinHomes.get(position));
+                        startActivity(central);
+                        break;
+                    case 1:
+                        Intent landMark = VinHomeDetailActivity.newIntent(getApplicationContext());
+                        landMark.putExtra("landMark",vinHomes.get(position));
+                        startActivity(landMark);
+                        break;
+                    case 2:
+                        Intent golden = VinHomeDetailActivity.newIntent(getApplicationContext());
+                        golden.putExtra("golden",vinHomes.get(position));
+                        startActivity(golden);
+                        break;
+                    case 3:
+                        Intent timesCity = VinHomeDetailActivity.newIntent(getApplicationContext());
+                        timesCity.putExtra("timesCity",vinHomes.get(position));
+                        startActivity(timesCity);
+                        break;
+                }
+            }
+
+            @Override
+            public void onItemClickDetailListener(int position) {
+                //never use
+            }
+
+            @Override
+            public void onItemSharing(int position) {
+                //never use
+            }
+        });
+        recyclerView.setAdapter(homeAdapter);
+        helper.attachToRecyclerView(recyclerView);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -196,12 +297,17 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
     }
 
     private void setUpNavigationView() {
+        navigationView = findViewById(R.id.navigation_view);
         navigationView.findViewById(R.id.btnBooking).setOnClickListener(view -> viewmodel.openBookingFragment());
         navigationView.findViewById(R.id.btnFavorite).setOnClickListener(view -> viewmodel.openFavoriteFragment());
         navigationView.findViewById(R.id.btnSocial).setOnClickListener(view -> viewmodel.openSocialFragment());
         navigationView.findViewById(R.id.btnIntro).setOnClickListener(view -> viewmodel.openIntroductionFragment());
         navigationView.findViewById(R.id.btnCancelDrawer).setOnClickListener(view -> viewmodel.closeDrawer());
         navigationView.findViewById(R.id.btnLogout).setOnClickListener(view -> viewmodel.logout());
+        tvUserName = navigationView.findViewById(R.id.tvUserName);
+        tvAddress = navigationView.findViewById(R.id.tvAddress);
+        tvAddress.setText(appPreferenceHelper.getCurrentPhoneNumber());
+        tvUserName.setText(appPreferenceHelper.getCurrentAddress());
     }
 
     @Override
@@ -248,12 +354,12 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         if(!isNetworkConnected()){
             backToLogin();
         }
-        Log.d(TAG, "HandlerError: " + throwable);
+        AppLogger.d(TAG, "HandlerError: " + throwable);
     }
 
     @Override
     public void onSuccess() {
-        Log.d(TAG, "onUploadImageSuccess: ");
+        AppLogger.d(TAG, "onUploadImageSuccess: ");
     }
 
 
@@ -268,7 +374,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
             cities.addAll(data);
             cityAdapter.notifyDataSetChanged();
         },throwable ->
-            Log.d(TAG, "doLoadCity: "+throwable)
+                AppLogger.d(TAG, "doLoadCity: "+throwable)
         ));
     }
 
@@ -282,7 +388,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
                 homestays.addAll(data);
                 adapter.notifyDataSetChanged();
         },throwable ->
-            Log.d(TAG, "doLoadHomeStaysRating: "+throwable)
+                AppLogger.d(TAG, "doLoadHomeStaysRating: "+throwable)
         ));
     }
 
@@ -296,11 +402,27 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
                     homestayPrices.addAll(data);
                     ascAdapter.notifyDataSetChanged();
                 },throwable ->
-                    Log.d(TAG, "doLoadHomeStaysRating: "+throwable)
+                        AppLogger.d(TAG, "doLoadHomeStaysRating: "+throwable)
                 ));
     }
 
+    @Override
+    public void doLoadCityVinHome() {
+        viewmodel.loadCityVinHome();
+        compositeDisposable.add(viewmodel.listBehaviorSubject.share()
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
+            .subscribe(data -> {
+                vinHomes.addAll(data);
+                homeAdapter.notifyDataSetChanged();
+            },throwable -> {
+                AppLogger.d(TAG,throwable);
+            }));
+    }
+
+
     private void ActionViewFlipper(){
+        viewFlipper = findViewById(R.id.viewflipper);
         ArrayList<String> adMob = new ArrayList<>();
         adMob.add("https://www.luxstay.com/blog/wp-content/uploads/2019/09/BANNER-03-1024x536.jpg");
         adMob.add("https://www.luxstay.com/blog/wp-content/uploads/2019/09/BANNER-04-1024x536.jpg");

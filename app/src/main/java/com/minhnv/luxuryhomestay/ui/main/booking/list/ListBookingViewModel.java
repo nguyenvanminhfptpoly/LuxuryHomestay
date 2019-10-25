@@ -6,20 +6,21 @@ import com.minhnv.luxuryhomestay.data.DataManager;
 import com.minhnv.luxuryhomestay.data.model.Booking;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
+import timber.log.Timber;
 
 public class ListBookingViewModel extends BaseViewModel<ListBookingNavigator> {
     private static final String TAG = "ListBookingViewModel";
-    public Observable<List<Booking>> listObservable;
     public PublishSubject<List<Booking>> listPublishSubject = PublishSubject.create();
     public ListBookingViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
-        listObservable = listPublishSubject.share();
+        Observable<List<Booking>> listObservable = listPublishSubject.share();
     }
 
     public void loadList(){
@@ -32,7 +33,7 @@ public class ListBookingViewModel extends BaseViewModel<ListBookingNavigator> {
                             listPublishSubject.onNext(response);
                         },throwable -> {
                             getNavigator().handleError(throwable);
-                            Log.d(TAG, "loadList: "+throwable);
+                            Timber.d(throwable);
                         })
         );
     }
@@ -44,10 +45,12 @@ public class ListBookingViewModel extends BaseViewModel<ListBookingNavigator> {
                 .subscribe(response -> {
                     if(response.equals("success")) {
                         getNavigator().onDeleteSuccess();
+                    }else if(response.equals("eror")){
+                        getNavigator().onFailed();
                     }
                 },throwable -> {
                     getNavigator().handleError(throwable);
-                    Log.d(TAG, "deleteBooking: "+throwable);
+                    AppLogger.d(TAG,throwable);
                 })
         );
     }

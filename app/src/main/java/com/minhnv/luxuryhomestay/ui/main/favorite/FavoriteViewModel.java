@@ -6,6 +6,7 @@ import com.minhnv.luxuryhomestay.data.DataManager;
 import com.minhnv.luxuryhomestay.data.model.Favorite;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
 import java.util.List;
@@ -28,10 +29,10 @@ public class FavoriteViewModel extends BaseViewModel<FavoriteNavigator> {
                 .subscribe(response -> {
                     listBehaviorSubject.onNext(response);
                     getNavigator().onSuccess();
-                    Log.d(TAG, "loadFavorite: "+response);
+                    AppLogger.d(TAG, "loadFavorite: "+response);
                 },throwable -> {
                     getNavigator().HandlerError(throwable);
-                    Log.d(TAG, "loadFavorite: "+throwable);
+                    AppLogger.d(TAG, "loadFavorite: "+throwable);
                 })
         );
     }
@@ -43,7 +44,9 @@ public class FavoriteViewModel extends BaseViewModel<FavoriteNavigator> {
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
                     if(response.equals("success")) {
-                        getNavigator().onSuccess();
+                        getNavigator().onDeleteComplete();
+                    }else if(response.equals("error")){
+                        getNavigator().onFailed();
                     }
                 },throwable -> {
                     getNavigator().HandlerError(throwable);

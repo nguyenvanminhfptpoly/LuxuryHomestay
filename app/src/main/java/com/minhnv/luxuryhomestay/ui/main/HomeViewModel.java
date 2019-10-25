@@ -7,27 +7,33 @@ import com.minhnv.luxuryhomestay.data.model.City;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
+import com.minhnv.luxuryhomestay.data.model.VinHome;
 import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.BehaviorSubject;
 
 public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     private static final String TAG = "HomeViewModel";
-    public PublishSubject<List<Homestay>> homeStayPublishObservable = PublishSubject.create();
+    public BehaviorSubject<List<Homestay>> homeStayPublishObservable = BehaviorSubject.create();
 
-    public PublishSubject<List<HomestayPrice>> listPublishSubject = PublishSubject.create();
+    public BehaviorSubject<List<HomestayPrice>> listPublishSubject = BehaviorSubject.create();
 
-    public PublishSubject<List<City>> listCityPublishSubject = PublishSubject.create();
+    public BehaviorSubject<List<City>> listCityPublishSubject = BehaviorSubject.create();
+
+    public BehaviorSubject<List<VinHome>> listBehaviorSubject = BehaviorSubject.create();
+
 
     public HomeViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
         Observable<List<Homestay>> homeStayObservable = homeStayPublishObservable.share();
         Observable<List<City>> listCityObservable = listCityPublishSubject.share();
         Observable<List<HomestayPrice>> listObservable = listPublishSubject.share();
+        Observable<List<VinHome>> listVinHomeObservable = listBehaviorSubject.share();
     }
 
 
@@ -41,7 +47,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                             getNavigator().onSuccess();
                         }, throwable -> {
                             getNavigator().HandlerError(throwable);
-                            Log.d(TAG, "doLoadCity: " + throwable);
+                            AppLogger.d(TAG, "doLoadCity: " + throwable);
                         })
         );
     }
@@ -52,12 +58,12 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                         .subscribeOn(getSchedulerProvider().io())
                         .observeOn(getSchedulerProvider().ui())
                         .subscribe(response -> {
-                            Log.d(TAG, "loadListHomeStayRating: " + response);
+                            AppLogger.d(TAG, "loadListHomeStayRating: " + response);
                             homeStayPublishObservable.onNext(response);
                             getNavigator().onSuccess();
                         }, throwable -> {
                             getNavigator().HandlerError(throwable);
-                            Log.d(TAG, "loadListHomeStayRating: " + throwable);
+                            AppLogger.d(TAG, "loadListHomeStayRating: " + throwable);
                         })
         );
     }
@@ -68,16 +74,35 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                         .subscribeOn(getSchedulerProvider().io())
                         .observeOn(getSchedulerProvider().ui())
                         .subscribe(response -> {
-                            Log.d(TAG, "loadListHomeStayRating: " + response);
+                            AppLogger.d(TAG, "loadListHomeStayRating: " + response);
                             listPublishSubject.onNext(response);
                             getNavigator().onSuccess();
                         }, throwable -> {
                             getNavigator().HandlerError(throwable);
-                            Log.d(TAG, "loadListHomeStayRating: " + throwable);
+                            AppLogger.d(TAG, "loadListHomeStayRating: " + throwable);
                         })
         );
     }
-    public void ServerLoadHomeStaysPriceAsc(){
+
+    public void loadCityVinHome(){
+        getCompositeDisposable().add(
+                getDataManager().doLoadCityVinHomes()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(response -> {
+                    listBehaviorSubject.onNext(response);
+                },throwable -> {
+                    AppLogger.d(TAG,throwable);
+                    getNavigator().HandlerError(throwable);
+                })
+        );
+    }
+
+    public void ServerLoadCityVinHomes(){
+        getNavigator().doLoadCityVinHome();
+    }
+
+    public void ServerLoadHomeStaysPriceAsc() {
         getNavigator().doLoadHomeStaysPriceAsc();
     }
 
@@ -112,5 +137,6 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     public void closeDrawer() {
         getNavigator().close();
     }
+
 
 }

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.minhnv.luxuryhomestay.data.DataManager;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
 public class HomeStaysDetailViewModel extends BaseViewModel<HomeStayDetailNavigator> {
@@ -21,11 +22,13 @@ public class HomeStaysDetailViewModel extends BaseViewModel<HomeStayDetailNaviga
                 .subscribe(response -> {
                     if(response.equals("Success")) {
                         getNavigator().onSuccess();
-                        Log.d(TAG, "addFavorite: "+response);
+                        AppLogger.d(TAG, "addFavorite: "+response);
+                    }else if(response.equals("Failed") || response.equals("Null")){
+                        getNavigator().onFailed();
                     }
                 },throwable -> {
                     getNavigator().HandlerError(throwable);
-                    Log.d(TAG, "addFavorite: "+throwable);
+                    AppLogger.d(TAG, "addFavorite: "+throwable);
                 })
         );
     }

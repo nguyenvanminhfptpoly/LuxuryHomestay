@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -19,6 +20,7 @@ import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.ui.main.adapter.FavoriteAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
 import com.minhnv.luxuryhomestay.ui.main.booking.list.ListBookingActivity;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -30,7 +32,6 @@ public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements
     private static final String TAG = "FavoriteActivity";
     private List<Favorite> favorites;
     private FavoriteAdapter adapter;
-    private SlidrInterface slide;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, FavoriteActivity.class);
@@ -47,7 +48,7 @@ public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements
     public void onCreateActivity(@Nullable Bundle savedInstanceState) {
         viewmodel = ViewModelProviders.of(this,factory).get(FavoriteViewModel.class);
         viewmodel.setNavigator(this);
-        slide = Slidr.attach(this);
+        SlidrInterface slide = Slidr.attach(this);
         initView();
     }
 
@@ -59,7 +60,7 @@ public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements
         toolbar.setNavigationOnClickListener(view -> {
             onBackPressed();
         });
-        onNextList();
+
         viewmodel.ServerLoadFavorite();
         favorites = new ArrayList<>();
         adapter = new FavoriteAdapter(favorites, getApplicationContext(), new RecyclerViewNavigator() {
@@ -75,22 +76,28 @@ public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements
                     favorites.clear();
                     viewmodel.ServerLoadFavorite();
                     viewmodel.deleteFavorite(id);
+                    showLoading();
                     dialogInterface.dismiss();
                 });
                 builder.setNegativeButton("Không", (dialogInterface, i) -> dialogInterface.dismiss());
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
-
             }
 
             @Override
             public void onItemClickDetailListener(int position) {
 
             }
+
+            @Override
+            public void onItemSharing(int position) {
+
+            }
         });
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(adapter);
+        onNextList();
     }
 
     private void onNextList(){
@@ -102,7 +109,7 @@ public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements
                 Collections.reverse(favorites);
                 adapter.notifyDataSetChanged();
             },throwable -> {
-                Log.d(TAG, "onNextList: "+throwable);
+                AppLogger.d(TAG, "onNextList: "+throwable);
             }));
     }
 
@@ -111,13 +118,27 @@ public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements
         if(!isNetworkConnected()){
             backToLogin();
         }
-        Log.d(TAG, "HandlerError: "+throwable);
+        AppLogger.d(TAG, "HandlerError: "+throwable);
     }
 
     @Override
     public void onSuccess() {
+        AppLogger.d(TAG, "onSuccess: ");
+    }
+
+    @Override
+    public void onDeleteComplete() {
+        hideLoading();
         adapter.notifyDataSetChanged();
-        Log.d(TAG, "onSuccess: ");
+        favorites.clear();
+        viewmodel.ServerLoadFavorite();
+        AppLogger.d(TAG,"success");
+    }
+
+    @Override
+    public void onFailed() {
+        hideLoading();
+        Toast.makeText(this, "Xóa không thành công", Toast.LENGTH_SHORT).show();
     }
 
     @Override

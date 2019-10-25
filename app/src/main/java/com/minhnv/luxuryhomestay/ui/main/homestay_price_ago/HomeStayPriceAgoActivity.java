@@ -3,6 +3,7 @@ package com.minhnv.luxuryhomestay.ui.main.homestay_price_ago;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -16,6 +17,7 @@ import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
 import com.minhnv.luxuryhomestay.ui.main.adapter.StaggeredAdapter;
 import com.minhnv.luxuryhomestay.ui.main.homestay_detail.HomeStayDetailActivity;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -45,12 +47,19 @@ HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements
         viewmodel = ViewModelProviders.of(this, factory).get(HomeStayPriceViewModel.class);
         viewmodel.setNavigator(this);
         slide = Slidr.attach(this);
+        setUpRecyclerView();
+    }
+    private void setUpRecyclerView(){
         viewmodel.ServerLoadHomeStaysPriceAsc();
         RecyclerView recyclerView = findViewById(R.id.recyclerViewHomeStayPrice);
         homestays = new ArrayList<>();
         adapter = new StaggeredAdapter(homestays, getApplicationContext(), new RecyclerViewNavigator() {
             @Override
             public void onItemClickListener(int position) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
                 intent.putExtra("detailprice", homestays.get(position));
                 startActivity(intent);
@@ -58,6 +67,11 @@ HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements
 
             @Override
             public void onItemClickDetailListener(int position) {
+
+            }
+
+            @Override
+            public void onItemSharing(int position) {
 
             }
         });
@@ -71,12 +85,12 @@ HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements
         if (!isNetworkConnected()) {
             backToLogin();
         }
-        Log.d(TAG, "HandlerError: " + throwable);
+        AppLogger.d(TAG, "HandlerError: " + throwable);
     }
 
     @Override
     public void onSuccess() {
-        Log.d(TAG, "onUploadImageSuccess: ");
+        AppLogger.d(TAG, "onUploadImageSuccess: ");
     }
 
     @Override
@@ -89,7 +103,7 @@ HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements
                     homestays.addAll(data);
                     adapter.notifyDataSetChanged();
                         }, throwable ->
-                                Log.d(TAG, "doLoadHomeStaysRating: " + throwable)
+                        AppLogger.d(TAG, "doLoadHomeStaysRating: " + throwable)
                 ));
     }
 }

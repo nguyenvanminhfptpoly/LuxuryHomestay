@@ -20,7 +20,9 @@ import com.androidnetworking.widget.ANImageView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
+import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -51,6 +53,7 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
         SlidrInterface slide = Slidr.attach(this);
         bindViewModel();
         initIntent();
+
     }
 
     private void initIntent(){
@@ -60,16 +63,19 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
             tvNameHomeStay.setText(homestay.getName());
             tvAddressHomeStay.setText(homestay.getAddress());
             imgBooking.setImageUrl(homestay.getImage());
-            imgBooking.setErrorImageResId(R.drawable.uploadfailed);
-            imgBooking.setDefaultImageResId(R.drawable.img_home1);
         }else if(getIntent().getSerializableExtra("detailprice") != null){
             HomestayPrice price = (HomestayPrice) getIntent().getSerializableExtra("detailprice");
             assert price != null;
             tvNameHomeStay.setText(price.getTitle());
             tvAddressHomeStay.setText(price.getAddress());
             imgBooking.setImageUrl(price.getImage());
-            imgBooking.setErrorImageResId(R.drawable.uploadfailed);
-            imgBooking.setDefaultImageResId(R.drawable.img_home1);
+        }else if(getIntent().getSerializableExtra("vinHomes") != null){
+            ListVinHomes homes = (ListVinHomes) getIntent().getSerializableExtra("vinHomes");
+            assert homes != null;
+            tvNameHomeStay.setText(homes.getName());
+            tvAddressHomeStay.setText(homes.getAddress());
+            imgBooking.setImageUrl(homes.getImage());
+
         }
 
     }
@@ -100,6 +106,7 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
             if(SystemClock.elapsedRealtime() - mLastClickTime < 5000){
                 return;
             }
+            mLastClickTime = SystemClock.elapsedRealtime();
             viewmodel.ServerBooking();
         });
 
@@ -107,6 +114,9 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
         tvAddressHomeStay.setText(getString(R.string.select_address_hs));
         btnDateStart.setOnClickListener(view -> {viewmodel.didSelectCheckIn();});
         btnDateEnd.setOnClickListener(view -> {viewmodel.didSelectCheckOut();});
+
+        imgBooking.setErrorImageResId(R.drawable.uploadfailed);
+        imgBooking.setDefaultImageResId(R.drawable.img_home1);
     }
 
 
@@ -116,14 +126,20 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
         if(!isNetworkConnected()){
             backToLogin();
         }
-        Log.d(TAG, "handleError: " + throwable);
+        AppLogger.d(TAG,throwable);
     }
 
     @Override
     public void onSuccess() {
-        Log.d(TAG, "onUploadImageSuccess: ");
+        AppLogger.d(TAG, "onUploadImageSuccess: ");
         Toast.makeText(this,   getString(R.string.booking_success), Toast.LENGTH_SHORT).show();
         hideLoading();
+    }
+
+    @Override
+    public void onFailed() {
+        hideLoading();
+        Toast.makeText(this, getString(R.string.booking_failed), Toast.LENGTH_SHORT).show();
     }
 
     @Override

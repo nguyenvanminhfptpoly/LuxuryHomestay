@@ -15,6 +15,10 @@
     <string name="need_help">Cần giúp đỡ!</string>
     <string name="denied_permission">Nếu bạn không cấp quyền này chúng tôi sẽ không thể giúp bạn kết nối với mọi người được</string>
     <string name="number">5</string>
+    <string name="hi_there">Chào Đằng Ấy</string>
+    <string name="permission_denied">Quyền chưa được cấp</string>
+    <string name="go_to_setting">Đi đến cài đặt</string>
+    <string name="cancel">Hủy</string>
 
     //signUp
     <string name="sign_up">Đăng Ký</string>
@@ -24,6 +28,7 @@
     <string name="address">Địa Chỉ</string>
     <string name="add_successfully">Thêm Thành Công</string>
     <string name="failed">Lỗi Khi Tạo Tài Khoản</string>
+    <string name="name">Tên người dùng</string>
 
     //home
     <string name="detail">Chi tiết</string>
@@ -49,6 +54,8 @@
     <string name="rating">Đánh Giá: </string>
     <string name="luxury_post">Đăng bài </string>
     <string name="choose_image">Chọn ảnh </string>
+    <string name="add_favorite_success">Thêm Yêu Thích </string>
+    <string name="add_favorite_failed">Không thể thêm yêu thích </string>
 
     //booking
     <string name="date_start">Ngày đến</string>
@@ -56,6 +63,7 @@
     <string name="count_member">Số lượng người</string>
     <string name="format_date">dd/mm/yyyy</string>
     <string name="booking_success">Đặt phòng thành công</string>
+    <string name="booking_failed">Đặt phòng thất bại</string>
     <string name="date_valid">Ngày được lấy đang nhỏ hơn ngày hiện tại</string>
     <string name="validate_booking">Nhập đủ giá trị</string>
     <string name="select_name_hs">Lựa chọn homestay tại màn hình chính</string>
@@ -65,6 +73,8 @@
     <string name="todo">TODO</string>
     <string name="notification">Một người bạn vừa chia sẻ một địa điểm du lịch</string>
     <string name="booking_error">Kiểm tra kết nối mạng hoặc nhập đủ giá trị</string>
+    <string name="delete_success">Xóa thành công</string>
+    <string name="delete_error">Đã xảy ra lỗi khi xóa</string>
 
     //intro
     <string name="next">TIẾP</string>
@@ -87,4 +97,23 @@
     <string name="play_again">Play Again</string>
     <string name="privacy">Bản quyền nghiêm cấm sao chép</string>
     <string name="version">1.1.0</string>
+
+    //vinHomes
+    <string name="vinHomes">VinHomes</string>
+
+    //guide
+    <string name="guide_title">Danh sách các Homestay được chúng tôi phổ biến đến bạn hằng ngày.</string>
+    <string name="guide_article">Lựa chọn Homestay yêu thích qua các tiêu chí \n + Giá Thành\n + Địa điểm \n +  Không gian \n+  Phương tiên
+        \n - Khi bạn chọn được cho mình Homestay yêu thích thì tiến hành đặt phòng ngày bên dưới
+        \n- Chúng tôi giúp bạn lên lịch CheckIn, CheckOut và Số lượng người được thông báo đến chủ HomeStay
+        \n- Sau khi thực hiện đặt phòng thành công sẽ có cuộc gọi đến từ chủ Homestay nhằm xác định bạn có thực sự đặt phòng hay không
+        \n- Các Homestay chúng tôi lựa chọn đều là những Homestay uy tín</string>
+    <string name="guide_payment">
+        Thanh toán khi đến nhận phòng Homestay
+    </string>
+    <string name="guide_payment_article">
+        Khi bạn nhận được cuộc gọi từ bên phía Chủ Homestay \n
+        \n Chủ Homestay sẽ xác nhận với bạn một lần nữa về việc CheckIn và CheckOut cũng như số lượng người
+        \n Chúng tôi cũng đảm bảo về tính đúng đắn khi nhận HomeStay
+    </string>
 </resources>

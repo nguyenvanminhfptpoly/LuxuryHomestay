@@ -5,8 +5,10 @@ import com.minhnv.luxuryhomestay.data.model.City;
 import com.minhnv.luxuryhomestay.data.model.Favorite;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
+import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
+import com.minhnv.luxuryhomestay.data.model.VinHome;
 
 import java.util.List;
 
@@ -43,5 +45,9 @@ public interface ApiHelper {
     Observable<String> doDeleteFavorite(UserResponse.ServerDeleteBooking favorite);
 
     Observable<String> doAddLoveLuxury(UserResponse.ServerAddLove love);
+
+    Observable<List<VinHome>> doLoadCityVinHomes();
+
+    Observable<List<ListVinHomes>> doLoadListHomeStayVinHomes(UserResponse.ServerLoadHomeStayVinHomes homes);
 
 }

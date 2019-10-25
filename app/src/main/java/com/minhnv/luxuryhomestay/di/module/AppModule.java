@@ -3,15 +3,22 @@ package com.minhnv.luxuryhomestay.di.module;
 import android.app.Application;
 import android.content.Context;
 
+import androidx.room.Room;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.minhnv.luxuryhomestay.BaseApplication;
 import com.minhnv.luxuryhomestay.data.AppDataManager;
 import com.minhnv.luxuryhomestay.data.DataManager;
-import com.minhnv.luxuryhomestay.data.local.AppPreferenceHelper;
-import com.minhnv.luxuryhomestay.data.local.PreferenceHelper;
+import com.minhnv.luxuryhomestay.data.local.db.AppDatabase;
+import com.minhnv.luxuryhomestay.data.local.db.AppDbHelper;
+import com.minhnv.luxuryhomestay.data.local.db.DbHelper;
+import com.minhnv.luxuryhomestay.data.local.db.dao.UserDao;
+import com.minhnv.luxuryhomestay.data.local.preference.AppPreferenceHelper;
+import com.minhnv.luxuryhomestay.data.local.preference.PreferenceHelper;
 import com.minhnv.luxuryhomestay.data.remote.ApiHelper;
 import com.minhnv.luxuryhomestay.data.remote.AppApiHelper;
+import com.minhnv.luxuryhomestay.di.DatabaseInfo;
 import com.minhnv.luxuryhomestay.di.PreferenceInfo;
 import com.minhnv.luxuryhomestay.utils.ApiUtils;
 import com.minhnv.luxuryhomestay.utils.AppConstants;
@@ -84,4 +91,31 @@ public class AppModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
+
+    @Provides
+    @Singleton
+    AppDatabase provideAppDatabase(@DatabaseInfo String dbName,Context context){
+        return Room.databaseBuilder(context,AppDatabase.class,dbName).fallbackToDestructiveMigration().build();
+    }
+
+    @Provides
+    @Singleton
+    UserDao provideUserDao(AppDatabase appDatabase) {
+        return appDatabase.userDao();
+    }
+
+    @Provides
+    @DatabaseInfo
+    String provideDatabaseName(){
+        return AppConstants.DB_NAME;
+    }
+
+    @Provides
+    @Singleton
+    DbHelper provideDbHelper(AppDbHelper helper){
+        return helper;
+    }
+
+
+
 }

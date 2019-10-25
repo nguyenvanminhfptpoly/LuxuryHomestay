@@ -1,4 +1,4 @@
-package com.minhnv.luxuryhomestay.data.local;
+package com.minhnv.luxuryhomestay.data.local.preference;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,6 +12,7 @@ public class AppPreferenceHelper implements PreferenceHelper  {
     private static final String PREF_KEY_ACCESS_TOKEN = "PREF_KEY_ACCESS_TOKEN";
     private static final String PREF_KEY_PHONE_NUMBER = "PREF_KEY_PHONE_NUMBER";
     private static final String PREF_KEY_ADDRESS = "PREF_KEY_ADDRESS";
+    private static final String PREF_PASS = "PREF_PASS";
 
 
     private final SharedPreferences preferences;
@@ -35,13 +36,15 @@ public class AppPreferenceHelper implements PreferenceHelper  {
 
     @Override
     public String getCurrentPhoneNumber() {
-        return preferences.getString(PREF_KEY_PHONE_NUMBER, null);
+        return preferences.getString(PREF_KEY_PHONE_NUMBER, "");
     }
 
     @Override
     public void setCurrentPhoneNumber(String currentPhoneNumber) {
         preferences.edit().putString(PREF_KEY_PHONE_NUMBER, currentPhoneNumber).apply();
     }
+
+
 
     @Override
     public String getCurrentAddress() {
@@ -51,5 +54,15 @@ public class AppPreferenceHelper implements PreferenceHelper  {
     @Override
     public void setCurrentAddress(String currentAddress) {
         preferences.edit().putString(PREF_KEY_ADDRESS, currentAddress).apply();
+    }
+
+    @Override
+    public String getCurrentPassword() {
+        return preferences.getString(PREF_PASS, "");
+    }
+
+    @Override
+    public void setCurrentPassword(String currentPassword) {
+        preferences.edit().putString(PREF_PASS, currentPassword).apply();
     }
 }
