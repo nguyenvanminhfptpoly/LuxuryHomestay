@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,6 +52,8 @@ public class LuxuryAdapter extends RecyclerView.Adapter<LuxuryAdapter.ViewHolder
             holder.imgFavorite.setOnClickListener(view ->
                 luxury.onItemClickDetailListener(position)
             );
+            holder.imgShare.setOnClickListener(view ->
+                    luxury.onItemSharing(position));
         }
     }
 
@@ -66,6 +69,7 @@ public class LuxuryAdapter extends RecyclerView.Adapter<LuxuryAdapter.ViewHolder
         private TextView tvDetail,tvCountLove;
         private ANImageView imgLuxury;
         ImageView imgFavorite;
+        ImageButton imgShare;
         private Button btnDetailLuxury;
 
         ViewHolder(@NonNull View itemView) {
@@ -75,6 +79,7 @@ public class LuxuryAdapter extends RecyclerView.Adapter<LuxuryAdapter.ViewHolder
             tvDetail = itemView.findViewById(R.id.tvDetailLuxury);
             imgFavorite = itemView.findViewById(R.id.imgFavoriteLuxury);
             imgLuxury = itemView.findViewById(R.id.imgLuxury);
+            imgShare = itemView.findViewById(R.id.imgShare);
             btnDetailLuxury = itemView.findViewById(R.id.btnDetailLuxury);
         }
 

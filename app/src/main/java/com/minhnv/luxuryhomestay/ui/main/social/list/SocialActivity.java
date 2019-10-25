@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.minhnv.luxuryhomestay.ui.main.adapter.LuxuryAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
 import com.minhnv.luxuryhomestay.ui.main.homestay_detail.HomeStayDetailActivity;
 import com.minhnv.luxuryhomestay.ui.main.social.post.PostLuxuryActivity;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -71,6 +73,10 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
         adapter = new LuxuryAdapter(luxuries, getApplicationContext(), new RecyclerViewNavigator() {
             @Override
             public void onItemClickListener(int position) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
                 intent.putExtra("luxury_detail", luxuries.get(position));
                 startActivity(intent);
@@ -78,10 +84,25 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
 
             @Override
             public void onItemClickDetailListener(int position) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 Luxury luxury = luxuries.get(position);
                 Integer id = Integer.valueOf(luxury.getId());
                 Integer countLove =  love++;
                 viewmodel.addLoveForPost(id, countLove);
+            }
+
+            @Override
+            public void onItemSharing(int position) {
+                Luxury luxury = luxuries.get(position);
+                Intent senIntent = new Intent();
+                senIntent.setAction(Intent.ACTION_SEND);
+                senIntent.putExtra(Intent.EXTRA_SUBJECT,luxury.getAddress());
+                senIntent.putExtra(Intent.EXTRA_TEXT,luxury.getImage());
+                senIntent.setType("text/plain");
+                startActivity(Intent.createChooser(senIntent,"Chia sẻ đến"));
             }
         });
         recyclerView.setAdapter(adapter);
@@ -105,7 +126,7 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
                             Collections.reverse(luxuries);
                             adapter.notifyDataSetChanged();
                         },throwable ->
-                                Log.d(TAG, "loadList: "+throwable)
+                        AppLogger.d(TAG, "loadList: "+throwable)
                 ));
     }
 
@@ -115,12 +136,12 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
         if(!isNetworkConnected()){
             backToLogin();
         }
-        Log.d(TAG, "HandlerError: "+throwable);
+        AppLogger.d(TAG, "HandlerError: "+throwable);
     }
 
     @Override
     public void onSuccess() {
-        Log.d(TAG, "onSuccess: ");
+        AppLogger.d(TAG, "onSuccess: ");
     }
 
     @Override

@@ -4,7 +4,10 @@ public interface SignUpNavigator {
     void handleError(Throwable throwable);
 
     void login();
-
+    void onFailed();
     void openSignInActivity();
+    //database
+    void onInsertSuccess();
+    void onInsertFailed();
 
 }

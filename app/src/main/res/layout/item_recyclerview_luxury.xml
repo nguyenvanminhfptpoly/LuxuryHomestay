@@ -35,12 +35,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/img_home3"
         android:contentDescription="@string/todo"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddressUser"
-        android:background="@drawable/img_home3" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAddressUser" />
 
     <View
         android:id="@+id/view4"
@@ -54,20 +55,19 @@
     <TextView
         android:id="@+id/tvDetailLuxury"
         style="@style/TextViewBackground"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:maxLines="1"
-        android:maxLength="15"
         android:text="@string/detail"
+        android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="@+id/imgLuxury"
         app:layout_constraintEnd_toEndOf="@+id/view4"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imgLuxury"
         app:layout_constraintTop_toTopOf="@+id/imgLuxury"
-        app:layout_constraintVertical_bias="0.95"
-        />
+        app:layout_constraintVertical_bias="0.95" />
 
     <Button
         android:id="@+id/btnDetailLuxury"
@@ -92,7 +92,18 @@
         app:layout_constraintEnd_toEndOf="@+id/imgLuxury"
         app:layout_constraintTop_toTopOf="@+id/btnDetailLuxury" />
 
-
+    <ImageButton
+        android:id="@+id/imgShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_share_black_24dp"
+        android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNameUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvNameUser"
+        android:padding="20dp"
+        android:background="@color/md_white_1000"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

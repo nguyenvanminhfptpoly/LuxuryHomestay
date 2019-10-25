@@ -6,8 +6,12 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.InputFilter;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -22,6 +26,7 @@ import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
 import com.minhnv.luxuryhomestay.ui.main.booking.booking.BookingActivity;
 import com.minhnv.luxuryhomestay.ui.main.homestay_detail.HomeStayDetailActivity;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -37,6 +42,7 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
     private int rating;
     private SlidrInterface slide;
     int maxLength = 5;
+    private ImageButton btnSearch;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, SearchActivity.class);
@@ -52,13 +58,17 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
         viewmodel = ViewModelProviders.of(this, factory).get(SearchViewModel.class);
         viewmodel.setNavigator(this);
         slide = Slidr.attach(this);
-        Button btnSearch = findViewById(R.id.btnSearch);
-        RecyclerView recyclerViewSearch = findViewById(R.id.recyclerViewSearch);
+        initView();
+        setUpRecyclerView();
+    }
+    private void initView(){
+        btnSearch = findViewById(R.id.btnSearch);
         edRating = findViewById(R.id.includeSearch);
         edRating.setHint(R.string.hint_search);
         edRating.setFilters(new InputFilter[]{new InputFilterMinMax("1","5")});
-
-        //addRecyclerView
+    }
+    private void setUpRecyclerView(){
+        RecyclerView recyclerViewSearch = findViewById(R.id.recyclerViewSearch);
         homestays = new ArrayList<>();
         adapter = new HomeStaysAdapter(homestays, getApplicationContext(), new RecyclerViewNavigator() {
             @Override
@@ -73,6 +83,11 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
                 Intent intent = BookingActivity.newIntent(getApplicationContext());
                 intent.putExtra("booking",homestays.get(position));
                 startActivity(intent);
+            }
+
+            @Override
+            public void onItemSharing(int position) {
+
             }
         });
         recyclerViewSearch.setHasFixedSize(true);
@@ -89,20 +104,20 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
             adapter.notifyDataSetChanged();
             hideKeyboard();
         });
-    }
 
+    }
 
     @Override
     public void HandlerError(Throwable throwable) {
         if(!isNetworkConnected()){
             backToLogin();
         }
-        Log.d(TAG, "HandlerError: " + throwable);
+        AppLogger.d(TAG, "HandlerError: " + throwable);
     }
 
     @Override
     public void onSuccess() {
-        Log.d(TAG, "onUploadImageSuccess: ");
+        AppLogger.d(TAG, "onUploadImageSuccess: ");
     }
 
     @Override
@@ -120,7 +135,7 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
                         adapter.notifyDataSetChanged();
                         hideLoading();
                     }, throwable ->
-                        Log.d(TAG, "loadList: " + throwable)
+                            AppLogger.d(TAG, "loadList: " + throwable)
                     ));
         } else {
             Toast.makeText(this, getString(R.string.validate), Toast.LENGTH_SHORT).show();

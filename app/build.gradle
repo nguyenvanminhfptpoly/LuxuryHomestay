@@ -83,4 +83,23 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rxcalladapter_version"
     // Retrofit call adapter
     implementation 'com.r0adkll:slidableactivity:2.1.0'
+    //timeber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+    //loader view
+    implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'
+    //snap helper
+    implementation 'com.github.rubensousa:gravitysnaphelper:2.2.0'
+    //room dataBase
+    def room_version = "2.2.1"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+
+    //room rxJava
+    // RxJava support for Room
+    implementation 'androidx.room:room-rxjava2:2.2.1'
+    // Testing support
+    androidTestImplementation "android.arch.core:core-testing:1.1.1"
+
+
 }

@@ -141,4 +141,13 @@ public class UserResponse {
         }
     }
 
+    public static class ServerLoadHomeStayVinHomes{
+        @SerializedName("idvinhomes")
+        private Integer id;
+
+        public ServerLoadHomeStayVinHomes(Integer id) {
+            this.id = id;
+        }
+    }
+
 }

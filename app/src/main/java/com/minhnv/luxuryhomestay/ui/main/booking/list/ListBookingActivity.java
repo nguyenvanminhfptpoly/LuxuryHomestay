@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -17,6 +18,7 @@ import com.minhnv.luxuryhomestay.data.model.Booking;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.ui.main.adapter.BookingAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -89,6 +91,11 @@ public class ListBookingActivity extends BaseActivity<ListBookingViewModel> impl
             public void onItemClickDetailListener(int position) {
 
             }
+
+            @Override
+            public void onItemSharing(int position) {
+
+            }
         });
         recyclerView.setAdapter(adapter);
     }
@@ -102,7 +109,7 @@ public class ListBookingActivity extends BaseActivity<ListBookingViewModel> impl
                     Collections.reverse(bookings);
                     adapter.notifyDataSetChanged();
                 }, throwable -> {
-                    Log.d(TAG, "ServerLoadList: " + throwable);
+                    AppLogger.d(TAG, "ServerLoadList: " + throwable);
                 }));
     }
 
@@ -111,19 +118,25 @@ public class ListBookingActivity extends BaseActivity<ListBookingViewModel> impl
         if(!isNetworkConnected()){
             backToLogin();
         }
-        Log.d(TAG, "handleError: " + throwable);
+        AppLogger.d(TAG, "handleError: " + throwable);
     }
 
     @Override
     public void onSuccess() {
         adapter.notifyDataSetChanged();
-        Log.d(TAG, "onUploadImageSuccess: ");
+        AppLogger.d(TAG, "onUploadImageSuccess: ");
+    }
+
+    @Override
+    public void onFailed() {
+        hideLoading();
+        Toast.makeText(this, getString(R.string.delete_error), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onDeleteSuccess() {
         hideLoading();
-        Log.d(TAG, "onDeleteSuccess: ");
+        AppLogger.d(TAG, "onDeleteSuccess: ");
     }
 
     @Override

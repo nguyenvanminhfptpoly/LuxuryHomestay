@@ -6,8 +6,10 @@ import com.minhnv.luxuryhomestay.data.model.City;
 import com.minhnv.luxuryhomestay.data.model.Favorite;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
+import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
+import com.minhnv.luxuryhomestay.data.model.VinHome;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import java.util.List;
@@ -17,6 +19,9 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.functions.Function3;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 
@@ -147,7 +152,20 @@ public class AppApiHelper implements ApiHelper {
                 .getStringObservable();
     }
 
+    @Override
+    public Observable<List<VinHome>> doLoadCityVinHomes() {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_LIST_VINHOMES_CITY)
+                .build()
+                .getObjectListObservable(VinHome.class);
+    }
 
+    @Override
+    public Observable<List<ListVinHomes>> doLoadListHomeStayVinHomes(UserResponse.ServerLoadHomeStayVinHomes homes) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_LIST_HOMESTAYS_VINHOMES)
+                .addBodyParameter(homes)
+                .build()
+                .getObjectListObservable(ListVinHomes.class);
+    }
 
 
 }

@@ -6,6 +6,7 @@ import com.minhnv.luxuryhomestay.data.DataManager;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class SocialViewModel extends BaseViewModel<SocialNavigator> {
                 .subscribe(response -> {
                     listPublishSubject.onNext(response);
                     getNavigator().onSuccess();
-                    Log.d(TAG, "luxuryList: "+response);
+                    AppLogger.d(TAG, "luxuryList: "+response);
                 },throwable -> {
                     getNavigator().HandlerError(throwable);
                 })
@@ -47,11 +48,11 @@ public class SocialViewModel extends BaseViewModel<SocialNavigator> {
                 .subscribe(response -> {
                     if(response.equals("Success")) {
                         getNavigator().onSuccess();
-                        Log.d(TAG, "addLoveForPost: "+response);
+                        AppLogger.d(TAG, "addLoveForPost: "+response);
                     }
                 },throwable -> {
                     getNavigator().HandlerError(throwable);
-                    Log.d(TAG, "addLoveForPost: "+throwable);
+                    AppLogger.d(TAG, "addLoveForPost: "+throwable);
                 })
         );
    }

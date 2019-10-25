@@ -1,123 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:id="@+id/constraintLayout_delete"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:id="@+id/constraintLayout_delete">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/titleDateStart"
         style="@style/TextViewBackground"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/detail_hs"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/todo"
         android:textColor="@color/md_green_900"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView10"
-        app:layout_constraintTop_toTopOf="@+id/imageView10" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAddressHs" />
 
     <TextView
         android:id="@+id/titleDateEnd"
         style="@style/TextViewBackground"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/todo"
         android:textColor="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView11"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView11"
-        app:layout_constraintTop_toTopOf="@+id/imageView11" />
+        app:layout_constraintTop_toBottomOf="@+id/titleDateStart" />
 
     <TextView
         android:id="@+id/titleCountMember"
         style="@style/TextViewBackground"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/todo"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView12"
-        app:layout_constraintTop_toTopOf="@+id/imageView12" />
+        app:layout_constraintTop_toBottomOf="@+id/titleDateEnd" />
 
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:background="@drawable/ic_name_hs"
+        android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNameHs"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/todo"/>
+        app:layout_constraintTop_toTopOf="@+id/tvNameHs"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:background="@drawable/ic_address"
+        android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAddressHs"
         app:layout_constraintStart_toStartOf="@+id/imageView8"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8"
-        android:contentDescription="@string/todo"/>
+        app:layout_constraintTop_toTopOf="@+id/tvAddressHs"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:background="@drawable/ic_check_in"
+        android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toBottomOf="@+id/titleDateStart"
         app:layout_constraintStart_toStartOf="@+id/imageView9"
-        app:layout_constraintTop_toBottomOf="@+id/imageView9"
-        android:contentDescription="@string/todo"/>
+        app:layout_constraintTop_toTopOf="@+id/titleDateStart"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:background="@drawable/ic_check_out"
+        android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toBottomOf="@+id/titleDateEnd"
         app:layout_constraintStart_toStartOf="@+id/imageView10"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10"
-        android:contentDescription="@string/todo"/>
+        app:layout_constraintTop_toTopOf="@+id/titleDateEnd"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/ic_member"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toBottomOf="@+id/titleCountMember"
         app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/imageView11"
-        android:contentDescription="@string/todo"/>
+        app:layout_constraintTop_toTopOf="@+id/titleCountMember"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tvNameHs"
         style="@style/TextViewBackground"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/todo"
-        android:maxLines="1"
         android:textColor="@color/md_blue_900"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView8"
-        app:layout_constraintTop_toTopOf="@+id/imageView8" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvAddressHs"
         style="@style/TextViewBackground"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/todo"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView9"
-        app:layout_constraintTop_toTopOf="@+id/imageView9" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNameHs" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

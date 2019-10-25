@@ -81,4 +81,11 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:colorBackground">@android:color/transparent</item>
     </style>
+    <style name="CustomProgressbar" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="colorButtonNormal">#f50057</item>
+        <item name="colorControlActivated">#33691e</item>
+        <item name="colorControlHighlight">#ff6d00</item>
+        <item name="android:progressDrawable">@drawable/progress_layer_list</item>
+        <item name="android:minWidth">200dp</item>
+    </style>
 </resources>

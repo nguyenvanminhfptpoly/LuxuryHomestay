@@ -3,6 +3,7 @@ package com.minhnv.luxuryhomestay.ui.main.homestay_city;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
 import com.minhnv.luxuryhomestay.ui.main.booking.booking.BookingActivity;
 import com.minhnv.luxuryhomestay.ui.main.homestay_detail.HomeStayDetailActivity;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -48,21 +50,31 @@ public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> im
         viewmodel = ViewModelProviders.of(this,factory).get(HomeStayCityViewModel.class);
         viewmodel.setNavigator(this);
         slide = Slidr.attach(this);
+        setUpToolBar();
+        setUpRecyclerViewCity();
+        initIntent();
+        fetchData();
+    }
+    private void setUpToolBar(){
         toolbarCity = findViewById(R.id.toolbarCity);
         setSupportActionBar(toolbarCity);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         toolbarCity.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbarCity.setNavigationOnClickListener(view  -> {onBackPressed();});
-        initIntent();
+    }
+    private void setUpRecyclerViewCity(){
         RecyclerView recyclerViewCity = findViewById(R.id.recyclerviewFollowCity);
         recyclerViewCity.setHasFixedSize(true);
         recyclerViewCity.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         homeStays = new ArrayList<>();
-        fetchData();
         adapter = new HomeStaysAdapter(homeStays, getApplicationContext(), new RecyclerViewNavigator() {
             @Override
             public void onItemClickListener(int position) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
                 intent.putExtra("detail",homeStays.get(position));
                 startActivity(intent);
@@ -70,9 +82,18 @@ public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> im
 
             @Override
             public void onItemClickDetailListener(int position) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 Intent intent = BookingActivity.newIntent(getApplicationContext());
                 intent.putExtra("booking",homeStays.get(position));
                 startActivity(intent);
+            }
+
+            @Override
+            public void onItemSharing(int position) {
+
             }
         });
         recyclerViewCity.setAdapter(adapter);
@@ -85,7 +106,7 @@ public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> im
                     homeStays.addAll(data);
                     adapter.notifyDataSetChanged();
                 },throwable -> {
-                    Log.d(TAG, "loadList: "+throwable);
+                    AppLogger.d(TAG, "loadList: "+throwable);
                 }));
     }
 
@@ -116,12 +137,12 @@ public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> im
         if(!isNetworkConnected()){
             backToLogin();
         }
-        Log.d(TAG, "HandlerError: "+throwable);
+        AppLogger.d(TAG, "HandlerError: "+throwable);
     }
 
     @Override
     public void onSuccess() {
-        Log.d(TAG, "onUploadImageSuccess: ");
+        AppLogger.d(TAG, "onUploadImageSuccess: ");
     }
 
     @Override

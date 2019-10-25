@@ -25,23 +25,25 @@
 
     <TextView
         android:id="@+id/tvNameFavorite"
-        android:layout_width="wrap_content"
+        style="@style/TextViewBackground"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        style="@style/TextViewBackground"
         android:text="@string/todo"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imgFavorite"
         app:layout_constraintTop_toBottomOf="@+id/imgFavorite" />
 
     <TextView
         android:id="@+id/tvAddressFavorite"
         style="@style/TextViewBackgroundLight"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/todo"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvNameFavorite"
         app:layout_constraintTop_toBottomOf="@+id/tvNameFavorite" />
 

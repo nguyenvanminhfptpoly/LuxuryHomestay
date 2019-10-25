@@ -6,6 +6,7 @@ import com.minhnv.luxuryhomestay.data.DataManager;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
 import java.util.List;
@@ -27,12 +28,12 @@ public class HomeStayHotViewModel extends BaseViewModel<HomeStayHotNavigator> {
                         .subscribeOn(getSchedulerProvider().io())
                         .observeOn(getSchedulerProvider().ui())
                         .subscribe(response -> {
-                            Log.d(TAG, "loadListHomeStayRating: " + response);
+                            AppLogger.d(TAG, "loadListHomeStayRating: " + response);
                             homeStayPublishObservable.onNext(response);
                             getNavigator().onSuccess();
                         }, throwable -> {
                             getNavigator().HandlerError(throwable);
-                            Log.d(TAG, "loadListHomeStayRating: " + throwable);
+                            AppLogger.d(TAG, "loadListHomeStayRating: " + throwable);
                         })
         );
     }

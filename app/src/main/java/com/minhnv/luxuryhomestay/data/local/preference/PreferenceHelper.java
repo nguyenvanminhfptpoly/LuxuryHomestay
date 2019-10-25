@@ -1,4 +1,4 @@
-package com.minhnv.luxuryhomestay.data.local;
+package com.minhnv.luxuryhomestay.data.local.preference;
 
 public interface PreferenceHelper {
     String accessToken();
@@ -9,6 +9,11 @@ public interface PreferenceHelper {
 
     String getCurrentAddress();
     void setCurrentAddress(String currentAddress);
+
+
+    String getCurrentPassword();
+    void setCurrentPassword(String currentPassword);
+
 
 
 

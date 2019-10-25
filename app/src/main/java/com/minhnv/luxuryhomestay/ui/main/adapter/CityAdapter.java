@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidnetworking.widget.ANImageView;
+import com.elyeproj.loaderviewlibrary.LoaderTextView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.City;
 import com.squareup.picasso.Picasso;
@@ -52,7 +53,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ANImageView imageView;
-        TextView tvName;
+        LoaderTextView tvName;
         ConstraintLayout item_city;
         Context context;
 

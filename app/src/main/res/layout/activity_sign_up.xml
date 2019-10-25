@@ -26,6 +26,7 @@
             android:background="@drawable/bg_edittext"
             android:fontFamily="@font/robotocondensed_regular"
             android:hint="@string/password"
+            android:inputType="textPassword"
             android:padding="10dp"
             android:textColor="@android:color/background_dark"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +42,7 @@
             android:fontFamily="@font/robotocondensed_regular"
             android:hint="@string/phone_number"
             android:padding="10dp"
-            android:inputType="number"
+            android:inputType="phone"
             android:textColor="@android:color/background_dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,8 +55,9 @@
             android:layout_marginTop="28dp"
             android:background="@drawable/bg_edittext"
             android:fontFamily="@font/robotocondensed_regular"
-            android:hint="@string/address"
+            android:hint="@string/name"
             android:padding="10dp"
+            android:inputType="text"
             android:textColor="@android:color/background_dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +71,8 @@
             android:text="@string/have_account"
             android:textColor="@color/md_black_1000"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/includeAddress" />
+            app:layout_constraintStart_toStartOf="@+id/includeAddress"
+            android:paddingTop="10dp"/>
 
         <Button
             android:id="@+id/btnSignUp"

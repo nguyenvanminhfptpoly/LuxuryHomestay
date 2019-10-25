@@ -23,6 +23,7 @@ import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.remote.DataClient;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.utils.ApiUtils;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -172,7 +173,7 @@ public class PostLuxuryActivity extends BaseActivity<PostLuxuryViewModel> implem
                                 if (!isNetworkConnected()) {
                                     backToLogin();
                                 }
-                                Log.d(TAG, "onFailure: " + t.getMessage());
+                                AppLogger.d(TAG, "onFailure: " + t.getMessage());
                             }
                         });
                     }
@@ -180,7 +181,7 @@ public class PostLuxuryActivity extends BaseActivity<PostLuxuryViewModel> implem
 
                 @Override
                 public void onFailure(@NotNull Call<String> call, @NotNull Throwable t) {
-                    Log.d(TAG, "onFailure: " + t.getMessage());
+                    AppLogger.d(TAG, "onFailure: " + t.getMessage());
                 }
             });
         }

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.ViewModelProviderFactory;
+import com.minhnv.luxuryhomestay.data.local.preference.AppPreferenceHelper;
 import com.minhnv.luxuryhomestay.ui.login.signin.SignInActivity;
 import com.minhnv.luxuryhomestay.utils.CommonUtils;
 import com.minhnv.luxuryhomestay.utils.rx.NetworkUtils;
@@ -29,6 +30,8 @@ public abstract class BaseActivity<V extends BaseViewModel> extends AppCompatAct
     public  ViewModelProviderFactory factory;
     @Inject
     public  SchedulerProvider schedulerProvider;
+    @Inject
+    public AppPreferenceHelper appPreferenceHelper;
 
     public V viewmodel;
 
@@ -52,8 +55,6 @@ public abstract class BaseActivity<V extends BaseViewModel> extends AppCompatAct
         setContentView(getLayoutId());
         onCreateActivity(savedInstanceState);
     }
-
-
 
     public void performDependencyInjection(){
         AndroidInjection.inject(this);

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.androidnetworking.widget.ANImageView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
+import com.minhnv.luxuryhomestay.utils.CommonUtils;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -72,13 +73,8 @@ public class HomeStaysPriceAscAdapter extends RecyclerView.Adapter<HomeStaysPric
             imgPicture.setImageUrl(homestay.getImage());
             tvName.setText(homestay.getTitle());
             tvDetail.setText(homestay.getAddress());
-            Double price = homestay.getPrice();
-            Double priceAgo = homestay.getPriceago();
-            DecimalFormat format = new DecimalFormat("#,### VND/đêm");
-            String credits = format.format(price);
-            String creditsAgo = format.format(priceAgo);
-            tvPrice.setText(credits);
-            tvPriceAgo.setText(creditsAgo);
+            tvPrice.setText(CommonUtils.FormatCredits(homestay.getPrice()));
+            tvPriceAgo.setText(CommonUtils.FormatCredits(homestay.getPriceago()));
 
         }
 
