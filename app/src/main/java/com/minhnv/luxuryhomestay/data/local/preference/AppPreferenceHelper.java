@@ -36,7 +36,7 @@ public class AppPreferenceHelper implements PreferenceHelper  {
 
     @Override
     public String getCurrentPhoneNumber() {
-        return preferences.getString(PREF_KEY_PHONE_NUMBER, "");
+        return preferences.getString(PREF_KEY_PHONE_NUMBER, null);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class AppPreferenceHelper implements PreferenceHelper  {
 
     @Override
     public String getCurrentPassword() {
-        return preferences.getString(PREF_PASS, "");
+        return preferences.getString(PREF_PASS, null);
     }
 
     @Override

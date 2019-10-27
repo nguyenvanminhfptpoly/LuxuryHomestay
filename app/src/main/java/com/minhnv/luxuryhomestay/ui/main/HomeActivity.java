@@ -28,6 +28,7 @@ import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.City;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
+import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.data.model.VinHome;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.ui.intro.IntroductionActivity;
@@ -37,6 +38,8 @@ import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysPriceAscAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
 import com.minhnv.luxuryhomestay.ui.main.adapter.SnapHelperOneByOne;
+import com.minhnv.luxuryhomestay.ui.main.adapter.SocialAdapter;
+import com.minhnv.luxuryhomestay.ui.main.adapter.StartSnapHelper;
 import com.minhnv.luxuryhomestay.ui.main.adapter.VinHomeAdapter;
 import com.minhnv.luxuryhomestay.ui.main.booking.booking.BookingActivity;
 import com.minhnv.luxuryhomestay.ui.main.booking.list.ListBookingActivity;
@@ -72,7 +75,9 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
     private List<VinHome> vinHomes;
     private VinHomeAdapter homeAdapter;
     private ImageView imgPayment,imgGuideBooking;
-    private TextView tvUserName,tvAddress;
+    private TextView tvUserName,tvAddress,tvNameUser;
+    private List<Luxury> luxuries;
+    private SocialAdapter socialAdapter;
 
     @Override
     public int getLayoutId() {
@@ -91,6 +96,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         viewmodel.setNavigator(this);
         initView();
         setUpToolBar();
+        setUpRecyclerViewSocial();
         setUpNavigationView();
         setUpRecyclerViewCity();
         setUpRecyclerViewHomeStayHot();
@@ -103,6 +109,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         btnGotoBooking = findViewById(R.id.btnGotoBooking);
         btnDetailHSH = findViewById(R.id.buttonDetailHSH);
         btnDetailHSP = findViewById(R.id.btnDetailHSP);
+        tvNameUser = findViewById(R.id.tvNameUser);
         btnGotoBooking.setOnClickListener(view -> startActivity(ListBookingActivity.newIntent(getApplicationContext())));
         btnDetailHSH.setOnClickListener(view -> {startActivity(HomeStayHotActivity.newIntent(HomeActivity.this));});
         btnDetailHSP.setOnClickListener(view -> {startActivity(HomeStayPriceAgoActivity.newIntent(getApplicationContext()));});
@@ -122,6 +129,9 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
             Dialog dialog = builder.create();
             dialog.show();
         });
+
+        String nameUser = getString(R.string.title_header) + " " +  (appPreferenceHelper.getCurrentAddress() == null ? appPreferenceHelper.getCurrentPhoneNumber() : appPreferenceHelper.getCurrentAddress());
+        tvNameUser.setText(nameUser);
     }
     private void setUpRecyclerViewCity(){
         //city
@@ -289,6 +299,17 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         helper.attachToRecyclerView(recyclerView);
 
     }
+    private void setUpRecyclerViewSocial(){
+        helper = new StartSnapHelper();
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewHome);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
+        viewmodel.ServerListLuxury();
+        luxuries = new ArrayList<>();
+        socialAdapter = new SocialAdapter(luxuries,getApplicationContext());
+        recyclerView.setAdapter(socialAdapter);
+        helper.attachToRecyclerView(recyclerView);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -307,7 +328,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         tvUserName = navigationView.findViewById(R.id.tvUserName);
         tvAddress = navigationView.findViewById(R.id.tvAddress);
         tvAddress.setText(appPreferenceHelper.getCurrentPhoneNumber());
-        tvUserName.setText(appPreferenceHelper.getCurrentAddress());
+        tvUserName.setText(appPreferenceHelper.getCurrentAddress() == null ? "" : appPreferenceHelper.getCurrentAddress());
     }
 
     @Override
@@ -415,6 +436,20 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
             .subscribe(data -> {
                 vinHomes.addAll(data);
                 homeAdapter.notifyDataSetChanged();
+            },throwable -> {
+                AppLogger.d(TAG,throwable);
+            }));
+    }
+
+    @Override
+    public void loadListLuxury() {
+        viewmodel.loadListSocial();
+        compositeDisposable.add(viewmodel.listLuxuryBehaviorSubject.share()
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
+            .subscribe(data -> {
+                luxuries.addAll(data);
+                socialAdapter.notifyDataSetChanged();
             },throwable -> {
                 AppLogger.d(TAG,throwable);
             }));
