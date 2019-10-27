@@ -116,4 +116,8 @@
         \n Chủ Homestay sẽ xác nhận với bạn một lần nữa về việc CheckIn và CheckOut cũng như số lượng người
         \n Chúng tôi cũng đảm bảo về tính đúng đắn khi nhận HomeStay
     </string>
+
+    //social home
+    <string name="title_header">Xin chào</string>
+    <string name="title_content">Hãy xem mọi người đã chia sẻ những gì</string>
 </resources>

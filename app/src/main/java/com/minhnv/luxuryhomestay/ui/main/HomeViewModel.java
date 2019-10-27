@@ -6,6 +6,7 @@ import com.minhnv.luxuryhomestay.data.DataManager;
 import com.minhnv.luxuryhomestay.data.model.City;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
+import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.data.model.VinHome;
 import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
@@ -27,6 +28,8 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
     public BehaviorSubject<List<VinHome>> listBehaviorSubject = BehaviorSubject.create();
 
+    public BehaviorSubject<List<Luxury>> listLuxuryBehaviorSubject = BehaviorSubject.create();
+
 
     public HomeViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
@@ -34,6 +37,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
         Observable<List<City>> listCityObservable = listCityPublishSubject.share();
         Observable<List<HomestayPrice>> listObservable = listPublishSubject.share();
         Observable<List<VinHome>> listVinHomeObservable = listBehaviorSubject.share();
+        Observable<List<Luxury>> listLuxuryObservable = listLuxuryBehaviorSubject.share();
     }
 
 
@@ -97,6 +101,21 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                 })
         );
     }
+
+    public void loadListSocial(){
+        getCompositeDisposable().add(
+                getDataManager().doLoadListLuxury()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(response -> {
+                    listLuxuryBehaviorSubject.onNext(response);
+                },throwable -> {
+                    AppLogger.d(TAG,throwable);
+                })
+        );
+    }
+
+    public void ServerListLuxury(){getNavigator().loadListLuxury();}
 
     public void ServerLoadCityVinHomes(){
         getNavigator().doLoadCityVinHome();

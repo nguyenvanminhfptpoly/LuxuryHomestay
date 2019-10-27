@@ -42,6 +42,8 @@ public class SignInViewModel extends BaseViewModel<SignInNavigator>  {
             .observeOn(getSchedulerProvider().ui())
             .subscribe(response -> {
                 if(response.equals("Success")){
+                    getDataManager().setCurrentPhoneNumber(password);
+                    getDataManager().setCurrentPassword(phonenumber);
                     getNavigator().onSuccess();
                 }else if(response.equals("Failed") || response.equals("Null")){
                     getNavigator().onFailed();
