@@ -7,6 +7,7 @@ import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
 import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
+import com.minhnv.luxuryhomestay.data.model.Story;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.data.model.VinHome;
 
@@ -50,4 +51,5 @@ public interface ApiHelper {
 
     Observable<List<ListVinHomes>> doLoadListHomeStayVinHomes(UserResponse.ServerLoadHomeStayVinHomes homes);
 
+    Observable<List<Story>> doLoadListStory();
 }

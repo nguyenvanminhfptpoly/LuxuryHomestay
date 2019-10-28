@@ -13,7 +13,6 @@
         <item name="android:background">@color/md_white_1000</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
         <item name="android:theme">?attr/actionBarTheme</item>
-        <item name="android:titleTextColor">@color/md_white_1000</item>
 
     </style>
 
@@ -81,6 +80,9 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:colorBackground">@android:color/transparent</item>
     </style>
+
+
+
     <style name="CustomProgressbar" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
         <item name="colorButtonNormal">#f50057</item>
         <item name="colorControlActivated">#33691e</item>

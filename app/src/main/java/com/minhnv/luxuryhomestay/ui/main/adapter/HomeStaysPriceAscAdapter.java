@@ -1,6 +1,10 @@
 package com.minhnv.luxuryhomestay.ui.main.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,13 +72,20 @@ public class HomeStaysPriceAscAdapter extends RecyclerView.Adapter<HomeStaysPric
         }
 
         void bind(HomestayPrice homestay) {
+            double percent = (homestay.getPrice() / homestay.getPriceago()) * 100;
             imgPicture.setDefaultImageResId(R.drawable.img_home1);
             imgPicture.setErrorImageResId(R.drawable.uploadfailed);
             imgPicture.setImageUrl(homestay.getImage());
             tvName.setText(homestay.getTitle());
             tvDetail.setText(homestay.getAddress());
             tvPrice.setText(CommonUtils.FormatCredits(homestay.getPrice()));
-            tvPriceAgo.setText(CommonUtils.FormatCredits(homestay.getPriceago()));
+            String priceAgo = (CommonUtils.FormatCredits(homestay.getPriceago())) + " giảm: " + Math.round(percent) + "%";
+            SpannableStringBuilder builder = new SpannableStringBuilder(priceAgo);
+            StrikethroughSpan span = new StrikethroughSpan();
+            builder.setSpan(span,0,15, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            tvPriceAgo.setText(builder);
+
 
         }
 

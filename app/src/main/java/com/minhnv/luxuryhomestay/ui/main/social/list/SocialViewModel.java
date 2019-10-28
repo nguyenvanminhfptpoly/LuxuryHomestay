@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.minhnv.luxuryhomestay.data.DataManager;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
+import com.minhnv.luxuryhomestay.data.model.Story;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
@@ -17,9 +18,11 @@ import io.reactivex.subjects.BehaviorSubject;
 public class SocialViewModel extends BaseViewModel<SocialNavigator> {
     private static final String TAG = "SocialViewModel";
     public BehaviorSubject<List<Luxury>> listPublishSubject = BehaviorSubject.create();
+    public BehaviorSubject<List<Story>> listBehaviorSubject = BehaviorSubject.create();
     public SocialViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
         Observable<List<Luxury>> listObservable = listPublishSubject.share();
+        Observable<List<Story>> listObservable1 = listBehaviorSubject.share();
     }
     public void luxuryList(){
         getCompositeDisposable().add(
@@ -57,5 +60,21 @@ public class SocialViewModel extends BaseViewModel<SocialNavigator> {
         );
    }
 
+   public void loadListStory(){
+        getCompositeDisposable().add(
+                getDataManager().doLoadListStory()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(response -> {
+                    listBehaviorSubject.onNext(response);
+                },throwable -> {
+                    AppLogger.d(TAG,throwable);
+                })
+        );
+   }
+
+   public void ServerLoadListStory(){
+        getNavigator().loadStory();
+   }
 
 }

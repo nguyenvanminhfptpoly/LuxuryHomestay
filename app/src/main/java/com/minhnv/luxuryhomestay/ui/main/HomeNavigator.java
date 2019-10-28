@@ -14,5 +14,4 @@ public interface HomeNavigator {
     void doLoadHomeStaysRating();
     void doLoadHomeStaysPriceAsc();
     void doLoadCityVinHome();
-    void loadListLuxury();
 }

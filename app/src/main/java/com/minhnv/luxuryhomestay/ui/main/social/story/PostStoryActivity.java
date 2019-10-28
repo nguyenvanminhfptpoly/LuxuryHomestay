@@ -1,4 +1,8 @@
-package com.minhnv.luxuryhomestay.ui.main.social.post;
+package com.minhnv.luxuryhomestay.ui.main.social.story;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,15 +13,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.remote.DataClient;
@@ -40,77 +39,73 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PostLuxuryActivity extends BaseActivity<PostLuxuryViewModel> implements PostLuxuryNavigator {
-    private static final String TAG = "PostLuxuryActivity";
-    private ImageView imgUploadImage;
-    private int Image = 123;
-    String realPath = "", username, address, detail;
-    EditText edAddressHs, edUsername, edDetailHs;
+public class PostStoryActivity extends BaseActivity<PostStoryViewModel> implements PostStoryNavigator {
+    private static final String TAG = "PostStoryActivity";
+    private ImageView imgStoryPost;
+    private EditText edStoryPost;
+    private Button btnPostStory;
     private SlidrInterface slide;
-    File fileLuxury;
+    private int RESULT_CODE = 12;
+    String realPath = "";
+    private File file;
+
     public static Intent newIntent(Context context) {
-        return new Intent(context, PostLuxuryActivity.class);
+        return new Intent(context, PostStoryActivity.class);
 
     }
 
+
     @Override
     public int getLayoutId() {
-        return R.layout.activity_post_luxury;
+        return R.layout.activity_post_story;
     }
 
     @Override
     public void onCreateActivity(@Nullable Bundle savedInstanceState) {
-        viewmodel = ViewModelProviders.of(this, factory).get(PostLuxuryViewModel.class);
+        viewmodel = ViewModelProviders.of(this, factory).get(PostStoryViewModel.class);
         viewmodel.setNavigator(this);
         slide = Slidr.attach(this);
         initView();
     }
 
     private void initView() {
-        Toolbar toolbar = findViewById(R.id.toolbarPostLuxury);
+        Toolbar toolbar = findViewById(R.id.toolbarStory);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Đăng Bài");
+        toolbar.setTitle("Đăng tin của bạn");
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(view -> {
             onBackPressed();
         });
-
-        imgUploadImage = findViewById(R.id.imgUploadImage);
-        edAddressHs = findViewById(R.id.includeAddress).findViewById(R.id.edValue);
-        edUsername = findViewById(R.id.includeTitleStoryPost).findViewById(R.id.edValue);
-        edDetailHs = findViewById(R.id.includeDetail).findViewById(R.id.edValue);
-        edUsername.setText(appPreferenceHelper.getCurrentAddress());
+        imgStoryPost = findViewById(R.id.imgStoryPost);
+        btnPostStory = findViewById(R.id.btnPostStory);
+        edStoryPost = findViewById(R.id.includeTitleStoryPost).findViewById(R.id.edValue);
         uploadImage();
-
-        Button btnPostLuxury = findViewById(R.id.btnPostStory);
-
-        btnPostLuxury.setOnClickListener(view -> {
-            if(SystemClock.elapsedRealtime() - mLastClickTime < 5000){
+        btnPostStory.setOnClickListener(view -> {
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
                 return;
             }
             showLoading();
-            postLuxury();
+            postStory();
         });
     }
 
-
     private void uploadImage() {
-        imgUploadImage.setOnClickListener(img -> {
+        imgStoryPost.setOnClickListener(img -> {
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
-            startActivityForResult(intent, Image);
+            startActivityForResult(intent, RESULT_CODE);
         });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == Image && resultCode == RESULT_OK && data != null) {
+        if (requestCode == RESULT_CODE && resultCode == RESULT_OK && data != null) {
             Uri uri = data.getData();
             realPath = getRealPathFromURI(uri);
             try {
                 InputStream inputStream = getContentResolver().openInputStream(uri);
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                imgUploadImage.setImageBitmap(bitmap);
+                imgStoryPost.setImageBitmap(bitmap);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -131,34 +126,34 @@ public class PostLuxuryActivity extends BaseActivity<PostLuxuryViewModel> implem
         return path;
     }
 
+    private void postStory() {
+        String title = edStoryPost.getText().toString().trim();
 
-    private void postLuxury() {
-        username = edUsername.getText().toString().trim();
-        address = edAddressHs.getText().toString().trim();
-        detail = edDetailHs.getText().toString().trim();
-
-         fileLuxury = new File(realPath);
-        if(username.isEmpty() || address.isEmpty() || detail.isEmpty() || fileLuxury.length() == 0) {
+        file = new File(realPath);
+        if (title.isEmpty() || file.length() == 0) {
             hideLoading();
-            Toast.makeText(this, getString(R.string.validate_booking), Toast.LENGTH_SHORT).show();
-        }else {
-            String fileLuxuryAbsolutePath = fileLuxury.getAbsolutePath();
-            String[] split = fileLuxuryAbsolutePath.split("\\.");
-            fileLuxuryAbsolutePath = split[0] + System.currentTimeMillis() + "." + split[0];
-            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), fileLuxury);
+            Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show();
+        } else {
+        String filePath = file.getAbsolutePath();
+        String[] nameImage = filePath.split("\\.");
 
-            MultipartBody.Part uploadedFile = MultipartBody.Part.createFormData("uploaded_file", fileLuxuryAbsolutePath, requestBody);
+            filePath = nameImage[0] + System.currentTimeMillis() + "." + nameImage[0];
+
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+            MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", filePath, requestBody);
 
             DataClient dataClient = ApiUtils.getData();
-            Call<String> call = dataClient.UploadPhot(uploadedFile);
+            Call<String> call = dataClient.UploadPhot(body);
             call.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(@NotNull Call<String> call, @NotNull Response<String> response) {
-                    String body = response.body();
-                    assert body != null;
-                    if (body.length() > 0) {
-                        DataClient insertData = ApiUtils.getData();
-                        Call<String> callb = insertData.insertData(ApiUtils.baseUrl + "image/" + body, detail, username, address);
+                    String message = response.body();
+                    assert message != null;
+                    if (message.length() > 0) {
+                        DataClient postStory = ApiUtils.getData();
+                        String img = ApiUtils.baseUrl + "image/" + message;
+                        Call<String> callb = postStory.postStory(title, img);
                         callb.enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(@NotNull Call<String> call, @NotNull Response<String> response) {
@@ -166,20 +161,13 @@ public class PostLuxuryActivity extends BaseActivity<PostLuxuryViewModel> implem
                                 assert result != null;
                                 if (result.equals("Success")) {
                                     hideLoading();
-                                    Toast.makeText(PostLuxuryActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
-                                }else if(result.equals("Failed")){
-                                    hideLoading();
-                                    Toast.makeText(PostLuxuryActivity.this, "Có lỗi xảy ra", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(PostStoryActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
                             @Override
                             public void onFailure(@NotNull Call<String> call, @NotNull Throwable t) {
-                                if (!isNetworkConnected()) {
-                                    backToLogin();
-                                }
-                                hideLoading();
-                                AppLogger.d(TAG, "onFailure: "+t.getMessage());
+                                AppLogger.d(TAG, t.getMessage());
                             }
                         });
                     }

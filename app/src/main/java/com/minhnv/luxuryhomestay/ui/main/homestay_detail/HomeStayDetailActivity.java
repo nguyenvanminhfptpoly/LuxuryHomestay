@@ -2,6 +2,7 @@ package com.minhnv.luxuryhomestay.ui.main.homestay_detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -125,17 +126,18 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
             imgDetail.setImageUrl(price.getImage());
             String name = getString(R.string.name_hs) + price.getTitle();
             String rating = price.getRating();
-            String detail = "Giá cũ: " + price.getPriceago();
             String hasTag = getString(R.string.has_tag_home_stay) + price.getHastag();
             String address = getString(R.string.addressHs) + price.getAddress();
             nameImage = price.getImage();
             tvName.setText(name);
             viewRating.setText(rating);
-            tvDetail.setText(detail);
+            tvDetail.setText(CommonUtils.FormatCredits(price.getPriceago()));
+            tvDetail.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             tvHasTag.setText(hasTag);
             tvAddress.setText(address);
             tvEvaLute.setText("");
             tvPrice.setText(CommonUtils.FormatCredits(price.getPrice()));
+
         } else if (getIntent().getSerializableExtra("luxury_detail") != null) {
             Luxury luxury = (Luxury) getIntent().getSerializableExtra("luxury_detail");
             assert luxury != null;

@@ -44,8 +44,6 @@ public class AppPreferenceHelper implements PreferenceHelper  {
         preferences.edit().putString(PREF_KEY_PHONE_NUMBER, currentPhoneNumber).apply();
     }
 
-
-
     @Override
     public String getCurrentAddress() {
         return preferences.getString(PREF_KEY_ADDRESS, null);

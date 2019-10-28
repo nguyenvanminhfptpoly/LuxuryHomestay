@@ -8,6 +8,7 @@ import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
 import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
+import com.minhnv.luxuryhomestay.data.model.Story;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.data.model.VinHome;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
@@ -165,6 +166,13 @@ public class AppApiHelper implements ApiHelper {
                 .addBodyParameter(homes)
                 .build()
                 .getObjectListObservable(ListVinHomes.class);
+    }
+
+    @Override
+    public Observable<List<Story>> doLoadListStory() {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_LIST_STORY)
+                .build()
+                .getObjectListObservable(Story.class);
     }
 
 
