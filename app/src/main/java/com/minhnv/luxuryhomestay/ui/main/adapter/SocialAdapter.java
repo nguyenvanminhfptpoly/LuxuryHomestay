@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -12,20 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidnetworking.widget.ANImageView;
 import com.minhnv.luxuryhomestay.R;
-import com.minhnv.luxuryhomestay.data.model.Luxury;
-import com.squareup.picasso.Picasso;
+import com.minhnv.luxuryhomestay.data.model.Story;
 
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class SocialAdapter extends RecyclerView.Adapter<SocialAdapter.ViewHolder> {
-    private List<Luxury> luxuries;
+    private List<Story> stories;
     private Context context;
+    private RecyclerViewNavigator navigator;
 
-    public SocialAdapter(List<Luxury> luxuries, Context context) {
-        this.luxuries = luxuries;
+    public SocialAdapter(List<Story> luxuries, Context context,RecyclerViewNavigator navigator) {
+        this.stories = luxuries;
         this.context = context;
+        this.navigator = navigator;
     }
 
     @NonNull
@@ -36,24 +34,28 @@ public class SocialAdapter extends RecyclerView.Adapter<SocialAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(luxuries.get(position));
+        holder.bind(stories.get(position));
+        holder.view.setOnClickListener(card -> {navigator.onItemClickListener(position);});
     }
 
     @Override
     public int getItemCount() {
-        return luxuries == null ? 0 : luxuries.size();
+        return stories == null ? 0 : stories.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-
-    private CircleImageView imgSocial;
+    private CardView view;
+    private ANImageView imgSocial;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            view = itemView.findViewById(R.id.cardSocial);
             imgSocial = itemView.findViewById(R.id.imgSocial);
         }
-        public void bind(Luxury luxury){
-            Picasso.get().load(luxury.getImage()).error(R.drawable.uploadfailed).into(imgSocial);
+        public void bind(Story luxury){
+            imgSocial.setImageUrl(luxury.getImage());
+            imgSocial.setDefaultImageResId(R.drawable.img_home1);
+            imgSocial.setErrorImageResId(R.drawable.uploadfailed);
+
         }
     }
 }

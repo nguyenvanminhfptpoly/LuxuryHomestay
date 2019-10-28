@@ -20,7 +20,7 @@
         app:titleTextColor="@color/md_white_1000"/>
 
     <include
-        android:id="@+id/includeUsername"
+        android:id="@+id/includeTitleStoryPost"
         layout="@layout/include_edittext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -45,8 +45,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/addressHs"
-        app:layout_constraintStart_toStartOf="@+id/includeUsername"
-        app:layout_constraintTop_toBottomOf="@+id/includeUsername" />
+        app:layout_constraintStart_toStartOf="@+id/includeTitleStoryPost"
+        app:layout_constraintTop_toBottomOf="@+id/includeTitleStoryPost" />
 
     <include
         android:id="@+id/includeDetail"
@@ -62,7 +62,7 @@
         layout="@layout/include_edittext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/includeUsername"
+        app:layout_constraintEnd_toEndOf="@+id/includeTitleStoryPost"
         app:layout_constraintStart_toStartOf="@+id/textView11"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
@@ -90,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbarPostLuxury" />
 
     <Button
-        android:id="@+id/btnPostLuxury"
+        android:id="@+id/btnPostStory"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

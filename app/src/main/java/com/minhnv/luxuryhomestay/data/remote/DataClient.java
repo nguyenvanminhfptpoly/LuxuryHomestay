@@ -19,4 +19,9 @@ public interface DataClient {
                             @Field("detail") String detail,
                             @Field("username") String username,
                             @Field("address") String address);
+
+    @FormUrlEncoded
+    @POST("storypost.php")
+    Call<String> postStory(@Field("title") String title,
+                           @Field("image") String image);
 }

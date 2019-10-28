@@ -102,20 +102,6 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
         );
     }
 
-    public void loadListSocial(){
-        getCompositeDisposable().add(
-                getDataManager().doLoadListLuxury()
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(response -> {
-                    listLuxuryBehaviorSubject.onNext(response);
-                },throwable -> {
-                    AppLogger.d(TAG,throwable);
-                })
-        );
-    }
-
-    public void ServerListLuxury(){getNavigator().loadListLuxury();}
 
     public void ServerLoadCityVinHomes(){
         getNavigator().doLoadCityVinHome();

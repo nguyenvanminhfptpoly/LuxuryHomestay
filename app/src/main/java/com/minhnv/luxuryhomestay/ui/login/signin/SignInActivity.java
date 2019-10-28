@@ -183,13 +183,15 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
     public void login() {
         String InputPhoneNumber = passWord.getText().toString().trim();
         String InputPassword = phoneNumber.getText().toString().trim();
-        if (viewmodel.isRequestValid(InputPhoneNumber, InputPassword)) {
+        if (viewmodel.isRequestValid(InputPhoneNumber, InputPassword) && isNetworkConnected()) {
             editor.putString(PASSWORD, InputPassword);
             editor.putString(PHONENUMBER, InputPhoneNumber);
             editor.commit();
             viewmodel.signin(InputPassword,InputPhoneNumber);
             hideKeyboard();
             showLoading();
+        } else if(!isNetworkConnected()) {
+            Toast.makeText(this, getString(R.string.login_error), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, getString(R.string.email_password_valid), Toast.LENGTH_SHORT).show();
         }

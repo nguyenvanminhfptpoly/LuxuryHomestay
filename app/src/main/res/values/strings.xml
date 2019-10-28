@@ -56,6 +56,9 @@
     <string name="choose_image">Chọn ảnh </string>
     <string name="add_favorite_success">Thêm Yêu Thích </string>
     <string name="add_favorite_failed">Không thể thêm yêu thích </string>
+    <string name="new_feed">Bảng tin </string>
+    <string name="story_post">Đăng tin của bạn </string>
+    <string name="error">Đã xảy ra lỗi</string>
 
     //booking
     <string name="date_start">Ngày đến</string>
@@ -118,6 +121,8 @@
     </string>
 
     //social home
-    <string name="title_header">Xin chào</string>
+    <string name="title_header">Xin chào:  </string>
     <string name="title_content">Hãy xem mọi người đã chia sẻ những gì</string>
+    <string name="select_post">Bạn Muốn ?</string>
+    <string name="price_ago_1">giảm: </string>
 </resources>

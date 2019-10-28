@@ -36,6 +36,7 @@ import com.minhnv.luxuryhomestay.ui.login.signin.SignInActivity;
 import com.minhnv.luxuryhomestay.ui.main.adapter.CityAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysPriceAscAdapter;
+import com.minhnv.luxuryhomestay.ui.main.adapter.LinearLayoutManagerWithSmoothScroller;
 import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
 import com.minhnv.luxuryhomestay.ui.main.adapter.SnapHelperOneByOne;
 import com.minhnv.luxuryhomestay.ui.main.adapter.SocialAdapter;
@@ -55,6 +56,7 @@ import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -76,8 +78,6 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
     private VinHomeAdapter homeAdapter;
     private ImageView imgPayment,imgGuideBooking;
     private TextView tvUserName,tvAddress,tvNameUser;
-    private List<Luxury> luxuries;
-    private SocialAdapter socialAdapter;
 
     @Override
     public int getLayoutId() {
@@ -96,7 +96,6 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         viewmodel.setNavigator(this);
         initView();
         setUpToolBar();
-        setUpRecyclerViewSocial();
         setUpNavigationView();
         setUpRecyclerViewCity();
         setUpRecyclerViewHomeStayHot();
@@ -130,8 +129,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
             dialog.show();
         });
 
-        String nameUser = getString(R.string.title_header) + " " +  (appPreferenceHelper.getCurrentAddress() == null ? appPreferenceHelper.getCurrentPhoneNumber() : appPreferenceHelper.getCurrentAddress());
-        tvNameUser.setText(nameUser);
+
     }
     private void setUpRecyclerViewCity(){
         //city
@@ -172,7 +170,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
             }
         });
         recyclerViewCity.setHasFixedSize(true);
-        recyclerViewCity.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        recyclerViewCity.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this, LinearLayoutManagerWithSmoothScroller.HORIZONTAL,false));
         recyclerViewCity.setAdapter(cityAdapter);
         helper.attachToRecyclerView(recyclerViewCity);
 
@@ -203,7 +201,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
             }
         });
         recyclerViewHomeStays.setHasFixedSize(true);
-        recyclerViewHomeStays.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewHomeStays.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this, LinearLayoutManagerWithSmoothScroller.HORIZONTAL,false));
         recyclerViewHomeStays.setAdapter(adapter);
         helper.attachToRecyclerView(recyclerViewHomeStays);
     }
@@ -255,7 +253,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         helper = new SnapHelperOneByOne();
         RecyclerView recyclerView = findViewById(R.id.recyclerViewVinHomes);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this, LinearLayoutManagerWithSmoothScroller.HORIZONTAL,false));
         viewmodel.ServerLoadCityVinHomes();
         vinHomes = new ArrayList<>();
         homeAdapter = new VinHomeAdapter(vinHomes, getApplicationContext(), new RecyclerViewNavigator() {
@@ -298,17 +296,6 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         recyclerView.setAdapter(homeAdapter);
         helper.attachToRecyclerView(recyclerView);
 
-    }
-    private void setUpRecyclerViewSocial(){
-        helper = new StartSnapHelper();
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewHome);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
-        viewmodel.ServerListLuxury();
-        luxuries = new ArrayList<>();
-        socialAdapter = new SocialAdapter(luxuries,getApplicationContext());
-        recyclerView.setAdapter(socialAdapter);
-        helper.attachToRecyclerView(recyclerView);
     }
 
     @Override
@@ -441,19 +428,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
             }));
     }
 
-    @Override
-    public void loadListLuxury() {
-        viewmodel.loadListSocial();
-        compositeDisposable.add(viewmodel.listLuxuryBehaviorSubject.share()
-            .subscribeOn(schedulerProvider.io())
-            .observeOn(schedulerProvider.ui())
-            .subscribe(data -> {
-                luxuries.addAll(data);
-                socialAdapter.notifyDataSetChanged();
-            },throwable -> {
-                AppLogger.d(TAG,throwable);
-            }));
-    }
+
 
 
     private void ActionViewFlipper(){
@@ -474,6 +449,4 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
         viewFlipper.setAnimation(animation);
     }
-
-
 }

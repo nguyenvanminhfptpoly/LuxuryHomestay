@@ -20,7 +20,8 @@ class ApiEndPoint {
     static final String ENDPOINT_POST_FAVORITE = BASE_URL + "addfovorite.php";
     static final String ENDPOINT_DELETE_fAVORITE = BASE_URL + "deletefavorite.php";
     static final String ENDPOINT_ADD_LOVE_LUXURY = BASE_URL + "addlovefavorite.php";
-    static final String ENDPOINT_LIST_VINHOMES_CITY = URL_XAMPP + "getvinhomes.php";
-    static final String ENDPOINT_LIST_HOMESTAYS_VINHOMES = URL_XAMPP + "getlisthomestayvinhomes.php";
+    static final String ENDPOINT_LIST_VINHOMES_CITY = BASE_URL + "getvinhomes.php";
+    static final String ENDPOINT_LIST_HOMESTAYS_VINHOMES = BASE_URL + "getlisthomestayvinhomes.php";
+    static final String ENDPOINT_LIST_STORY = BASE_URL + "getliststory.php";
 
 }
