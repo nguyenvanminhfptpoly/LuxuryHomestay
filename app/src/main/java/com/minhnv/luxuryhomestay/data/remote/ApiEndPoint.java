@@ -23,5 +23,6 @@ class ApiEndPoint {
     static final String ENDPOINT_LIST_VINHOMES_CITY = BASE_URL + "getvinhomes.php";
     static final String ENDPOINT_LIST_HOMESTAYS_VINHOMES = BASE_URL + "getlisthomestayvinhomes.php";
     static final String ENDPOINT_LIST_STORY = BASE_URL + "getliststory.php";
+    static final String ENDPOINT_DELETE_STORY = BASE_URL + "deletestories.php";
 
 }

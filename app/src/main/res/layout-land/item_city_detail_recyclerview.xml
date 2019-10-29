@@ -1,40 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linear_layout"
-    android:layout_width="320dp"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_item_recyclerview"
-    android:orientation="vertical"
-    android:layout_marginEnd="4dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_marginStart="4dp"
     android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp">
+    android:layout_marginEnd="4dp"
+    android:layout_marginBottom="4dp"
+    android:background="@drawable/bg_item_recyclerview"
+    android:orientation="horizontal">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp">
-
-        <com.androidnetworking.widget.ANImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@drawable/img_home1"
-            android:contentDescription="@string/todo"
-            android:scaleType="centerCrop"
-            />
-    </androidx.cardview.widget.CardView>
+    <com.androidnetworking.widget.ANImageView
+        android:id="@+id/imgCityDetail"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/img_home1"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/todo"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingTop="10dp">
-
+        android:layout_margin="10dp">
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/tvTitleCityDetail"
             style="@style/TextViewBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -97,40 +89,42 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tvDetail"
+            android:id="@+id/tvDetailCity"
             style="@style/TextViewBackgroundLight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:fontFamily="@font/varela"
             android:maxLines="1"
             android:ellipsize="end"
+            android:fontFamily="@font/varela"
             android:text="@string/detail_hs" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="4dp">
+
+            <Button
+                android:id="@+id/btnListCityDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_home_selector"
+                android:text="@string/detail"
+                android:textColor="@drawable/text_selected" />
+
+            <Button
+                android:id="@+id/btnListCityBooking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_home_selector"
+                android:text="@string/booking"
+                android:textColor="@drawable/text_selected" />
+        </LinearLayout>
+
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="4dp">
 
-        <Button
-            android:id="@+id/btnListDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_btn_home_selector"
-            android:text="@string/detail"
-            android:textColor="@drawable/text_selected" />
-
-        <Button
-            android:id="@+id/btnListBooking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_btn_home_selector"
-            android:text="@string/booking"
-            android:textColor="@drawable/text_selected" />
-    </LinearLayout>
 
 </LinearLayout>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.HomeActivity"
+    android:background="@color/bg_sign">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinator_layout"
+            android:clipChildren="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/home_activity"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="5dp">
+                
+                    <androidx.appcompat.widget.Toolbar
+                        android:layout_width="match_parent"
+                        android:id="@+id/toolbar_home"
+                        style="@style/ToolBarHome"
+                        android:background="@color/colorPrimary"
+                        app:titleTextColor="@color/md_white_1000"
+                        />
+
+                </com.google.android.material.appbar.AppBarLayout>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+                <FrameLayout
+                    android:id="@+id/content_view_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include
+                        android:id="@+id/includeHome"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        layout="@layout/include_home_layout"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view"
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@android:color/transparent"
+            app:itemBackground="@color/md_white_1000"
+            app:itemIconTint="@color/md_black_1000"
+            app:itemTextColor="@color/md_black_1000">
+
+            <include layout="@layout/include_layout_menu" />
+
+        </com.google.android.material.navigation.NavigationView>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</FrameLayout>

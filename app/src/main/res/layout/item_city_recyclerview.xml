@@ -24,7 +24,7 @@
 
             <com.androidnetworking.widget.ANImageView
                 android:id="@+id/imgCity"
-                android:layout_width="300dp"
+                android:layout_width="320dp"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +36,7 @@
 
             <View
                 android:id="@+id/view"
-                android:layout_width="300dp"
+                android:layout_width="320dp"
                 android:layout_height="50dp"
                 android:background="#ffde03"
                 app:layout_constraintBottom_toBottomOf="parent"

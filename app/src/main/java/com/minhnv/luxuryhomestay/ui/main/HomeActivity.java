@@ -133,10 +133,11 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
     }
     private void setUpRecyclerViewCity(){
         //city
+
         helper = new SnapHelperOneByOne();
         RecyclerView recyclerViewCity = findViewById(R.id.recyclerCity);
-        cities = new ArrayList<>();
         viewmodel.ServerLoadCity();
+        cities = new ArrayList<>();
         cityAdapter = new CityAdapter(getApplicationContext(), cities, new RecyclerViewNavigator() {
             @Override
             public void onItemClickListener(int position) {
@@ -176,10 +177,11 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
 
     }
     private void setUpRecyclerViewHomeStayHot(){
+
         helper = new SnapHelperOneByOne();
         RecyclerView recyclerViewHomeStays = findViewById(R.id.recyclerViewRating);
-        homestays = new ArrayList<>();
         viewmodel.ServerLoadHomeStaysRating();
+        homestays = new ArrayList<>();
         adapter = new HomeStaysAdapter(homestays, getApplicationContext(), new RecyclerViewNavigator() {
             @Override
             public void onItemClickListener(int position) {
@@ -206,10 +208,11 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         helper.attachToRecyclerView(recyclerViewHomeStays);
     }
     private void setUpRecyclerViewHomeStayPriceAsc(){
+
         helper = new SnapHelperOneByOne();
         RecyclerView recyclerViewPriceAsc = findViewById(R.id.recyclerViewPriceAsc);
-        homestayPrices = new ArrayList<>();
         viewmodel.ServerLoadHomeStaysPriceAsc();
+        homestayPrices = new ArrayList<>();
         ascAdapter = new HomeStaysPriceAscAdapter(homestayPrices, getApplicationContext(), new RecyclerViewNavigator() {
             @Override
             public void onItemClickListener(int position) {
@@ -250,6 +253,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         });
     }
     private void setUpRecyclerViewVinHomes(){
+
         helper = new SnapHelperOneByOne();
         RecyclerView recyclerView = findViewById(R.id.recyclerViewVinHomes);
         recyclerView.setHasFixedSize(true);

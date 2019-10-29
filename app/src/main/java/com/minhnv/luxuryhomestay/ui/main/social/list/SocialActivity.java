@@ -52,6 +52,8 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
     private LuxuryAdapter adapter;
     private Integer love = 0;
     private SlidrInterface slide;
+    private Handler  handler = new Handler();
+    private Runnable runnable;
     public static Intent newIntent(Context context) {
         return new Intent(context, SocialActivity.class);
 
@@ -185,9 +187,9 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
                     stories.addAll(data);
                     Collections.reverse(stories);
                     socialAdapter.notifyDataSetChanged();
-                },throwable -> {
-                    AppLogger.d(TAG,throwable);
-                }));
+                },throwable ->
+                    AppLogger.d(TAG,throwable)
+                ));
     }
 
 
@@ -201,6 +203,7 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
 
     @Override
     public void onSuccess() {
+        socialAdapter.notifyDataSetChanged();
         AppLogger.d(TAG, "onSuccess: ");
     }
 
@@ -212,6 +215,16 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
     @Override
     public void loadStory() {
         viewmodel.loadListStory();
+    }
+
+    @Override
+    public void deleteStories() {
+        viewmodel.deleteStories();
+    }
+
+    @Override
+    public void onFailed() {
+        AppLogger.d(TAG, "onFailed: ");
     }
 
     @Override
@@ -232,8 +245,8 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
             Dialog dialog = builder.create();
             dialog.show();
 
-            ll_post_luxury.setOnClickListener(ll -> {startActivity(PostLuxuryActivity.newIntent(getApplicationContext()));});
-            ll_post_story.setOnClickListener(ll -> {startActivity(PostStoryActivity.newIntent(getApplicationContext()));});
+            ll_post_luxury.setOnClickListener(ll -> startActivity(PostLuxuryActivity.newIntent(getApplicationContext())));
+            ll_post_story.setOnClickListener(ll -> startActivity(PostStoryActivity.newIntent(getApplicationContext())));
         }
         return super.onOptionsItemSelected(item);
     }

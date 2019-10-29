@@ -31,7 +31,6 @@ public class SocialViewModel extends BaseViewModel<SocialNavigator> {
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
                     listPublishSubject.onNext(response);
-                    getNavigator().onSuccess();
                     AppLogger.d(TAG, "luxuryList: "+response);
                 },throwable -> {
                     getNavigator().HandlerError(throwable);
@@ -50,7 +49,6 @@ public class SocialViewModel extends BaseViewModel<SocialNavigator> {
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
                     if(response.equals("Success")) {
-                        getNavigator().onSuccess();
                         AppLogger.d(TAG, "addLoveForPost: "+response);
                     }
                 },throwable -> {
@@ -71,6 +69,27 @@ public class SocialViewModel extends BaseViewModel<SocialNavigator> {
                     AppLogger.d(TAG,throwable);
                 })
         );
+   }
+
+   public void deleteStories(){
+        getCompositeDisposable().add(
+                getDataManager().doDeleteStories()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(response -> {
+                    if(response.equals("Success")){
+                        getNavigator().onSuccess();
+                    }else if(response.equals("Failed")) {
+                        getNavigator().onFailed();
+                    }
+                },throwable -> {
+                    AppLogger.d(TAG,throwable);
+                })
+        );
+   }
+
+   public void ServerDeleteStories(){
+        getNavigator().deleteStories();
    }
 
    public void ServerLoadListStory(){

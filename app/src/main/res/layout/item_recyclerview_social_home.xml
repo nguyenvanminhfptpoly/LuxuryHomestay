@@ -6,16 +6,15 @@
     android:layout_height="100dp"
     android:layout_margin="4dp"
     android:orientation="vertical"
-    app:cardCornerRadius="50dp"
-    >
+    app:cardCornerRadius="50dp">
 
 
     <com.androidnetworking.widget.ANImageView
         android:id="@+id/imgSocial"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
         android:background="@drawable/img_home3"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

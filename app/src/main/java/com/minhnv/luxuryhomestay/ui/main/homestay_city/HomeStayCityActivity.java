@@ -16,6 +16,7 @@ import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.City;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
+import com.minhnv.luxuryhomestay.ui.main.adapter.CityDetailAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
 import com.minhnv.luxuryhomestay.ui.main.booking.booking.BookingActivity;
@@ -32,7 +33,7 @@ public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> im
 
     private static final String TAG = "HomeStayCityActivity";
     private List<Homestay> homeStays;
-    private HomeStaysAdapter adapter;
+    private CityDetailAdapter adapter;
     private Integer idCity;
     private Toolbar toolbarCity;
     private SlidrInterface slide;
@@ -68,7 +69,7 @@ public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> im
         recyclerViewCity.setHasFixedSize(true);
         recyclerViewCity.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         homeStays = new ArrayList<>();
-        adapter = new HomeStaysAdapter(homeStays, getApplicationContext(), new RecyclerViewNavigator() {
+        adapter = new CityDetailAdapter(homeStays, getApplicationContext(), new RecyclerViewNavigator() {
             @Override
             public void onItemClickListener(int position) {
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
