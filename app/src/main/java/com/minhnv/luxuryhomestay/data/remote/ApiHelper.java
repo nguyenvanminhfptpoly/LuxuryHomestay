@@ -52,4 +52,6 @@ public interface ApiHelper {
     Observable<List<ListVinHomes>> doLoadListHomeStayVinHomes(UserResponse.ServerLoadHomeStayVinHomes homes);
 
     Observable<List<Story>> doLoadListStory();
+
+    Observable<String> doDeleteStories();
 }

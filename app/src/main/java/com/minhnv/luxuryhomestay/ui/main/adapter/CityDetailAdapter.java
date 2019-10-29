@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,17 +15,16 @@ import com.androidnetworking.widget.ANImageView;
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class HomeStaysAdapter extends RecyclerView.Adapter<HomeStaysAdapter.ViewHolder> {
+public class CityDetailAdapter extends RecyclerView.Adapter<CityDetailAdapter.ViewHolder> {
     private List<Homestay> HomeStay;
     private Context context;
     private RecyclerViewNavigator listener;
 
 
-    public HomeStaysAdapter(List<Homestay> HomeStay, Context context, RecyclerViewNavigator listener) {
+    public CityDetailAdapter(List<Homestay> HomeStay, Context context, RecyclerViewNavigator listener) {
         this.HomeStay = HomeStay;
         this.context = context;
         this.listener = listener;
@@ -36,7 +34,7 @@ public class HomeStaysAdapter extends RecyclerView.Adapter<HomeStaysAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_homestays_recyclerview, parent, false));
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_city_detail_recyclerview, parent, false));
     }
 
     @Override
@@ -66,12 +64,11 @@ public class HomeStaysAdapter extends RecyclerView.Adapter<HomeStaysAdapter.View
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.image);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvDetail = itemView.findViewById(R.id.tvDetail);
-            btnListBooking = itemView.findViewById(R.id.btnListBooking);
-            btnListDetail = itemView.findViewById(R.id.btnListDetail);
-            linearLayout = itemView.findViewById(R.id.linear_layout);
+            image = itemView.findViewById(R.id.imgCityDetail);
+            tvTitle = itemView.findViewById(R.id.tvTitleCityDetail);
+            tvDetail = itemView.findViewById(R.id.tvDetailCity);
+            btnListBooking = itemView.findViewById(R.id.btnListCityBooking);
+            btnListDetail = itemView.findViewById(R.id.btnListCityDetail);
         }
 
         void bind(Homestay homestay) {

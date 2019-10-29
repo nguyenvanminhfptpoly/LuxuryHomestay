@@ -175,5 +175,12 @@ public class AppApiHelper implements ApiHelper {
                 .getObjectListObservable(Story.class);
     }
 
+    @Override
+    public Observable<String> doDeleteStories() {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_DELETE_STORY)
+                .build()
+                .getStringObservable();
+    }
+
 
 }

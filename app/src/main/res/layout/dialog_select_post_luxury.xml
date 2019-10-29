@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/md_white_1000">
+    android:background="@color/colorPrimaryDark">
 
     <TextView
         android:id="@+id/textView22"
@@ -13,7 +13,8 @@
         android:layout_weight="1"
         android:text="@string/select_post"
         android:textAlignment="center"
-        android:layout_margin="8dp"/>
+        android:layout_margin="8dp"
+        android:textColor="@color/md_white_1000"/>
 
     <LinearLayout
         android:id="@+id/ll_post_luxury"
@@ -38,7 +39,8 @@
             android:layout_weight="2"
             android:textSize="20sp"
             style="@style/TextViewBackgroundLight"
-            android:text="@string/luxury_post" />
+            android:text="@string/luxury_post"
+            android:textColor="@color/md_white_1000"/>
     </LinearLayout>
 
     <LinearLayout
@@ -64,6 +66,7 @@
             android:layout_weight="2"
             android:textSize="20sp"
             style="@style/TextViewBackgroundLight"
-            android:text="@string/story_post" />
+            android:text="@string/story_post"
+            android:textColor="@color/md_white_1000"/>
     </LinearLayout>
 </LinearLayout>

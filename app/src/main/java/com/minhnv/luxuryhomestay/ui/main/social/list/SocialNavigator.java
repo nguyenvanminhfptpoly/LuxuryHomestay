@@ -5,4 +5,6 @@ public interface SocialNavigator {
     void onSuccess();
     void loadList();
     void loadStory();
+    void deleteStories();
+    void onFailed();
 }

@@ -186,6 +186,11 @@ public class AppDataManager implements DataManager {
         return apiHelper.doLoadListStory();
     }
 
+    @Override
+    public Observable<String> doDeleteStories() {
+        return apiHelper.doDeleteStories();
+    }
+
 
     @Override
     public Observable<List<User>> getAll() {
