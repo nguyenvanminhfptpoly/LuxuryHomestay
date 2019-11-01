@@ -180,8 +180,8 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
 
         helper = new SnapHelperOneByOne();
         RecyclerView recyclerViewHomeStays = findViewById(R.id.recyclerViewRating);
-        viewmodel.ServerLoadHomeStaysRating();
         homestays = new ArrayList<>();
+        viewmodel.ServerLoadHomeStaysRating();
         adapter = new HomeStaysAdapter(homestays, getApplicationContext(), new RecyclerViewNavigator() {
             @Override
             public void onItemClickListener(int position) {
@@ -211,8 +211,8 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
 
         helper = new SnapHelperOneByOne();
         RecyclerView recyclerViewPriceAsc = findViewById(R.id.recyclerViewPriceAsc);
-        viewmodel.ServerLoadHomeStaysPriceAsc();
         homestayPrices = new ArrayList<>();
+        viewmodel.ServerLoadHomeStaysPriceAsc();
         ascAdapter = new HomeStaysPriceAscAdapter(homestayPrices, getApplicationContext(), new RecyclerViewNavigator() {
             @Override
             public void onItemClickListener(int position) {
@@ -258,8 +258,8 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         RecyclerView recyclerView = findViewById(R.id.recyclerViewVinHomes);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this, LinearLayoutManagerWithSmoothScroller.HORIZONTAL,false));
-        viewmodel.ServerLoadCityVinHomes();
         vinHomes = new ArrayList<>();
+        viewmodel.ServerLoadCityVinHomes();
         homeAdapter = new VinHomeAdapter(vinHomes, getApplicationContext(), new RecyclerViewNavigator() {
             @Override
             public void onItemClickListener(int position) {
@@ -301,6 +301,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         helper.attachToRecyclerView(recyclerView);
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
