@@ -17,18 +17,19 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.subjects.PublishSubject;
 
 public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     private static final String TAG = "HomeViewModel";
-    public BehaviorSubject<List<Homestay>> homeStayPublishObservable = BehaviorSubject.create();
+    public PublishSubject<List<Homestay>> homeStayPublishObservable = PublishSubject.create();
 
-    public BehaviorSubject<List<HomestayPrice>> listPublishSubject = BehaviorSubject.create();
+    public PublishSubject<List<HomestayPrice>> listPublishSubject = PublishSubject.create();
 
-    public BehaviorSubject<List<City>> listCityPublishSubject = BehaviorSubject.create();
+    public PublishSubject<List<City>> listCityPublishSubject = PublishSubject.create();
 
-    public BehaviorSubject<List<VinHome>> listBehaviorSubject = BehaviorSubject.create();
+    public PublishSubject<List<VinHome>> listBehaviorSubject = PublishSubject.create();
 
-    public BehaviorSubject<List<Luxury>> listLuxuryBehaviorSubject = BehaviorSubject.create();
+    public PublishSubject<List<Luxury>> listLuxuryBehaviorSubject = PublishSubject.create();
 
 
     public HomeViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
