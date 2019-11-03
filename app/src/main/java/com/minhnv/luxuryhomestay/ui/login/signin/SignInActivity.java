@@ -20,6 +20,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.minhnv.luxuryhomestay.R;
@@ -29,9 +31,13 @@ import com.minhnv.luxuryhomestay.ui.login.signup.SignUpActivity;
 import com.minhnv.luxuryhomestay.ui.main.HomeActivity;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import timber.log.Timber;
+
+import static com.androidnetworking.internal.ANImageLoader.initialize;
 
 
 public class SignInActivity extends BaseActivity<SignInViewModel> implements SignInNavigator {
@@ -46,6 +52,13 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
     private TextView tvSignUp;
     private Button btnLogin;
     private List<User> users;
+    private final static int REQUEST_CODE_ASK_PERMISSIONS = 1;
+
+    /**
+     * Permissions that need to be explicitly requested from end user.
+     */
+    private static final String[] REQUIRED_SDK_PERMISSIONS = new String[] {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CALL_PHONE };
 
     @Override
     public int getLayoutId() {
@@ -59,7 +72,7 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
         viewmodel = ViewModelProviders.of(this, factory).get(SignInViewModel.class);
         viewmodel.setNavigator(this);
         initView();
-        initPermission2();
+        checkPermissions();
     }
 
     private void initView() {
@@ -104,55 +117,55 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
                 }));
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == 1) {
-
-            if (grantResults.length == 1 &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Timber.d("onRequestPermissionsResult: ");
-            } else {
-                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                alertDialogBuilder.setTitle(getString(R.string.permission_denied))
-                        .setMessage(getString(R.string.denied_permission))
-                        .setPositiveButton(getString(R.string.go_to_setting), (dialog, which) -> {
-                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                    Uri.fromParts("package", getPackageName(), null));
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        })
-                        .setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
-                        })
-                        .setCancelable(false)
-                        .create()
-                        .show();
-                Timber.d("onRequestPermissionsResult: denied");
-
+    /**
+     * Checks the dynamically-controlled permissions and requests missing permissions from end user.
+     */
+    protected void checkPermissions() {
+        final List<String> missingPermissions = new ArrayList<String>();
+        // check all required dynamic permissions
+        for (final String permission : REQUIRED_SDK_PERMISSIONS) {
+            final int result = ContextCompat.checkSelfPermission(this, permission);
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                missingPermissions.add(permission);
             }
+        }
+        if (!missingPermissions.isEmpty()) {
+            // request all missing permissions
+            final String[] permissions = missingPermissions
+                    .toArray(new String[missingPermissions.size()]);
+            ActivityCompat.requestPermissions(this, permissions, REQUEST_CODE_ASK_PERMISSIONS);
         } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            final int[] grantResults = new int[REQUIRED_SDK_PERMISSIONS.length];
+            Arrays.fill(grantResults, PackageManager.PERMISSION_GRANTED);
+            onRequestPermissionsResult(REQUEST_CODE_ASK_PERMISSIONS, REQUIRED_SDK_PERMISSIONS,
+                    grantResults);
         }
     }
 
-    public void initPermission2() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
-                //Permisson don't granted
-                if (shouldShowRequestPermissionRationale(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    Log.d(TAG, "initPermission2: success");
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_PERMISSIONS:
+                for (int index = permissions.length - 1; index >= 0; --index) {
+                    if (grantResults[index] != PackageManager.PERMISSION_GRANTED) {
+                        // exit the app if one permission is not granted
+                        Toast.makeText(this, "Required permission '" + permissions[index]
+                                + "' not granted, exiting", Toast.LENGTH_LONG).show();
+                        finish();
+                        return;
+                    }
                 }
-                // Permisson don't granted and dont show dialog again.
-                else {
-                    Log.d(TAG, "initPermission2: failed");
-                }
-                //Register permission
-                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-
-            }
+                // all permissions were granted
+                initialize();
+                break;
         }
     }
+
+
+
+
+
 
 
     public static Intent newIntent(Context context) {
