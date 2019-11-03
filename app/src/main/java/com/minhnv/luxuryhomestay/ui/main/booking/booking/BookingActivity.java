@@ -1,8 +1,12 @@
 package com.minhnv.luxuryhomestay.ui.main.booking.booking;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.InputType;
@@ -13,10 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.androidnetworking.widget.ANImageView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
@@ -30,7 +36,7 @@ import java.util.Calendar;
 
 public class BookingActivity extends BaseActivity<BookingViewModel> implements BookingNavigator {
     private static final String TAG = "BookingActivity";
-    private TextView tvDateStart, tvDateEnd,tvNameHomeStay,tvAddressHomeStay;
+    private TextView tvDateStart, tvDateEnd, tvNameHomeStay, tvAddressHomeStay;
     private EditText edCountMember;
 
     private ANImageView imgBooking;
@@ -46,6 +52,7 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
         return R.layout.booking_fragment;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onCreateActivity(@Nullable Bundle savedInstanceState) {
         viewmodel = ViewModelProviders.of(this, factory).get(BookingViewModel.class);
@@ -56,20 +63,20 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
 
     }
 
-    private void initIntent(){
-        if(getIntent().getSerializableExtra("booking") != null) {
+    private void initIntent() {
+        if (getIntent().getSerializableExtra("booking") != null) {
             Homestay homestay = (Homestay) getIntent().getSerializableExtra("booking");
             assert homestay != null;
             tvNameHomeStay.setText(homestay.getName());
             tvAddressHomeStay.setText(homestay.getAddress());
             imgBooking.setImageUrl(homestay.getImage());
-        }else if(getIntent().getSerializableExtra("detailprice") != null){
+        } else if (getIntent().getSerializableExtra("detailprice") != null) {
             HomestayPrice price = (HomestayPrice) getIntent().getSerializableExtra("detailprice");
             assert price != null;
             tvNameHomeStay.setText(price.getTitle());
             tvAddressHomeStay.setText(price.getAddress());
             imgBooking.setImageUrl(price.getImage());
-        }else if(getIntent().getSerializableExtra("vinHomes") != null){
+        } else if (getIntent().getSerializableExtra("vinHomes") != null) {
             ListVinHomes homes = (ListVinHomes) getIntent().getSerializableExtra("vinHomes");
             assert homes != null;
             tvNameHomeStay.setText(homes.getName());
@@ -80,6 +87,7 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void bindViewModel() {
         Button btnDateStart = findViewById(R.id.btnDateStart);
         Button btnDateEnd = findViewById(R.id.btnDateEnd);
@@ -99,6 +107,23 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
         toolbar.setTitle(getString(R.string.booking));
         toolbar.setNavigationOnClickListener(view -> {
             onBackPressed();
+        });
+
+        FloatingActionButton floatingActionButton = findViewById(R.id.fabCall);
+        floatingActionButton.setOnClickListener(view -> {
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:0342460704"));
+            if (checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    Activity#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for Activity#requestPermissions for more details.
+                return;
+            }
+            startActivity(callIntent);
         });
 
 
