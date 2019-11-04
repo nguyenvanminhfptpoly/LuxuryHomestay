@@ -29,10 +29,13 @@ import com.r0adkll.slidr.model.SlidrInterface;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class VinHomeDetailActivity extends BaseActivity<VinHomeDetailViewModel> implements VinHomeDetailNavigator {
     private static final String TAG = "VinHomeDetailActivity";
     private Toolbar toolbar;
-    private VinHomeDetailAdapter adapter;
+    @Inject
+    public VinHomeDetailAdapter adapter;
     private List<ListVinHomes> listVinHomes;
     private Integer idVinHomes;
     private ANImageView anImageView;

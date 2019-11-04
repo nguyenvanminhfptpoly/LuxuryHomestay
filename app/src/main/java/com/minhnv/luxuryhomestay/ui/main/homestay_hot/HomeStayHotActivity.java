@@ -24,10 +24,13 @@ import com.r0adkll.slidr.model.SlidrInterface;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class HomeStayHotActivity extends BaseActivity<HomeStayHotViewModel> implements HomeStayHotNavigator {
     private static final String TAG = "HomeStayHotActivity";
     private List<Homestay> homestays;
-    private StaggeredRecyclerViewAdapter adapter;
+    @Inject
+    public StaggeredRecyclerViewAdapter adapter;
     private SlidrInterface slide;
 
     @Override
@@ -98,11 +101,6 @@ public class HomeStayHotActivity extends BaseActivity<HomeStayHotViewModel> impl
         compositeDisposable.add(viewmodel.homeStayPublishObservable.share()
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
-                .subscribe(data -> {
-                            homestays.addAll(data);
-                            adapter.notifyDataSetChanged();
-                        }, throwable ->
-                        AppLogger.d(TAG, "doLoadHomeStaysRating: " + throwable)
-                ));
+                .subscribe(data -> adapter.set(data)));
     }
 }

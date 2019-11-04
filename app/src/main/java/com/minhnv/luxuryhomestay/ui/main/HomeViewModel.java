@@ -13,6 +13,7 @@ import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -31,6 +32,11 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
     public PublishSubject<List<Luxury>> listLuxuryBehaviorSubject = PublishSubject.create();
 
+    public List<Homestay> list;
+    public List<HomestayPrice> priceList;
+    public List<City> cityList;
+    public List<VinHome> vinHomeList;
+
 
     public HomeViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
@@ -48,6 +54,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                         .subscribeOn(getSchedulerProvider().io())
                         .observeOn(getSchedulerProvider().ui())
                         .subscribe(response -> {
+                            cityList = new ArrayList<>(response);
                             listCityPublishSubject.onNext(response);
                             getNavigator().onSuccess();
                         }, throwable -> {
@@ -64,6 +71,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                         .observeOn(getSchedulerProvider().ui())
                         .subscribe(response -> {
                             AppLogger.d(TAG, "loadListHomeStayRating: " + response);
+                            list = new ArrayList<>(response);
                             homeStayPublishObservable.onNext(response);
                             getNavigator().onSuccess();
                         }, throwable -> {
@@ -81,6 +89,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                         .subscribe(response -> {
                             AppLogger.d(TAG, "loadListHomeStayRating: " + response);
                             listPublishSubject.onNext(response);
+                            priceList = new ArrayList<>(response);
                             getNavigator().onSuccess();
                         }, throwable -> {
                             getNavigator().HandlerError(throwable);
@@ -95,6 +104,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
+                    vinHomeList = new ArrayList<>(response);
                     listBehaviorSubject.onNext(response);
                 },throwable -> {
                     AppLogger.d(TAG,throwable);

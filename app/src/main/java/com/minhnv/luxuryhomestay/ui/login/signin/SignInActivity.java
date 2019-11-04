@@ -6,12 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.provider.Settings;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
@@ -35,15 +30,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import timber.log.Timber;
-
 import static com.androidnetworking.internal.ANImageLoader.initialize;
 
 
 public class SignInActivity extends BaseActivity<SignInViewModel> implements SignInNavigator {
 
     private static final String TAG = "SignInActivity";
-    private static final int CODE_SIGUP_REQUEST = 1001;
+    private static final int CODE_SIGN_UP_REQUEST = 1001;
     private EditText passWord;
     private EditText phoneNumber;
     private SharedPreferences.Editor editor;
@@ -102,8 +95,6 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
         phoneNumber.setText(mPassword);
         passWord.setText(mPhoneNumber);
         fetchData();
-        viewmodel.updateUserInfo();
-
     }
 
     private void fetchData() {
@@ -143,7 +134,7 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CODE_ASK_PERMISSIONS:
@@ -163,11 +154,6 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
     }
 
 
-
-
-
-
-
     public static Intent newIntent(Context context) {
         return new Intent(context, SignInActivity.class);
     }
@@ -176,7 +162,7 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
     @Override
     public void openSignInActivity() {
         Intent intent = SignUpActivity.newIntent(SignInActivity.this);
-        startActivityForResult(intent, CODE_SIGUP_REQUEST);
+        startActivityForResult(intent, CODE_SIGN_UP_REQUEST);
     }
 
     @Override
@@ -217,15 +203,9 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
     }
 
     @Override
-    public void updateUserInfo() {
-        viewmodel.getUserName();
-
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode== RESULT_OK && requestCode == CODE_SIGUP_REQUEST) {
+        if (resultCode== RESULT_OK && requestCode == CODE_SIGN_UP_REQUEST) {
             passWord.setText(appPreferenceHelper.getCurrentPhoneNumber());
             phoneNumber.setText(appPreferenceHelper.getCurrentPassword());
         }

@@ -32,6 +32,9 @@ import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
 
 public class SearchActivity extends BaseActivity<SearchViewModel> implements SearchNavigator {
     private static final String TAG = "SearchActivity";
@@ -66,6 +69,7 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
         edRating = findViewById(R.id.includeSearch);
         edRating.setHint(R.string.hint_search);
         edRating.setFilters(new InputFilter[]{new InputFilterMinMax("1","5")});
+
     }
     private void setUpRecyclerView(){
         RecyclerView recyclerViewSearch = findViewById(R.id.recyclerViewSearch);
@@ -95,9 +99,6 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
         recyclerViewSearch.setAdapter(adapter);
 
         btnSearch.setOnClickListener(view -> {
-            if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
-                return ;
-            }
             mLastClickTime = SystemClock.elapsedRealtime();
             viewmodel.ServerLoadList();
             homestays.clear();
@@ -129,17 +130,17 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
             showLoading();
             compositeDisposable.add(viewmodel.listPublishSubject.share()
                     .subscribeOn(schedulerProvider.io())
+                    .throttleFirst(300, TimeUnit.SECONDS)
                     .observeOn(schedulerProvider.ui())
-                    .subscribe(response -> {
-                        homestays.addAll(response);
-                        adapter.notifyDataSetChanged();
-                        hideLoading();
-                    }, throwable ->
-                            AppLogger.d(TAG, "loadList: " + throwable)
-                    ));
+                    .subscribe(response ->
+                            adapter.set(response)
+                        ));
         } else {
             Toast.makeText(this, getString(R.string.validate), Toast.LENGTH_SHORT).show();
         }
 
     }
+
+
+
 }

@@ -18,13 +18,19 @@ import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class HomeStaysAdapter extends RecyclerView.Adapter<HomeStaysAdapter.ViewHolder> {
     private List<Homestay> HomeStay;
     private Context context;
     private RecyclerViewNavigator listener;
 
+    @Inject
+    public HomeStaysAdapter() {
+    }
 
     public HomeStaysAdapter(List<Homestay> HomeStay, Context context, RecyclerViewNavigator listener) {
         this.HomeStay = HomeStay;
@@ -50,6 +56,12 @@ public class HomeStaysAdapter extends RecyclerView.Adapter<HomeStaysAdapter.View
                 listener.onItemClickDetailListener(position);
             });
         }
+    }
+
+    public void set(List<Homestay> list){
+        HomeStay.clear();
+        HomeStay.addAll(list);
+        notifyDataSetChanged();
     }
 
     @Override

@@ -28,10 +28,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements FavoriteNavigator {
     private static final String TAG = "FavoriteActivity";
     private List<Favorite> favorites;
-    private FavoriteAdapter adapter;
+    @Inject
+    public FavoriteAdapter adapter;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, FavoriteActivity.class);
@@ -104,13 +107,7 @@ public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements
         compositeDisposable.add(viewmodel.listBehaviorSubject.share()
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())
-            .subscribe(response -> {
-                favorites.addAll(response);
-                Collections.reverse(favorites);
-                adapter.notifyDataSetChanged();
-            },throwable -> {
-                AppLogger.d(TAG, "onNextList: "+throwable);
-            }));
+            .subscribe(response -> adapter.set(response)));
     }
 
     @Override

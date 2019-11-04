@@ -18,6 +18,8 @@ import com.minhnv.luxuryhomestay.data.model.Homestay;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class CityDetailAdapter extends RecyclerView.Adapter<CityDetailAdapter.ViewHolder> {
     private List<Homestay> HomeStay;
     private Context context;
@@ -30,6 +32,9 @@ public class CityDetailAdapter extends RecyclerView.Adapter<CityDetailAdapter.Vi
         this.listener = listener;
     }
 
+    @Inject
+    public CityDetailAdapter() {
+    }
 
     @NonNull
     @Override
@@ -78,5 +83,11 @@ public class CityDetailAdapter extends RecyclerView.Adapter<CityDetailAdapter.Vi
             image.setDefaultImageResId(R.drawable.img_home1);
             image.setImageUrl(homestay.getImage());
         }
+    }
+
+    public void set(List<Homestay> list){
+        HomeStay.clear();
+        HomeStay.addAll(list);
+        notifyDataSetChanged();
     }
 }

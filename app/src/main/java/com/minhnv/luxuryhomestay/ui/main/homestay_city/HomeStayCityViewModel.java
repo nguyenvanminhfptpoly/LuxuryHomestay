@@ -9,6 +9,7 @@ import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -17,6 +18,7 @@ import io.reactivex.subjects.PublishSubject;
 public class HomeStayCityViewModel extends BaseViewModel<HomeStayCityNavigator> {
     private static final String TAG = "HomeStayCityViewModel";
 
+    private List<Homestay> list;
     public PublishSubject<List<Homestay>> listPublishSubject = PublishSubject.create();
 
     public HomeStayCityViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
@@ -30,6 +32,7 @@ public class HomeStayCityViewModel extends BaseViewModel<HomeStayCityNavigator> 
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
+                    list = new ArrayList<>(response);
                     getNavigator().onSuccess();
                     listPublishSubject.onNext(response);
                 },throwable -> {

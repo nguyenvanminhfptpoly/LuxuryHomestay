@@ -18,6 +18,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class StaggeredAdapter extends RecyclerView.Adapter<StaggeredAdapter.ViewHolder> {
     private List<HomestayPrice> homeStay;
     private Context context;
@@ -27,6 +29,10 @@ public class StaggeredAdapter extends RecyclerView.Adapter<StaggeredAdapter.View
         this.homeStay = homestays;
         this.context = context;
         this.selected = selected;
+    }
+
+    @Inject
+    public StaggeredAdapter() {
     }
 
     @NonNull
@@ -66,5 +72,10 @@ public class StaggeredAdapter extends RecyclerView.Adapter<StaggeredAdapter.View
             tvName.setText(homestay.getTitle());
             tvAddress.setText(homestay.getAddress());
         }
+    }
+    public void set(List<HomestayPrice> list){
+        homeStay.clear();
+        homeStay.addAll(list);
+        notifyDataSetChanged();
     }
 }

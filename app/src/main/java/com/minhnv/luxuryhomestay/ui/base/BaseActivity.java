@@ -99,4 +99,5 @@ public abstract class BaseActivity<V extends BaseViewModel> extends AppCompatAct
         Toast.makeText(this, getString(R.string.internet_error), Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
+    
 }

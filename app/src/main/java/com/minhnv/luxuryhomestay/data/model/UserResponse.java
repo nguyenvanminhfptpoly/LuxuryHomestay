@@ -3,6 +3,8 @@ package com.minhnv.luxuryhomestay.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import io.reactivex.subjects.BehaviorSubject;
+
 public class UserResponse {
     public static class ServerSignUpRequest {
         @Expose
@@ -63,6 +65,9 @@ public class UserResponse {
 
         public ServerSearchHomeStaysFollowRating(int rating) {
             this.rating = rating;
+        }
+
+        public ServerSearchHomeStaysFollowRating(BehaviorSubject<Integer> rating) {
         }
     }
 

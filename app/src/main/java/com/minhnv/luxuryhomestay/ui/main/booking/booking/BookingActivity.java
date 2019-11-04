@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.InputType;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -108,8 +110,11 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
         toolbar.setNavigationOnClickListener(view -> {
             onBackPressed();
         });
+        Animation animation = AnimationUtils.loadAnimation(this,R.anim.bounce);
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fabCall);
+        floatingActionButton.startAnimation(animation);
+        animation.setRepeatCount(Animation.INFINITE);
         floatingActionButton.setOnClickListener(view -> {
             Intent callIntent = new Intent(Intent.ACTION_CALL);
             callIntent.setData(Uri.parse("tel:0342460704"));
@@ -142,6 +147,8 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
 
         imgBooking.setErrorImageResId(R.drawable.uploadfailed);
         imgBooking.setDefaultImageResId(R.drawable.img_home1);
+
+
     }
 
 

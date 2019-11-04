@@ -13,7 +13,10 @@ import com.androidnetworking.widget.ANImageView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Story;
 
+import java.util.Collections;
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class SocialAdapter extends RecyclerView.Adapter<SocialAdapter.ViewHolder> {
     private List<Story> stories;
@@ -26,6 +29,10 @@ public class SocialAdapter extends RecyclerView.Adapter<SocialAdapter.ViewHolder
         this.navigator = navigator;
     }
 
+    @Inject
+    public SocialAdapter() {
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,7 +42,14 @@ public class SocialAdapter extends RecyclerView.Adapter<SocialAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(stories.get(position));
-        holder.view.setOnClickListener(card -> {navigator.onItemClickListener(position);});
+        holder.view.setOnClickListener(card -> navigator.onItemClickListener(position));
+    }
+
+    public void set(List<Story> list){
+        stories.clear();
+        stories.addAll(list);
+        notifyDataSetChanged();
+        Collections.reverse(stories);
     }
 
     @Override

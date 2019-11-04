@@ -1,5 +1,6 @@
 package com.minhnv.luxuryhomestay.ui.login.signin;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -7,6 +8,7 @@ import com.minhnv.luxuryhomestay.data.DataManager;
 import com.minhnv.luxuryhomestay.data.model.User;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
+import com.minhnv.luxuryhomestay.ui.base.ViewModelType;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.minhnv.luxuryhomestay.utils.CommonUtils;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
@@ -18,7 +20,7 @@ import io.reactivex.subjects.BehaviorSubject;
 import timber.log.Timber;
 
 
-public class SignInViewModel extends BaseViewModel<SignInNavigator>  {
+public class SignInViewModel extends BaseViewModel<SignInNavigator> {
 
     private static final String TAG = "SignInViewModel";
     public BehaviorSubject<List<User>> listBehaviorSubject = BehaviorSubject.create();
@@ -55,21 +57,6 @@ public class SignInViewModel extends BaseViewModel<SignInNavigator>  {
         );
     }
 
-    public void getUserName(){
-        getCompositeDisposable().add(getDataManager().getAll()
-        .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-        .subscribe(
-                response -> {
-                    listBehaviorSubject.onNext(response);
-                    Log.d(TAG, "getUserName: "+ response);
-                }
-        ));
-    }
-
-    public void updateUserInfo(){
-        getNavigator().updateUserInfo();
-    }
 
     public void startActivity(){
         getNavigator().openSignInActivity();
@@ -78,5 +65,9 @@ public class SignInViewModel extends BaseViewModel<SignInNavigator>  {
     public void onServerSignIn(){
         getNavigator().login();
     }
+
+
+
+    //test
 
 }

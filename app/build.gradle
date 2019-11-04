@@ -104,6 +104,8 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.0.1'
 
+    //rxBinding
+    implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
 
 
 }
