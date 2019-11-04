@@ -29,11 +29,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.inject.Inject;
+
 public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> implements HomeStayCityNavigator {
 
     private static final String TAG = "HomeStayCityActivity";
     private List<Homestay> homeStays;
-    private CityDetailAdapter adapter;
+    @Inject
+    public CityDetailAdapter adapter;
     private Integer idCity;
     private Toolbar toolbarCity;
     private SlidrInterface slide;
@@ -103,12 +106,7 @@ public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> im
         compositeDisposable.add(viewmodel.listPublishSubject.share()
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
-                .subscribe(data ->{
-                    homeStays.addAll(data);
-                    adapter.notifyDataSetChanged();
-                },throwable -> {
-                    AppLogger.d(TAG, "loadList: "+throwable);
-                }));
+                .subscribe(data -> adapter.set(data)));
     }
 
     private void initIntent(){

@@ -19,16 +19,23 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     public Context context;
     private List<City> cities;
     private RecyclerViewNavigator onItemClick;
+
+    @Inject
+    public CityAdapter() {
+    }
 
     public CityAdapter(Context context, List<City> cities, RecyclerViewNavigator onItemClick) {
         this.context = context;
         this.cities = cities;
         this.onItemClick = onItemClick;
     }
+
 
     @NonNull
     @Override
@@ -49,6 +56,12 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return cities == null ? 0 : cities.size();
+    }
+
+    public void set(List<City> list){
+        cities.clear();
+        cities.addAll(list);
+        notifyDataSetChanged();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

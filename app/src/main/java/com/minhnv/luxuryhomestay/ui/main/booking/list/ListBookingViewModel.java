@@ -9,6 +9,7 @@ import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -17,6 +18,7 @@ import timber.log.Timber;
 
 public class ListBookingViewModel extends BaseViewModel<ListBookingNavigator> {
     private static final String TAG = "ListBookingViewModel";
+    private List<Booking> list;
     public PublishSubject<List<Booking>> listPublishSubject = PublishSubject.create();
     public ListBookingViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
@@ -29,6 +31,7 @@ public class ListBookingViewModel extends BaseViewModel<ListBookingNavigator> {
                         .subscribeOn(getSchedulerProvider().io())
                         .observeOn(getSchedulerProvider().ui())
                         .subscribe(response ->{
+                            list = new ArrayList<>(response);
                             getNavigator().onSuccess();
                             listPublishSubject.onNext(response);
                         },throwable -> {

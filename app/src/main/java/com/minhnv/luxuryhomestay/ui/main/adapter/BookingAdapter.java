@@ -17,6 +17,8 @@ import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHolder> {
     private List<Booking> bookings;
     private Context context;
@@ -28,6 +30,9 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
         this.listener = listener;
     }
 
+    @Inject
+    public BookingAdapter() {
+    }
 
     @NonNull
     @Override
@@ -46,6 +51,12 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
     @Override
     public int getItemCount() {
         return bookings == null ? 0 : bookings.size();
+    }
+
+    public void set(List<Booking> list){
+        bookings.clear();
+        bookings.addAll(list);
+        notifyDataSetChanged();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{

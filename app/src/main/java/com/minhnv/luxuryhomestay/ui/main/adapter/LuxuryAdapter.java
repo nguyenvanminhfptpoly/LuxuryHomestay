@@ -19,7 +19,10 @@ import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.squareup.picasso.Picasso;
 
+import java.util.Collections;
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class LuxuryAdapter extends RecyclerView.Adapter<LuxuryAdapter.ViewHolder>{
     private static final int VIEW_TYPE_LOADING = 0;
@@ -34,6 +37,10 @@ public class LuxuryAdapter extends RecyclerView.Adapter<LuxuryAdapter.ViewHolder
         this.luxuries = luxuries;
         this.context = context;
         this.luxury = luxury;
+    }
+
+    @Inject
+    public LuxuryAdapter() {
     }
 
     @NonNull
@@ -60,6 +67,13 @@ public class LuxuryAdapter extends RecyclerView.Adapter<LuxuryAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return luxuries == null ? 0 : luxuries.size();
+    }
+
+    public void set(List<Luxury> list){
+        luxuries.clear();
+        luxuries.addAll(list);
+        notifyDataSetChanged();
+        Collections.reverse(luxuries);
     }
 
 

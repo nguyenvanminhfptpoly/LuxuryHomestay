@@ -16,6 +16,8 @@ import com.minhnv.luxuryhomestay.data.model.VinHome;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class VinHomeAdapter extends RecyclerView.Adapter<VinHomeAdapter.ViewHolder> {
     private List<VinHome> vinHomes;
     private Context context;
@@ -25,6 +27,9 @@ public class VinHomeAdapter extends RecyclerView.Adapter<VinHomeAdapter.ViewHold
         this.vinHomes = vinHomes;
         this.context = context;
         this.navigator = navigator;
+    }
+    @Inject
+    public VinHomeAdapter() {
     }
 
     @NonNull
@@ -61,5 +66,11 @@ public class VinHomeAdapter extends RecyclerView.Adapter<VinHomeAdapter.ViewHold
             imgCity.setImageUrl(home.getImage());
             tvName.setText(home.getName());
         }
+    }
+
+    public void set(List<VinHome> list){
+        vinHomes.clear();
+        vinHomes.addAll(list);
+        notifyDataSetChanged();
     }
 }

@@ -3,9 +3,11 @@
     android:fillAfter="true"
     android:interpolator="@android:anim/bounce_interpolator">
     <scale
-        android:duration="400"
-        android:fromXScale="0.0"
+        android:duration="2000"
+        android:fromXScale="0.3"
         android:toXScale="1.0"
-        android:fromYScale="1.0"
-        android:toYScale="1.0" />
+        android:fromYScale="0.3"
+        android:toYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%" />
 </set>

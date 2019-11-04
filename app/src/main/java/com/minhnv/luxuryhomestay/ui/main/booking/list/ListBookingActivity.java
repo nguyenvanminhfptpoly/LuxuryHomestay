@@ -26,12 +26,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class ListBookingActivity extends BaseActivity<ListBookingViewModel> implements ListBookingNavigator {
 
     private static final String TAG = "ListBookingActivity";
     private RecyclerView recyclerView;
     private List<Booking> bookings;
-    private BookingAdapter adapter;
+    @Inject
+    public BookingAdapter adapter;
     private SlidrInterface slide;
 
     public static Intent newIntent(Context context) {
@@ -105,12 +108,8 @@ public class ListBookingActivity extends BaseActivity<ListBookingViewModel> impl
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(data -> {
-                    bookings.addAll(data);
                     Collections.reverse(bookings);
-                    adapter.notifyDataSetChanged();
-                }, throwable -> {
-                    AppLogger.d(TAG, "ServerLoadList: " + throwable);
-                }));
+                    adapter.set(data);}));
     }
 
     @Override

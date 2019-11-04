@@ -6,5 +6,4 @@ public interface SignInNavigator {
     void handlerError(Throwable throwable);
     void login();
     void onFailed();
-    void updateUserInfo();
 }

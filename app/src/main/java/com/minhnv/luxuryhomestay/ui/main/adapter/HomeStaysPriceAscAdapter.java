@@ -24,6 +24,8 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class HomeStaysPriceAscAdapter extends RecyclerView.Adapter<HomeStaysPriceAscAdapter.ViewHolder> {
     private List<HomestayPrice> homeStays;
     private Context context;
@@ -33,7 +35,9 @@ public class HomeStaysPriceAscAdapter extends RecyclerView.Adapter<HomeStaysPric
         this.context = context;
         this.listener = listener;
     }
-
+    @Inject
+    public HomeStaysPriceAscAdapter() {
+    }
 
     @NonNull
     @Override
@@ -90,5 +94,11 @@ public class HomeStaysPriceAscAdapter extends RecyclerView.Adapter<HomeStaysPric
         }
 
 
+    }
+
+    public void set(List<HomestayPrice> list){
+        homeStays.clear();
+        homeStays.addAll(list);
+        notifyDataSetChanged();
     }
 }

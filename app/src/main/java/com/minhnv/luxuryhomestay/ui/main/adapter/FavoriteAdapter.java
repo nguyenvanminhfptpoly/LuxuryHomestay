@@ -17,6 +17,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
     private List<Favorite> favorites;
     private Context context;
@@ -26,6 +28,10 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         this.favorites = favorites;
         this.context = context;
         this.navigator = navigator;
+    }
+
+    @Inject
+    public FavoriteAdapter() {
     }
 
     @NonNull
@@ -63,5 +69,11 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             tvName.setText(favorite.getNamehomestay());
             tvAddress.setText(favorite.getAddress());
         }
+    }
+
+    public void set(List<Favorite> list){
+        favorites.clear();
+        favorites.addAll(list);
+        notifyDataSetChanged();
     }
 }

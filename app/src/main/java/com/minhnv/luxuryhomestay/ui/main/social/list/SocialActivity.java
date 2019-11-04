@@ -41,15 +41,22 @@ import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
 
 public class SocialActivity extends BaseActivity<SocialViewModel> implements SocialNavigator {
     private static final String TAG = "SocialActivity";
     private List<Luxury> luxuries;
     private List<Story> stories;
-    private SocialAdapter socialAdapter;
-    private LuxuryAdapter adapter;
+    @Inject
+    public SocialAdapter socialAdapter;
+    @Inject
+    public LuxuryAdapter adapter;
     private Integer love = 0;
     private SlidrInterface slide;
     private Handler  handler = new Handler();
@@ -172,24 +179,16 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
         compositeDisposable.add(viewmodel.listPublishSubject.share()
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
-                .subscribe(response -> {
-                            luxuries.addAll(0,response);
-                            Collections.reverse(luxuries);
-                            adapter.notifyDataSetChanged();
-                        },throwable ->
-                        AppLogger.d(TAG, "loadList: "+throwable)
+                .subscribe(response ->
+                    adapter.set(response)
                 ));
 
         compositeDisposable.add(viewmodel.listBehaviorSubject.share()
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(data -> {
-                    stories.addAll(data);
-                    Collections.reverse(stories);
-                    socialAdapter.notifyDataSetChanged();
-                },throwable ->
-                    AppLogger.d(TAG,throwable)
-                ));
+                    socialAdapter.set(data);
+                }));
     }
 
 
