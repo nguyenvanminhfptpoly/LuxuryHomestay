@@ -13,21 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.androidnetworking.widget.ANImageView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Favorite;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.FavoriteViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
+public class FavoriteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Favorite> favorites;
     private Context context;
-    private RecyclerViewNavigator navigator;
+    private FavoriteViewHolder.CallBack callBack;
 
-    public FavoriteAdapter(List<Favorite> favorites, Context context,RecyclerViewNavigator navigator) {
+    public FavoriteAdapter(List<Favorite> favorites, Context context) {
         this.favorites = favorites;
         this.context = context;
-        this.navigator = navigator;
     }
 
     @Inject
@@ -36,44 +36,37 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_recyclerview_favorite,parent,false));
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return FavoriteViewHolder.create(parent);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if(favorites != null) {
-            holder.bind(favorites.get(position));
-            holder.imgFavorite.setOnClickListener(view -> navigator.onItemClickListener(position));
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if(holder instanceof FavoriteViewHolder){
+            ((FavoriteViewHolder) holder).bind(favorites.get(position),callBack);
         }
     }
 
+    public void setCallBack(FavoriteViewHolder.CallBack  callBack){
+        this.callBack = callBack;
+    }
     @Override
     public int getItemCount() {
         return favorites == null ? 0 : favorites.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
-    private ANImageView imgFavorite;
-    private TextView tvName,tvAddress;
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imgFavorite = itemView.findViewById(R.id.imgFavorite);
-            tvAddress = itemView.findViewById(R.id.tvAddressFavorite);
-            tvName = itemView.findViewById(R.id.tvNameFavorite);
-        }
-        void bind(Favorite favorite){
-            imgFavorite.setDefaultImageResId(R.drawable.img_home1);
-            imgFavorite.setErrorImageResId(R.drawable.uploadfailed);
-            imgFavorite.setImageUrl(favorite.getImage());
-            tvName.setText(favorite.getNamehomestay());
-            tvAddress.setText(favorite.getAddress());
-        }
-    }
 
     public void set(List<Favorite> list){
         favorites.clear();
         favorites.addAll(list);
         notifyDataSetChanged();
     }
+
+    public void remove(List<Favorite> list){
+        int position = favorites.indexOf(list);
+        favorites.remove(position);
+        notifyItemRemoved(position);
+    }
+
+
 }

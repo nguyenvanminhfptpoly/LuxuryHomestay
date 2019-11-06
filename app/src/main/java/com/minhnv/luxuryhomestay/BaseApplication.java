@@ -9,6 +9,7 @@ import com.androidnetworking.interceptors.HttpLoggingInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.minhnv.luxuryhomestay.di.component.DaggerAppComponent;
+import com.minhnv.luxuryhomestay.utils.AppLogger;
 
 import javax.inject.Inject;
 
@@ -38,7 +39,7 @@ public class BaseApplication extends Application implements HasActivityInjector 
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
-
+        AppLogger.init();
         AndroidNetworking.setParserFactory(new GsonParserFactory(gson));
     }
 }

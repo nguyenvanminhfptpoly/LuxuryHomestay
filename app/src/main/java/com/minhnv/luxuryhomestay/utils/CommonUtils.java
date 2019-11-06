@@ -1,12 +1,10 @@
 package com.minhnv.luxuryhomestay.utils;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Patterns;
-import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -41,6 +39,21 @@ public class CommonUtils {
         String price = format.format(credit);
         return price;
     }
+
+    public static AlertDialog.Builder createDialog(Context context, String title, String message, String confirm, String cancel){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setCancelable(false);
+        builder.setPositiveButton(confirm, (dialogInterface, i) -> {
+
+        });
+        builder.setNegativeButton(cancel, (dialogInterface, i) -> dialogInterface.dismiss());
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        return builder;
+    }
+
 
 
 

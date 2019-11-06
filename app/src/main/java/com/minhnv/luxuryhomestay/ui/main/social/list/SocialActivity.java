@@ -3,11 +3,9 @@ package com.minhnv.luxuryhomestay.ui.main.social.list;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,15 +21,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.data.model.Story;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.ui.main.adapter.LinearLayoutManagerWithSmoothScroller;
 import com.minhnv.luxuryhomestay.ui.main.adapter.LuxuryAdapter;
-import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
 import com.minhnv.luxuryhomestay.ui.main.adapter.SocialAdapter;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.LuxuryViewHolder;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.SocialViewHolder;
 import com.minhnv.luxuryhomestay.ui.main.homestay_detail.HomeStayDetailActivity;
 import com.minhnv.luxuryhomestay.ui.main.social.post.PostLuxuryActivity;
 import com.minhnv.luxuryhomestay.ui.main.social.story.PostStoryActivity;
@@ -41,15 +39,11 @@ import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-public class SocialActivity extends BaseActivity<SocialViewModel> implements SocialNavigator {
+public class SocialActivity extends BaseActivity<SocialViewModel> implements SocialNavigator, LuxuryViewHolder.CallBack, SocialViewHolder.CallBack {
     private static final String TAG = "SocialActivity";
     private List<Luxury> luxuries;
     private List<Story> stories;
@@ -112,41 +106,8 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
         luxuries = new ArrayList<>();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        adapter = new LuxuryAdapter(luxuries, getApplicationContext(), new RecyclerViewNavigator() {
-            @Override
-            public void onItemClickListener(int position) {
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
-                    return;
-                }
-                mLastClickTime = SystemClock.elapsedRealtime();
-                Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
-                intent.putExtra("luxury_detail", luxuries.get(position));
-                startActivity(intent);
-            }
-
-            @Override
-            public void onItemClickDetailListener(int position) {
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
-                    return;
-                }
-                mLastClickTime = SystemClock.elapsedRealtime();
-                Luxury luxury = luxuries.get(position);
-                Integer id = Integer.valueOf(luxury.getId());
-                Integer countLove =  love++;
-                viewmodel.addLoveForPost(id, countLove);
-            }
-
-            @Override
-            public void onItemSharing(int position) {
-                Luxury luxury = luxuries.get(position);
-                Intent senIntent = new Intent();
-                senIntent.setAction(Intent.ACTION_SEND);
-                senIntent.putExtra(Intent.EXTRA_SUBJECT,luxury.getAddress());
-                senIntent.putExtra(Intent.EXTRA_TEXT,luxury.getImage());
-                senIntent.setType("text/plain");
-                startActivity(Intent.createChooser(senIntent,"Chia sẻ đến"));
-            }
-        });
+        adapter = new LuxuryAdapter(luxuries, getApplicationContext());
+        adapter.setCallBack(this);
         recyclerView.setAdapter(adapter);
     }
     private void setUpRecyclerView(){
@@ -155,24 +116,8 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
         recyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this,LinearLayoutManagerWithSmoothScroller.HORIZONTAL,false));
         recyclerView.setHasFixedSize(true);
         stories = new ArrayList<>();
-        socialAdapter = new SocialAdapter(stories, getApplicationContext(), new RecyclerViewNavigator() {
-            @Override
-            public void onItemClickListener(int position) {
-                Intent intent = DetailStoryActivity.newIntent(getApplicationContext());
-                intent.putExtra("detail_story",stories.get(position));
-                startActivity(intent);
-            }
-
-            @Override
-            public void onItemClickDetailListener(int position) {
-                //never use
-            }
-
-            @Override
-            public void onItemSharing(int position) {
-                //never use
-            }
-        });
+        socialAdapter = new SocialAdapter(stories, getApplicationContext());
+        socialAdapter.setCallBack(this);
         recyclerView.setAdapter(socialAdapter);
     }
     private void fetchData(){
@@ -216,10 +161,6 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
         viewmodel.loadListStory();
     }
 
-    @Override
-    public void deleteStories() {
-        viewmodel.deleteStories();
-    }
 
     @Override
     public void onFailed() {
@@ -248,5 +189,34 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
             ll_post_story.setOnClickListener(ll -> startActivity(PostStoryActivity.newIntent(getApplicationContext())));
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void continueShare(int position) {
+        Luxury luxury = luxuries.get(position);
+        Intent senIntent = new Intent();
+        senIntent.setAction(Intent.ACTION_SEND);
+        senIntent.putExtra(Intent.EXTRA_SUBJECT,luxury.getAddress());
+        senIntent.putExtra(Intent.EXTRA_TEXT,luxury.getImage());
+        senIntent.setType("text/plain");
+        startActivity(Intent.createChooser(senIntent,"Chia sẻ đến"));
+    }
+
+    @Override
+    public void viewDetail(int position) {
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
+        Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
+        intent.putExtra("luxury_detail", luxuries.get(position));
+        startActivity(intent);
+    }
+
+    @Override
+    public void viewStoriesDetail(int position) {
+        Intent intent = DetailStoryActivity.newIntent(getApplicationContext());
+        intent.putExtra("detail_story",stories.get(position));
+        startActivity(intent);
     }
 }

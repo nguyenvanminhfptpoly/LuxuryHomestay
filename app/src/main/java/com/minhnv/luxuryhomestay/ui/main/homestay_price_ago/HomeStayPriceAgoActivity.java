@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
@@ -14,21 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
-import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
 import com.minhnv.luxuryhomestay.ui.main.adapter.StaggeredAdapter;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.StaggeredPriceViewHolder;
 import com.minhnv.luxuryhomestay.ui.main.homestay_detail.HomeStayDetailActivity;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
 public class
-HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements HomeStayPriceNavigator {
+HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements HomeStayPriceNavigator, StaggeredPriceViewHolder.CallBack {
     private static final String TAG = "HomeStayPriceAgoActivit";
     private List<HomestayPrice> homestays;
     @Inject
@@ -56,28 +54,8 @@ HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements
         viewmodel.ServerLoadHomeStaysPriceAsc();
         RecyclerView recyclerView = findViewById(R.id.recyclerViewHomeStayPrice);
         homestays = new ArrayList<>();
-        adapter = new StaggeredAdapter(homestays, getApplicationContext(), new RecyclerViewNavigator() {
-            @Override
-            public void onItemClickListener(int position) {
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
-                    return;
-                }
-                mLastClickTime = SystemClock.elapsedRealtime();
-                Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
-                intent.putExtra("detailprice", homestays.get(position));
-                startActivity(intent);
-            }
-
-            @Override
-            public void onItemClickDetailListener(int position) {
-
-            }
-
-            @Override
-            public void onItemSharing(int position) {
-
-            }
-        });
+        adapter = new StaggeredAdapter(homestays, getApplicationContext());
+        adapter.setCallBack(this);
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
@@ -105,5 +83,16 @@ HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements
                 .subscribe(data ->
                     adapter.set(data)
                 ));
+    }
+
+    @Override
+    public void viewDetail(int position) {
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
+        Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
+        intent.putExtra("detailprice", homestays.get(position));
+        startActivity(intent);
     }
 }

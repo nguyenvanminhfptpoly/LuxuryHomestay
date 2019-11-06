@@ -16,6 +16,8 @@ import com.androidnetworking.widget.ANImageView;
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityDetailViewHolder;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.HomeStayViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,40 +25,39 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class HomeStaysAdapter extends RecyclerView.Adapter<HomeStaysAdapter.ViewHolder> {
+public class HomeStaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Homestay> HomeStay;
     private Context context;
-    private RecyclerViewNavigator listener;
+    private CityDetailViewHolder.CallBack callBack;
 
     @Inject
     public HomeStaysAdapter() {
     }
 
-    public HomeStaysAdapter(List<Homestay> HomeStay, Context context, RecyclerViewNavigator listener) {
-        this.HomeStay = HomeStay;
-        this.context = context;
-        this.listener = listener;
-    }
-
-
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_homestays_recyclerview, parent, false));
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return HomeStayViewHolder.create(parent);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if(HomeStay != null) {
-            holder.bind(HomeStay.get(position));
-            holder.btnListDetail.setOnClickListener(view -> {
-                listener.onItemClickListener(position);
-            });
-            holder.btnListBooking.setOnClickListener(view -> {
-                listener.onItemClickDetailListener(position);
-            });
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if(holder instanceof HomeStayViewHolder){
+            ((HomeStayViewHolder) holder).bind(HomeStay.get(position),callBack);
         }
     }
+
+    public HomeStaysAdapter(List<Homestay> HomeStay, Context context) {
+        this.HomeStay = HomeStay;
+        this.context = context;
+
+    }
+
+    public void setCallBack(CityDetailViewHolder.CallBack callBack){
+        this.callBack = callBack;
+    }
+
+
 
     public void set(List<Homestay> list){
         HomeStay.clear();
@@ -69,29 +70,5 @@ public class HomeStaysAdapter extends RecyclerView.Adapter<HomeStaysAdapter.View
         return HomeStay == null ? 0 : HomeStay.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        ANImageView image;
-        TextView tvTitle;
-        TextView tvDetail;
-        Button btnListDetail, btnListBooking;
-        LinearLayout linearLayout;
 
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            image = itemView.findViewById(R.id.image);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvDetail = itemView.findViewById(R.id.tvDetail);
-            btnListBooking = itemView.findViewById(R.id.btnListBooking);
-            btnListDetail = itemView.findViewById(R.id.btnListDetail);
-            linearLayout = itemView.findViewById(R.id.linear_layout);
-        }
-
-        void bind(Homestay homestay) {
-            tvTitle.setText(homestay.getName());
-            tvDetail.setText(homestay.getEvalute());
-            image.setErrorImageResId(R.drawable.uploadfailed);
-            image.setDefaultImageResId(R.drawable.img_home1);
-            image.setImageUrl(homestay.getImage());
-        }
-    }
 }

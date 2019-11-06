@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
@@ -26,7 +25,6 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import com.google.android.material.navigation.NavigationView;
 import com.minhnv.luxuryhomestay.R;
-import com.minhnv.luxuryhomestay.data.local.preference.AppPreferenceHelper;
 import com.minhnv.luxuryhomestay.data.model.City;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
@@ -38,9 +36,12 @@ import com.minhnv.luxuryhomestay.ui.main.adapter.CityAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysPriceAscAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.LinearLayoutManagerWithSmoothScroller;
-import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
 import com.minhnv.luxuryhomestay.ui.main.adapter.SnapHelperOneByOne;
 import com.minhnv.luxuryhomestay.ui.main.adapter.VinHomeAdapter;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityDetailViewHolder;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityViewHolder;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.HomeStayPriceViewHolder;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.VinHomeViewHolder;
 import com.minhnv.luxuryhomestay.ui.main.booking.booking.BookingActivity;
 import com.minhnv.luxuryhomestay.ui.main.booking.list.ListBookingActivity;
 import com.minhnv.luxuryhomestay.ui.main.favorite.FavoriteActivity;
@@ -61,12 +62,8 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import io.reactivex.Completable;
-import io.reactivex.Observable;
-import io.reactivex.functions.Action;
 
-
-public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNavigator {
+public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNavigator, CityDetailViewHolder.CallBack, HomeStayPriceViewHolder.CallBack, CityViewHolder.CallBack, VinHomeViewHolder.CallBack {
     private static final String TAG = "HomeActivity";
     private DrawerLayout drawerLayout;
     private List<Homestay> homestays;
@@ -146,38 +143,8 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         RecyclerView recyclerViewCity = findViewById(R.id.recyclerCity);
         viewmodel.ServerLoadCity();
         cities = new ArrayList<>();
-        cityAdapter = new CityAdapter(getApplicationContext(), cities, new RecyclerViewNavigator() {
-            @Override
-            public void onItemClickListener(int position) {
-                switch (position) {
-                    case 0:
-                        Intent tphcm = HomeStayCityActivity.newIntent(HomeActivity.this);
-                        tphcm.putExtra("tphcm", cities.get(position));
-                        startActivity(tphcm);
-                        break;
-                    case 1:
-                        Intent dalat = HomeStayCityActivity.newIntent(HomeActivity.this);
-                        dalat.putExtra("dalat", cities.get(position));
-                        startActivity(dalat);
-                        break;
-                    case 2:
-                        Intent hanoi = HomeStayCityActivity.newIntent(HomeActivity.this);
-                        hanoi.putExtra("hanoi", cities.get(position));
-                        startActivity(hanoi);
-                        break;
-                }
-            }
-
-            @Override
-            public void onItemClickDetailListener(int position) {
-
-            }
-
-            @Override
-            public void onItemSharing(int position) {
-
-            }
-        });
+        cityAdapter = new CityAdapter(getApplicationContext(), cities);
+        cityAdapter.setCallBack(this);
         recyclerViewCity.setHasFixedSize(true);
         recyclerViewCity.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this, LinearLayoutManagerWithSmoothScroller.HORIZONTAL, false));
         recyclerViewCity.setAdapter(cityAdapter);
@@ -190,26 +157,8 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         RecyclerView recyclerViewHomeStays = findViewById(R.id.recyclerViewRating);
         homestays = new ArrayList<>();
         viewmodel.ServerLoadHomeStaysRating();
-        adapter = new HomeStaysAdapter(homestays, getApplicationContext(), new RecyclerViewNavigator() {
-            @Override
-            public void onItemClickListener(int position) {
-                Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
-                intent.putExtra("detail", homestays.get(position));
-                startActivity(intent);
-            }
-
-            @Override
-            public void onItemClickDetailListener(int position) {
-                Intent intent = BookingActivity.newIntent(getApplicationContext());
-                intent.putExtra("booking", homestays.get(position));
-                startActivity(intent);
-            }
-
-            @Override
-            public void onItemSharing(int position) {
-
-            }
-        });
+        adapter = new HomeStaysAdapter(homestays, getApplicationContext());
+        adapter.setCallBack(this);
         recyclerViewHomeStays.setHasFixedSize(true);
         recyclerViewHomeStays.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this, LinearLayoutManagerWithSmoothScroller.HORIZONTAL, false));
         recyclerViewHomeStays.setAdapter(adapter);
@@ -217,32 +166,12 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
     }
 
     private void setUpRecyclerViewHomeStayPriceAsc() {
-
         helper = new SnapHelperOneByOne();
         RecyclerView recyclerViewPriceAsc = findViewById(R.id.recyclerViewPriceAsc);
         homestayPrices = new ArrayList<>();
         viewmodel.ServerLoadHomeStaysPriceAsc();
-        ascAdapter = new HomeStaysPriceAscAdapter(homestayPrices, getApplicationContext(), new RecyclerViewNavigator() {
-            @Override
-            public void onItemClickListener(int position) {
-                Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
-                intent.putExtra("detailprice", homestayPrices.get(position));
-                startActivity(intent);
-            }
-
-            @Override
-            public void onItemClickDetailListener(int position) {
-                Intent intent = BookingActivity.newIntent(getApplicationContext());
-                intent.putExtra("detailprice", homestayPrices.get(position));
-                startActivity(intent);
-            }
-
-            @Override
-            public void onItemSharing(int position) {
-
-            }
-        });
-
+        ascAdapter = new HomeStaysPriceAscAdapter(homestayPrices, getApplicationContext());
+        ascAdapter.setCallBack(this);
         recyclerViewPriceAsc.setHasFixedSize(true);
         recyclerViewPriceAsc.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewPriceAsc.setAdapter(ascAdapter);
@@ -271,43 +200,8 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         recyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this, LinearLayoutManagerWithSmoothScroller.HORIZONTAL, false));
         vinHomes = new ArrayList<>();
         viewmodel.ServerLoadCityVinHomes();
-        homeAdapter = new VinHomeAdapter(vinHomes, getApplicationContext(), new RecyclerViewNavigator() {
-            @Override
-            public void onItemClickListener(int position) {
-                switch (position) {
-                    case 0:
-                        Intent central = VinHomeDetailActivity.newIntent(getApplicationContext());
-                        central.putExtra("central", vinHomes.get(position));
-                        startActivity(central);
-                        break;
-                    case 1:
-                        Intent landMark = VinHomeDetailActivity.newIntent(getApplicationContext());
-                        landMark.putExtra("landMark", vinHomes.get(position));
-                        startActivity(landMark);
-                        break;
-                    case 2:
-                        Intent golden = VinHomeDetailActivity.newIntent(getApplicationContext());
-                        golden.putExtra("golden", vinHomes.get(position));
-                        startActivity(golden);
-                        break;
-                    case 3:
-                        Intent timesCity = VinHomeDetailActivity.newIntent(getApplicationContext());
-                        timesCity.putExtra("timesCity", vinHomes.get(position));
-                        startActivity(timesCity);
-                        break;
-                }
-            }
-
-            @Override
-            public void onItemClickDetailListener(int position) {
-                //never use
-            }
-
-            @Override
-            public void onItemSharing(int position) {
-                //never use
-            }
-        });
+        homeAdapter = new VinHomeAdapter(vinHomes, getApplicationContext());
+        homeAdapter.setCallBack(this);
         recyclerView.setAdapter(homeAdapter);
         helper.attachToRecyclerView(recyclerView);
 
@@ -437,15 +331,84 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
             img.setScaleType(ImageView.ScaleType.FIT_XY);
             viewFlipper.addView(img);
         }
-        Observable<String> stringObservable = Observable.fromIterable(strings);
-        stringObservable.subscribe(
-                item -> AppLogger.d(TAG, item),
-                error -> AppLogger.d(TAG, error),
-                () -> Log.d(TAG, "ViewFlipper: success")
-        );
         viewFlipper.setFlipInterval(3000);
         viewFlipper.setAutoStart(true);
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         viewFlipper.setAnimation(animation);
+    }
+
+    @Override
+    public void openDetail(int position) {
+        Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
+        intent.putExtra("detail", homestays.get(position));
+        startActivity(intent);
+    }
+
+    @Override
+    public void openBooking(int position) {
+        Intent intent = BookingActivity.newIntent(getApplicationContext());
+        intent.putExtra("booking", homestays.get(position));
+        startActivity(intent);
+    }
+
+    @Override
+    public void selectBooking(int position) {
+        Intent intent = BookingActivity.newIntent(getApplicationContext());
+        intent.putExtra("detailprice", homestayPrices.get(position));
+        startActivity(intent);
+    }
+
+    @Override
+    public void viewDetail(int position) {
+        Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
+        intent.putExtra("detailprice", homestayPrices.get(position));
+        startActivity(intent);
+    }
+
+    @Override
+    public void viewCityDetail(int position) {
+        switch (position) {
+            case 0:
+                Intent tphcm = HomeStayCityActivity.newIntent(HomeActivity.this);
+                tphcm.putExtra("tphcm", cities.get(position));
+                startActivity(tphcm);
+                break;
+            case 1:
+                Intent dalat = HomeStayCityActivity.newIntent(HomeActivity.this);
+                dalat.putExtra("dalat", cities.get(position));
+                startActivity(dalat);
+                break;
+            case 2:
+                Intent hanoi = HomeStayCityActivity.newIntent(HomeActivity.this);
+                hanoi.putExtra("hanoi", cities.get(position));
+                startActivity(hanoi);
+                break;
+        }
+    }
+
+    @Override
+    public void viewVinHomeDetail(int position) {
+        switch (position) {
+            case 0:
+                Intent central = VinHomeDetailActivity.newIntent(getApplicationContext());
+                central.putExtra("central", vinHomes.get(position));
+                startActivity(central);
+                break;
+            case 1:
+                Intent landMark = VinHomeDetailActivity.newIntent(getApplicationContext());
+                landMark.putExtra("landMark", vinHomes.get(position));
+                startActivity(landMark);
+                break;
+            case 2:
+                Intent golden = VinHomeDetailActivity.newIntent(getApplicationContext());
+                golden.putExtra("golden", vinHomes.get(position));
+                startActivity(golden);
+                break;
+            case 3:
+                Intent timesCity = VinHomeDetailActivity.newIntent(getApplicationContext());
+                timesCity.putExtra("timesCity", vinHomes.get(position));
+                startActivity(timesCity);
+                break;
+        }
     }
 }

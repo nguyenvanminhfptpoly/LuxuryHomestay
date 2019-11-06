@@ -49,21 +49,6 @@ public class SocialViewModel extends BaseViewModel<SocialNavigator> {
         getNavigator().loadList();
     }
 
-    public void addLoveForPost(Integer id, Integer countLove) {
-        getCompositeDisposable().add(
-                getDataManager().doAddLoveLuxury(new UserResponse.ServerAddLove(id, countLove))
-                        .subscribeOn(getSchedulerProvider().io())
-                        .observeOn(getSchedulerProvider().ui())
-                        .subscribe(response -> {
-                            if (response.equals("Success")) {
-                                AppLogger.d(TAG, "addLoveForPost: " + response);
-                            }
-                        }, throwable -> {
-                            getNavigator().HandlerError(throwable);
-                            AppLogger.d(TAG, "addLoveForPost: " + throwable);
-                        })
-        );
-    }
 
     public void loadListStory() {
         getCompositeDisposable().add(
@@ -97,9 +82,6 @@ public class SocialViewModel extends BaseViewModel<SocialNavigator> {
         );
     }
 
-    public void ServerDeleteStories() {
-        getNavigator().deleteStories();
-    }
 
     public void ServerLoadListStory() {
         getNavigator().loadStory();

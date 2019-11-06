@@ -4,7 +4,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
@@ -17,9 +16,8 @@ import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.data.model.VinHome;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
-import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
-import com.minhnv.luxuryhomestay.ui.main.adapter.SnapHelperOneByOne;
 import com.minhnv.luxuryhomestay.ui.main.adapter.VinHomeDetailAdapter;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityDetailViewHolder;
 import com.minhnv.luxuryhomestay.ui.main.booking.booking.BookingActivity;
 import com.minhnv.luxuryhomestay.ui.main.homestay_detail.HomeStayDetailActivity;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
@@ -31,7 +29,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class VinHomeDetailActivity extends BaseActivity<VinHomeDetailViewModel> implements VinHomeDetailNavigator {
+public class VinHomeDetailActivity extends BaseActivity<VinHomeDetailViewModel> implements VinHomeDetailNavigator, CityDetailViewHolder.CallBack {
     private static final String TAG = "VinHomeDetailActivity";
     private Toolbar toolbar;
     @Inject
@@ -79,26 +77,8 @@ public class VinHomeDetailActivity extends BaseActivity<VinHomeDetailViewModel> 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         listVinHomes = new ArrayList<>();
-        adapter = new VinHomeDetailAdapter(listVinHomes, getApplicationContext(), new RecyclerViewNavigator() {
-            @Override
-            public void onItemClickListener(int position) {
-                Intent detail = HomeStayDetailActivity.newIntent(getApplicationContext());
-                detail.putExtra("vinHomes",listVinHomes.get(position));
-                startActivity(detail);
-            }
-
-            @Override
-            public void onItemClickDetailListener(int position) {
-                Intent booking = BookingActivity.newIntent(getApplicationContext());
-                booking.putExtra("vinHomes",listVinHomes.get(position));
-                startActivity(booking);
-            }
-
-            @Override
-            public void onItemSharing(int position) {
-                //never use
-            }
-        });
+        adapter = new VinHomeDetailAdapter(listVinHomes, getApplicationContext());
+        adapter.setCallBack(this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -162,5 +142,19 @@ public class VinHomeDetailActivity extends BaseActivity<VinHomeDetailViewModel> 
     @Override
     public void ServerLoadList() {
         viewmodel.loadList(idVinHomes);
+    }
+
+    @Override
+    public void openDetail(int position) {
+        Intent detail = HomeStayDetailActivity.newIntent(getApplicationContext());
+        detail.putExtra("vinHomes",listVinHomes.get(position));
+        startActivity(detail);
+    }
+
+    @Override
+    public void openBooking(int position) {
+        Intent booking = BookingActivity.newIntent(getApplicationContext());
+        booking.putExtra("vinHomes",listVinHomes.get(position));
+        startActivity(booking);
     }
 }

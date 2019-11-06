@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -17,8 +16,7 @@ import com.minhnv.luxuryhomestay.data.model.City;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.ui.main.adapter.CityDetailAdapter;
-import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysAdapter;
-import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityDetailViewHolder;
 import com.minhnv.luxuryhomestay.ui.main.booking.booking.BookingActivity;
 import com.minhnv.luxuryhomestay.ui.main.homestay_detail.HomeStayDetailActivity;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
@@ -31,7 +29,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> implements HomeStayCityNavigator {
+public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> implements HomeStayCityNavigator, CityDetailViewHolder.CallBack {
 
     private static final String TAG = "HomeStayCityActivity";
     private List<Homestay> homeStays;
@@ -72,34 +70,8 @@ public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> im
         recyclerViewCity.setHasFixedSize(true);
         recyclerViewCity.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         homeStays = new ArrayList<>();
-        adapter = new CityDetailAdapter(homeStays, getApplicationContext(), new RecyclerViewNavigator() {
-            @Override
-            public void onItemClickListener(int position) {
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
-                    return;
-                }
-                mLastClickTime = SystemClock.elapsedRealtime();
-                Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
-                intent.putExtra("detail",homeStays.get(position));
-                startActivity(intent);
-            }
-
-            @Override
-            public void onItemClickDetailListener(int position) {
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
-                    return;
-                }
-                mLastClickTime = SystemClock.elapsedRealtime();
-                Intent intent = BookingActivity.newIntent(getApplicationContext());
-                intent.putExtra("booking",homeStays.get(position));
-                startActivity(intent);
-            }
-
-            @Override
-            public void onItemSharing(int position) {
-
-            }
-        });
+        adapter = new CityDetailAdapter(homeStays, getApplicationContext());
+        adapter.setCallBack(this);
         recyclerViewCity.setAdapter(adapter);
     }
     private void fetchData(){
@@ -150,4 +122,25 @@ public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> im
     }
 
 
+    @Override
+    public void openDetail(int position) {
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
+        Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
+        intent.putExtra("detail",homeStays.get(position));
+        startActivity(intent);
+    }
+
+    @Override
+    public void openBooking(int position) {
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
+        Intent intent = BookingActivity.newIntent(getApplicationContext());
+        intent.putExtra("booking",homeStays.get(position));
+        startActivity(intent);
+    }
 }

@@ -14,39 +14,42 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.androidnetworking.widget.ANImageView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.StaggeredHomeStayViewHolder;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.StaggeredPriceViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class StaggeredRecyclerViewAdapter extends RecyclerView.Adapter<StaggeredRecyclerViewAdapter.ViewHolder> {
+public class StaggeredRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Homestay> homeStay;
     private Context context;
-    private RecyclerViewNavigator selected;
+    private StaggeredPriceViewHolder.CallBack callBack;
 
-    public StaggeredRecyclerViewAdapter(List<Homestay> homestays, Context context,RecyclerViewNavigator selected) {
+    public StaggeredRecyclerViewAdapter(List<Homestay> homestays, Context context) {
         this.homeStay = homestays;
         this.context = context;
-        this.selected = selected;
     }
-
     @Inject
     public StaggeredRecyclerViewAdapter() {
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_recyclerview_staggeredgridlayout,parent,false));
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return StaggeredHomeStayViewHolder.create(parent);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if(homeStay != null){
-            holder.bind(homeStay.get(position));
-            holder.btnDetail.setOnClickListener(view -> {selected.onItemClickListener(position);});
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if(holder instanceof StaggeredHomeStayViewHolder){
+            ((StaggeredHomeStayViewHolder) holder).bind(homeStay.get(position),callBack);
         }
+    }
+
+    public void setCallBack(StaggeredPriceViewHolder.CallBack callBack){
+        this.callBack = callBack;
     }
 
     @Override
@@ -54,25 +57,7 @@ public class StaggeredRecyclerViewAdapter extends RecyclerView.Adapter<Staggered
         return homeStay == null ? 0 : homeStay.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
-    private TextView tvName,tvAddress;
-    private ANImageView imgView;
-    private Button btnDetail;
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvAddress = itemView.findViewById(R.id.tvAddressHomeStayHot);
-            tvName = itemView.findViewById(R.id.tvNameHomStayHot);
-            imgView = itemView.findViewById(R.id.imgHomeStayHot);
-            btnDetail = itemView.findViewById(R.id.btnDetailHomeStayHot);
-        }
-        void bind(Homestay homestay){
-            imgView.setImageUrl(homestay.getImage());
-            imgView.setErrorImageResId(R.drawable.uploadfailed);
-            imgView.setDefaultImageResId(R.drawable.img_home1);
-            tvName.setText(homestay.getName());
-            tvAddress.setText(homestay.getAddress());
-        }
-    }
+
     public void set(List<Homestay> list){
         homeStay.clear();
         homeStay.addAll(list);

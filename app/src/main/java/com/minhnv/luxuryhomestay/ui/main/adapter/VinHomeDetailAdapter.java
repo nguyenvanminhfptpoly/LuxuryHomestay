@@ -15,20 +15,21 @@ import com.androidnetworking.widget.ANImageView;
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityDetailViewHolder;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.VinHomeDetailViewHolder;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class VinHomeDetailAdapter extends RecyclerView.Adapter<VinHomeDetailAdapter.ViewHolder> {
+public class VinHomeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<ListVinHomes> listVinHomes;
     private Context context;
-    private RecyclerViewNavigator navigator;
+    private CityDetailViewHolder.CallBack callBack;
 
-    public VinHomeDetailAdapter(List<ListVinHomes> listVinHomes, Context context,RecyclerViewNavigator navigator) {
+    public VinHomeDetailAdapter(List<ListVinHomes> listVinHomes, Context context) {
         this.listVinHomes = listVinHomes;
         this.context = context;
-        this.navigator = navigator;
     }
 
     @Inject
@@ -37,45 +38,27 @@ public class VinHomeDetailAdapter extends RecyclerView.Adapter<VinHomeDetailAdap
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_recyclerview_vinhomes_detail,parent,false));
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return VinHomeDetailViewHolder.create(parent);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(listVinHomes.get(position));
-        holder.btnListDetail.setOnClickListener(view -> {navigator.onItemClickListener(position);});
-        holder.btnListBooking.setOnClickListener(view -> navigator.onItemClickDetailListener(position));
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if(holder instanceof VinHomeDetailViewHolder){
+            ((VinHomeDetailViewHolder) holder).bind(listVinHomes.get(position), callBack);
+        }
     }
+
+    public void setCallBack(CityDetailViewHolder.CallBack callBack){
+        this.callBack = callBack;
+    }
+
 
     @Override
     public int getItemCount() {
         return listVinHomes == null ? 0 : listVinHomes.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        ANImageView image;
-        TextView tvTitle;
-        TextView tvDetail;
-        Button btnListDetail, btnListBooking;
-        LinearLayout linearLayout;
-
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            image = itemView.findViewById(R.id.imgDetailVH);
-            tvTitle = itemView.findViewById(R.id.tvNameVH);
-            tvDetail = itemView.findViewById(R.id.tvAddressVH);
-            btnListDetail = itemView.findViewById(R.id.btnDetailVH);
-            btnListBooking = itemView.findViewById(R.id.btnBookingVH);
-        }
-        void bind(ListVinHomes homes){
-            image.setDefaultImageResId(R.drawable.img_home1);
-            image.setErrorImageResId(R.drawable.uploadfailed);
-            image.setImageUrl(homes.getImage());
-            tvTitle.setText(homes.getName());
-            tvDetail.setText(homes.getCreateroom());
-        }
-    }
 
     public void set(List<ListVinHomes> list){
         listVinHomes.clear();
