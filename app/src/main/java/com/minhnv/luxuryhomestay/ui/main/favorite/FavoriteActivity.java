@@ -3,7 +3,6 @@ package com.minhnv.luxuryhomestay.ui.main.favorite;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -14,23 +13,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minhnv.luxuryhomestay.R;
-import com.minhnv.luxuryhomestay.data.model.Booking;
 import com.minhnv.luxuryhomestay.data.model.Favorite;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.ui.main.adapter.FavoriteAdapter;
-import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
-import com.minhnv.luxuryhomestay.ui.main.booking.list.ListBookingActivity;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.FavoriteViewHolder;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements FavoriteNavigator {
+public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements FavoriteNavigator, FavoriteViewHolder.CallBack {
     private static final String TAG = "FavoriteActivity";
     private List<Favorite> favorites;
     @Inject
@@ -66,37 +62,8 @@ public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements
 
         viewmodel.ServerLoadFavorite();
         favorites = new ArrayList<>();
-        adapter = new FavoriteAdapter(favorites, getApplicationContext(), new RecyclerViewNavigator() {
-            @Override
-            public void onItemClickListener(int position) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(FavoriteActivity.this);
-                builder.setTitle("Xóa homstay yêu thích này? ");
-                builder.setMessage("Bạn có muốn xóa không?");
-                builder.setCancelable(false);
-                Favorite favorite = favorites.get(position);
-                Integer id = Integer.valueOf(favorite.getId());
-                builder.setPositiveButton("Đồng ý", (dialogInterface, i) -> {
-                    favorites.clear();
-                    viewmodel.ServerLoadFavorite();
-                    viewmodel.deleteFavorite(id);
-                    showLoading();
-                    dialogInterface.dismiss();
-                });
-                builder.setNegativeButton("Không", (dialogInterface, i) -> dialogInterface.dismiss());
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
-
-            @Override
-            public void onItemClickDetailListener(int position) {
-
-            }
-
-            @Override
-            public void onItemSharing(int position) {
-
-            }
-        });
+        adapter = new FavoriteAdapter(favorites, getApplicationContext());
+        adapter.setCallBack(this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(adapter);
@@ -142,4 +109,26 @@ public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements
     public void ServerLoadListFavorite() {
         viewmodel.loadFavorite();
     }
+
+    @Override
+    public void openSelected(int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(FavoriteActivity.this);
+        builder.setTitle("Xóa homstay yêu thích này? ");
+        builder.setMessage("Bạn có muốn xóa không?");
+        builder.setCancelable(false);
+        Favorite favorite = favorites.get(position);
+        Integer id = Integer.valueOf(favorite.getId());
+        builder.setPositiveButton("Đồng ý", (dialogInterface, i) -> {
+            favorites.clear();
+            viewmodel.ServerLoadFavorite();
+            viewmodel.deleteFavorite(id);
+            showLoading();
+            dialogInterface.dismiss();
+        });
+        builder.setNegativeButton("Không", (dialogInterface, i) -> dialogInterface.dismiss());
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+
 }

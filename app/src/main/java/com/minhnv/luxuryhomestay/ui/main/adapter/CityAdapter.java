@@ -15,44 +15,44 @@ import com.androidnetworking.widget.ANImageView;
 import com.elyeproj.loaderviewlibrary.LoaderTextView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.City;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
+public class CityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public Context context;
     private List<City> cities;
-    private RecyclerViewNavigator onItemClick;
+    private CityViewHolder.CallBack callBack;
 
     @Inject
     public CityAdapter() {
     }
 
-    public CityAdapter(Context context, List<City> cities, RecyclerViewNavigator onItemClick) {
+    public CityAdapter(Context context, List<City> cities) {
         this.context = context;
         this.cities = cities;
-        this.onItemClick = onItemClick;
-    }
 
+    }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_city_recyclerview, parent, false));
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return CityViewHolder.create(parent);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (cities != null) {
-            holder.bind(cities.get(position));
-            holder.item_city.setOnClickListener(view -> {
-                onItemClick.onItemClickListener(position);
-            });
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if(holder instanceof CityViewHolder){
+            ((CityViewHolder) holder).bind(cities.get(position),callBack);
         }
     }
 
+    public void setCallBack(CityViewHolder.CallBack callBack){
+        this.callBack = callBack;
+    }
     @Override
     public int getItemCount() {
         return cities == null ? 0 : cities.size();
@@ -64,24 +64,5 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        ANImageView imageView;
-        LoaderTextView tvName;
-        ConstraintLayout item_city;
-        Context context;
 
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageView = itemView.findViewById(R.id.imgCity);
-            tvName = itemView.findViewById(R.id.tvNameCity);
-            item_city = itemView.findViewById(R.id.item_city);
-        }
-
-        void bind(City city) {
-            imageView.setErrorImageResId(R.drawable.uploadfailed);
-            imageView.setDefaultImageResId(R.drawable.img_home1);
-            imageView.setImageUrl(city.getImage());
-            tvName.setText(city.getName());
-        }
-    }
 }

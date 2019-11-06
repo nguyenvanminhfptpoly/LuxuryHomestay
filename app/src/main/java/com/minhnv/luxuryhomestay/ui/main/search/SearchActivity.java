@@ -5,13 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.InputFilter;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -23,7 +18,7 @@ import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysAdapter;
-import com.minhnv.luxuryhomestay.ui.main.adapter.RecyclerViewNavigator;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityDetailViewHolder;
 import com.minhnv.luxuryhomestay.ui.main.booking.booking.BookingActivity;
 import com.minhnv.luxuryhomestay.ui.main.homestay_detail.HomeStayDetailActivity;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
@@ -34,9 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
-
-public class SearchActivity extends BaseActivity<SearchViewModel> implements SearchNavigator {
+public class SearchActivity extends BaseActivity<SearchViewModel> implements SearchNavigator, CityDetailViewHolder.CallBack {
     private static final String TAG = "SearchActivity";
 
     private EditText edRating;
@@ -74,26 +67,8 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
     private void setUpRecyclerView(){
         RecyclerView recyclerViewSearch = findViewById(R.id.recyclerViewSearch);
         homestays = new ArrayList<>();
-        adapter = new HomeStaysAdapter(homestays, getApplicationContext(), new RecyclerViewNavigator() {
-            @Override
-            public void onItemClickListener(int position) {
-                Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
-                intent.putExtra("detail",homestays.get(position));
-                startActivity(intent);
-            }
-
-            @Override
-            public void onItemClickDetailListener(int position) {
-                Intent intent = BookingActivity.newIntent(getApplicationContext());
-                intent.putExtra("booking",homestays.get(position));
-                startActivity(intent);
-            }
-
-            @Override
-            public void onItemSharing(int position) {
-
-            }
-        });
+        adapter = new HomeStaysAdapter(homestays, getApplicationContext());
+        adapter.setCallBack(this);
         recyclerViewSearch.setHasFixedSize(true);
         recyclerViewSearch.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerViewSearch.setAdapter(adapter);
@@ -118,6 +93,7 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
 
     @Override
     public void onSuccess() {
+        hideLoading();
         AppLogger.d(TAG, "onUploadImageSuccess: ");
     }
 
@@ -142,5 +118,17 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
     }
 
 
+    @Override
+    public void openDetail(int position) {
+        Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
+        intent.putExtra("detail",homestays.get(position));
+        startActivity(intent);
+    }
 
+    @Override
+    public void openBooking(int position) {
+        Intent intent = BookingActivity.newIntent(getApplicationContext());
+        intent.putExtra("booking",homestays.get(position));
+        startActivity(intent);
+    }
 }

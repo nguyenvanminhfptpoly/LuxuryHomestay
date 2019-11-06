@@ -8,6 +8,7 @@ public class AppLogger {
     public static void init() {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
+            Timber.tag("LUXURY");
         }
     }
     public static void d(String s, Object... objects) {
