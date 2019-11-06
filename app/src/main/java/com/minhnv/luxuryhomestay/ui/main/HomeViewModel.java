@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 
@@ -66,7 +67,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
     public void loadListHomeStayRating() {
         getCompositeDisposable().add(
-                getDataManager().doLoadListHomeStayRating(new UserResponse.ServerListHomeStaysRating(5))
+                getDataManager().doLoadListHomeStayRating(new UserResponse.ServerListHomeStaysRating(4))
                         .subscribeOn(getSchedulerProvider().io())
                         .observeOn(getSchedulerProvider().ui())
                         .subscribe(response -> {
@@ -153,6 +154,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     public void closeDrawer() {
         getNavigator().close();
     }
+
 
 
 }

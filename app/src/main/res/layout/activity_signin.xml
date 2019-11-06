@@ -43,6 +43,7 @@
             android:fontFamily="@font/robotocondensed_regular"
             android:hint="@string/phone_number"
             android:padding="10dp"
+            android:inputType="phone"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +62,7 @@
             app:layout_constraintTop_toBottomOf="@+id/includePassWords" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tvNeedHelp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/need_help"

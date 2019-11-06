@@ -1,22 +1,13 @@
 package com.minhnv.luxuryhomestay.ui.main.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.androidnetworking.widget.ANImageView;
-import com.elyeproj.loaderviewlibrary.LoaderTextView;
-import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.City;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityViewHolder;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -25,7 +16,7 @@ import javax.inject.Inject;
 public class CityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public Context context;
     private List<City> cities;
-    private CityViewHolder.CallBack callBack;
+    private CityViewHolder.UserActionListener callBack;
 
     @Inject
     public CityAdapter() {
@@ -50,7 +41,7 @@ public class CityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    public void setCallBack(CityViewHolder.CallBack callBack){
+    public void setUserAction(CityViewHolder.UserActionListener callBack){
         this.callBack = callBack;
     }
     @Override

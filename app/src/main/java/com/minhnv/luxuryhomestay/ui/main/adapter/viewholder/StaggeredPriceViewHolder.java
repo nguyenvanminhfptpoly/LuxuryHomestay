@@ -24,13 +24,13 @@ public class StaggeredPriceViewHolder extends RecyclerView.ViewHolder{
         imgView = itemView.findViewById(R.id.imgHomeStayHot);
         btnDetail = itemView.findViewById(R.id.btnDetailHomeStayHot);
     }
-    public void bind(HomestayPrice homestay,CallBack callBack){
+    public void bind(HomestayPrice homestay, UserActionListener callBack){
         imgView.setImageUrl(homestay.getImage());
         imgView.setErrorImageResId(R.drawable.uploadfailed);
         imgView.setDefaultImageResId(R.drawable.img_home1);
         tvName.setText(homestay.getTitle());
         tvAddress.setText(homestay.getAddress());
-        btnDetail.setOnClickListener(v -> callBack.viewDetail(getAdapterPosition()));
+        btnDetail.setOnClickListener(v -> callBack.onActionViewDetailHsPriceByUser(getAdapterPosition()));
     }
 
     public static StaggeredPriceViewHolder create(ViewGroup parent){
@@ -38,7 +38,7 @@ public class StaggeredPriceViewHolder extends RecyclerView.ViewHolder{
         return new StaggeredPriceViewHolder(view);
     }
 
-    public interface CallBack{
-        void viewDetail(int position);
+    public interface UserActionListener {
+        void onActionViewDetailHsPriceByUser(int position);
     }
 }

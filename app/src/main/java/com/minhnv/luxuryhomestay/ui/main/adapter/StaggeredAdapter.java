@@ -16,7 +16,7 @@ import javax.inject.Inject;
 public class StaggeredAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<HomestayPrice> homeStay;
     private Context context;
-    private StaggeredPriceViewHolder.CallBack callBack;
+    private StaggeredPriceViewHolder.UserActionListener callBack;
 
     public StaggeredAdapter(List<HomestayPrice> homestays, Context context) {
         this.homeStay = homestays;
@@ -40,7 +40,7 @@ public class StaggeredAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public void setCallBack(StaggeredPriceViewHolder.CallBack callBack){
+    public void setUserAction(StaggeredPriceViewHolder.UserActionListener callBack){
         this.callBack = callBack;
     }
 

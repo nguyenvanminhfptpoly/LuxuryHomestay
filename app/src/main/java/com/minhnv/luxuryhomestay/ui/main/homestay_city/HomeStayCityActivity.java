@@ -29,7 +29,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> implements HomeStayCityNavigator, CityDetailViewHolder.CallBack {
+public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> implements HomeStayCityNavigator, CityDetailViewHolder.UserActionListener {
 
     private static final String TAG = "HomeStayCityActivity";
     private List<Homestay> homeStays;
@@ -63,7 +63,7 @@ public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> im
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         toolbarCity.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        toolbarCity.setNavigationOnClickListener(view  -> {onBackPressed();});
+        toolbarCity.setNavigationOnClickListener(view  -> onBackPressed());
     }
     private void setUpRecyclerViewCity(){
         RecyclerView recyclerViewCity = findViewById(R.id.recyclerviewFollowCity);
@@ -71,7 +71,7 @@ public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> im
         recyclerViewCity.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         homeStays = new ArrayList<>();
         adapter = new CityDetailAdapter(homeStays, getApplicationContext());
-        adapter.setCallBack(this);
+        adapter.setUserAction(this);
         recyclerViewCity.setAdapter(adapter);
     }
     private void fetchData(){
@@ -123,7 +123,7 @@ public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> im
 
 
     @Override
-    public void openDetail(int position) {
+    public void onActionDetailByUser(int position) {
         if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
             return;
         }
@@ -134,7 +134,7 @@ public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> im
     }
 
     @Override
-    public void openBooking(int position) {
+    public void onActionBookingByUser(int position) {
         if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
             return;
         }

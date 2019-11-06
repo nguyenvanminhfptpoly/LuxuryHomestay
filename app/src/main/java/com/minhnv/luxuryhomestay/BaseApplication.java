@@ -32,14 +32,14 @@ public class BaseApplication extends Application implements HasActivityInjector 
                 .application(this)
                 .build()
                 .inject(this);
+        AppLogger.init();
+        AndroidNetworking.initialize(getApplicationContext());
         if (BuildConfig.DEBUG) {
             AndroidNetworking.enableLogging(HttpLoggingInterceptor.Level.BODY);
         }
-        AndroidNetworking.initialize(getApplicationContext());
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
-        AppLogger.init();
         AndroidNetworking.setParserFactory(new GsonParserFactory(gson));
     }
 }

@@ -1,19 +1,12 @@
 package com.minhnv.luxuryhomestay.ui.main.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.androidnetworking.widget.ANImageView;
-import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.VinHome;
-import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityViewHolder;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.VinHomeViewHolder;
 
 import java.util.List;
@@ -23,7 +16,7 @@ import javax.inject.Inject;
 public class VinHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<VinHome> vinHomes;
     private Context context;
-    private VinHomeViewHolder.CallBack callBack;
+    private VinHomeViewHolder.UserActionListener callBack;
 
     public VinHomeAdapter(List<VinHome> vinHomes, Context context) {
         this.vinHomes = vinHomes;
@@ -46,7 +39,7 @@ public class VinHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public void setCallBack(VinHomeViewHolder.CallBack callBack){
+    public void setUserAction(VinHomeViewHolder.UserActionListener callBack){
         this.callBack = callBack;
     }
 

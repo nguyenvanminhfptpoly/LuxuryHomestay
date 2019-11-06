@@ -4,8 +4,6 @@ package com.minhnv.luxuryhomestay.data.remote;
 import com.minhnv.luxuryhomestay.BuildConfig;
 
 class ApiEndPoint {
-    private static final String BASE_URL = "https://luxuryhomestay.000webhostapp.com/";
-    private static final String URL_XAMPP = "http://192.168.1.157/Demo/";
     static final String ENDPOINT_SIGNUP = BuildConfig.BASE_URL +  "signup.php";
     static final String ENDPOINT_SIGN_IN =  BuildConfig.BASE_URL + "login.php";
     static final String ENDPOINT_LIST_HOMESTAYS =  BuildConfig.BASE_URL + "getlist.php";

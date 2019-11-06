@@ -48,16 +48,16 @@ public class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
                         ));
     }
 
-    public void insertUser(String pass,String phone,String name){
+    public void insertUser(String pass, String phone, String name) {
         getCompositeDisposable().add(
-                getDataManager().insertUser(new User(pass,phone,name))
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(data -> {
-                    AppLogger.d(TAG, "insertUser: "+data);
-                },throwable -> {
-                    AppLogger.d(TAG,throwable);
-                })
+                getDataManager().insertUser(new User(pass, phone, name))
+                        .subscribeOn(getSchedulerProvider().io())
+                        .observeOn(getSchedulerProvider().ui())
+                        .subscribe(data ->
+                            AppLogger.d(TAG, "insertUser: " + data)
+                        , throwable ->
+                            AppLogger.d(TAG, throwable)
+                        )
         );
     }
 

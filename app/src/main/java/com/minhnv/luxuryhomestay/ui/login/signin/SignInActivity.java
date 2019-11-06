@@ -1,13 +1,15 @@
 package com.minhnv.luxuryhomestay.ui.login.signin;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -42,7 +44,7 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
     private SharedPreferences.Editor editor;
     public static final String PASSWORD = "PASSWORD";
     public static final String PHONENUMBER = "PHONENUMBER";
-    private TextView tvSignUp;
+    private TextView tvSignUp,tvNeedHelp;
     private Button btnLogin;
     private List<User> users;
     private final static int REQUEST_CODE_ASK_PERMISSIONS = 1;
@@ -59,7 +61,6 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
     }
 
 
-    @SuppressLint("CommitPrefEdits")
     @Override
     public void onCreateActivity(@Nullable Bundle savedInstanceState) {
         viewmodel = ViewModelProviders.of(this, factory).get(SignInViewModel.class);
@@ -73,6 +74,10 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
         btnLogin = findViewById(R.id.btnLogin);
         passWord = findViewById(R.id.includePassWords);
         phoneNumber = findViewById(R.id.includeCountMember);
+        tvNeedHelp = findViewById(R.id.tvNeedHelp);
+
+        phoneNumber.setText(appPreferenceHelper.getCurrentPassword());
+        passWord.setText(appPreferenceHelper.getCurrentPhoneNumber());
 
         tvSignUp.setOnClickListener(view -> {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
@@ -88,24 +93,26 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
             mLastClickTime = SystemClock.elapsedRealtime();
             viewmodel.onServerSignIn();
         });
-        SharedPreferences preferences = getSharedPreferences("Login", MODE_PRIVATE);
-        editor = preferences.edit();
-        String mPassword = preferences.getString(PASSWORD, "");
-        String mPhoneNumber = preferences.getString(PHONENUMBER, "");
-        phoneNumber.setText(mPassword);
-        passWord.setText(mPhoneNumber);
         fetchData();
+
+        tvNeedHelp.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this);
+            View view = getLayoutInflater().inflate(R.layout.dialog_need_help,null);
+            builder.setView(view);
+            Dialog dialog = builder.create();
+            dialog.show();
+        });
     }
 
     private void fetchData() {
         compositeDisposable.add(viewmodel.listBehaviorSubject.share()
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
-                .subscribe(data -> {
-                    users.addAll(data);
-                }, throwable -> {
-                    AppLogger.d(TAG, throwable);
-                }));
+                .subscribe(data ->
+                    users.addAll(data)
+                , throwable ->
+                    AppLogger.d(TAG, throwable)
+                ));
     }
 
     /**
@@ -136,20 +143,18 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_CODE_ASK_PERMISSIONS:
-                for (int index = permissions.length - 1; index >= 0; --index) {
-                    if (grantResults[index] != PackageManager.PERMISSION_GRANTED) {
-                        // exit the app if one permission is not granted
-                        Toast.makeText(this, "Required permission '" + permissions[index]
-                                + "' not granted, exiting", Toast.LENGTH_LONG).show();
-                        finish();
-                        return;
-                    }
+        if (requestCode == REQUEST_CODE_ASK_PERMISSIONS) {
+            for (int index = permissions.length - 1; index >= 0; --index) {
+                if (grantResults[index] != PackageManager.PERMISSION_GRANTED) {
+                    // exit the app if one permission is not granted
+                    Toast.makeText(this, "Required permission '" + permissions[index]
+                            + "' not granted, exiting", Toast.LENGTH_LONG).show();
+                    finish();
+                    return;
                 }
-                // all permissions were granted
-                initialize();
-                break;
+            }
+            // all permissions were granted
+            initialize();
         }
     }
 
@@ -183,9 +188,6 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
         String InputPhoneNumber = passWord.getText().toString().trim();
         String InputPassword = phoneNumber.getText().toString().trim();
         if (viewmodel.isRequestValid(InputPhoneNumber, InputPassword) && isNetworkConnected()) {
-            editor.putString(PASSWORD, InputPassword);
-            editor.putString(PHONENUMBER, InputPhoneNumber);
-            editor.commit();
             viewmodel.signin(InputPassword,InputPhoneNumber);
             hideKeyboard();
             showLoading();
@@ -210,4 +212,6 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
             phoneNumber.setText(appPreferenceHelper.getCurrentPassword());
         }
     }
+
+
 }

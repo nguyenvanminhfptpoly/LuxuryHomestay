@@ -18,6 +18,7 @@
         app:title="@string/sign_up"/>
 
     <LinearLayout
+        android:baselineAligned="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
@@ -60,6 +61,7 @@
                 android:fontFamily="@font/robotocondensed_regular"
                 android:hint="@string/phone_number"
                 android:padding="10dp"
+                android:inputType="phone"
                 android:textColor="@android:color/black"
                  />
         </LinearLayout>
@@ -93,7 +95,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tvNeedHelp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/robotocondensed_regular"

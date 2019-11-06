@@ -63,7 +63,7 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 
-public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNavigator, CityDetailViewHolder.CallBack, HomeStayPriceViewHolder.CallBack, CityViewHolder.CallBack, VinHomeViewHolder.CallBack {
+public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNavigator, CityDetailViewHolder.UserActionListener, HomeStayPriceViewHolder.UserActionListener, CityViewHolder.UserActionListener, VinHomeViewHolder.UserActionListener {
     private static final String TAG = "HomeActivity";
     private DrawerLayout drawerLayout;
     private List<Homestay> homestays;
@@ -111,12 +111,12 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         Button btnDetailHSP = findViewById(R.id.btnDetailHSP);
         TextView tvNameUser = findViewById(R.id.tvNameUser);
         btnGotoBooking.setOnClickListener(view -> startActivity(ListBookingActivity.newIntent(getApplicationContext())));
-        btnDetailHSH.setOnClickListener(view -> {
-            startActivity(HomeStayHotActivity.newIntent(HomeActivity.this));
-        });
-        btnDetailHSP.setOnClickListener(view -> {
-            startActivity(HomeStayPriceAgoActivity.newIntent(getApplicationContext()));
-        });
+        btnDetailHSH.setOnClickListener(view ->
+            startActivity(HomeStayHotActivity.newIntent(HomeActivity.this))
+        );
+        btnDetailHSP.setOnClickListener(view ->
+            startActivity(HomeStayPriceAgoActivity.newIntent(getApplicationContext()))
+        );
         ImageView imgGuideBooking = findViewById(R.id.imgGuideBooking);
         ImageView imgPayment = findViewById(R.id.imgGuidePayment);
         imgPayment.setOnClickListener(view -> {
@@ -144,7 +144,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         viewmodel.ServerLoadCity();
         cities = new ArrayList<>();
         cityAdapter = new CityAdapter(getApplicationContext(), cities);
-        cityAdapter.setCallBack(this);
+        cityAdapter.setUserAction(this);
         recyclerViewCity.setHasFixedSize(true);
         recyclerViewCity.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this, LinearLayoutManagerWithSmoothScroller.HORIZONTAL, false));
         recyclerViewCity.setAdapter(cityAdapter);
@@ -158,7 +158,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         homestays = new ArrayList<>();
         viewmodel.ServerLoadHomeStaysRating();
         adapter = new HomeStaysAdapter(homestays, getApplicationContext());
-        adapter.setCallBack(this);
+        adapter.setUserAction(this);
         recyclerViewHomeStays.setHasFixedSize(true);
         recyclerViewHomeStays.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this, LinearLayoutManagerWithSmoothScroller.HORIZONTAL, false));
         recyclerViewHomeStays.setAdapter(adapter);
@@ -171,7 +171,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         homestayPrices = new ArrayList<>();
         viewmodel.ServerLoadHomeStaysPriceAsc();
         ascAdapter = new HomeStaysPriceAscAdapter(homestayPrices, getApplicationContext());
-        ascAdapter.setCallBack(this);
+        ascAdapter.setUserAction(this);
         recyclerViewPriceAsc.setHasFixedSize(true);
         recyclerViewPriceAsc.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewPriceAsc.setAdapter(ascAdapter);
@@ -201,7 +201,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         vinHomes = new ArrayList<>();
         viewmodel.ServerLoadCityVinHomes();
         homeAdapter = new VinHomeAdapter(vinHomes, getApplicationContext());
-        homeAdapter.setCallBack(this);
+        homeAdapter.setUserAction(this);
         recyclerView.setAdapter(homeAdapter);
         helper.attachToRecyclerView(recyclerView);
 
@@ -338,35 +338,35 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
     }
 
     @Override
-    public void openDetail(int position) {
+    public void onActionDetailByUser(int position) {
         Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
         intent.putExtra("detail", homestays.get(position));
         startActivity(intent);
     }
 
     @Override
-    public void openBooking(int position) {
+    public void onActionBookingByUser(int position) {
         Intent intent = BookingActivity.newIntent(getApplicationContext());
         intent.putExtra("booking", homestays.get(position));
         startActivity(intent);
     }
 
     @Override
-    public void selectBooking(int position) {
+    public void onActionBookingHomeStayByUser(int position) {
         Intent intent = BookingActivity.newIntent(getApplicationContext());
         intent.putExtra("detailprice", homestayPrices.get(position));
         startActivity(intent);
     }
 
     @Override
-    public void viewDetail(int position) {
+    public void onActionViewDetailHomeStayByUser(int position) {
         Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
         intent.putExtra("detailprice", homestayPrices.get(position));
         startActivity(intent);
     }
 
     @Override
-    public void viewCityDetail(int position) {
+    public void onActionViewDetailByUser(int position) {
         switch (position) {
             case 0:
                 Intent tphcm = HomeStayCityActivity.newIntent(HomeActivity.this);
@@ -387,7 +387,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
     }
 
     @Override
-    public void viewVinHomeDetail(int position) {
+    public void onActionViewVinHomeDetailByUser(int position) {
         switch (position) {
             case 0:
                 Intent central = VinHomeDetailActivity.newIntent(getApplicationContext());

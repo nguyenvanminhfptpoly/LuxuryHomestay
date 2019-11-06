@@ -26,7 +26,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class
-HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements HomeStayPriceNavigator, StaggeredPriceViewHolder.CallBack {
+HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements HomeStayPriceNavigator, StaggeredPriceViewHolder.UserActionListener {
     private static final String TAG = "HomeStayPriceAgoActivit";
     private List<HomestayPrice> homestays;
     @Inject
@@ -55,7 +55,7 @@ HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements
         RecyclerView recyclerView = findViewById(R.id.recyclerViewHomeStayPrice);
         homestays = new ArrayList<>();
         adapter = new StaggeredAdapter(homestays, getApplicationContext());
-        adapter.setCallBack(this);
+        adapter.setUserAction(this);
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
@@ -86,7 +86,7 @@ HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements
     }
 
     @Override
-    public void viewDetail(int position) {
+    public void onActionViewDetailHsPriceByUser(int position) {
         if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
             return;
         }

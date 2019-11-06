@@ -34,7 +34,7 @@ public class LuxuryViewHolder extends RecyclerView.ViewHolder {
         btnDetailLuxury = itemView.findViewById(R.id.btnDetailLuxury);
     }
 
-    public void bind(Luxury luxury,CallBack callBack) {
+    public void bind(Luxury luxury, UserActionListener callBack) {
         tvName.setText(luxury.getUsername());
         tvAddress.setText(luxury.getAddress());
         String detail = luxury.getDetail();
@@ -42,8 +42,8 @@ public class LuxuryViewHolder extends RecyclerView.ViewHolder {
         imgLuxury.setDefaultImageResId(R.drawable.img_home1);
         imgLuxury.setErrorImageResId(R.drawable.uploadfailed);
         imgLuxury.setImageUrl(luxury.getImage());
-        imgShare.setOnClickListener(v -> callBack.continueShare(getAdapterPosition()));
-        btnDetailLuxury.setOnClickListener(v -> callBack.viewDetail(getAdapterPosition()));
+        imgShare.setOnClickListener(v -> callBack.onActionShareByUser(getAdapterPosition()));
+        btnDetailLuxury.setOnClickListener(v -> callBack.onActionViewDetailLuxuryByUser(getAdapterPosition()));
     }
 
     public static LuxuryViewHolder create(ViewGroup parent){
@@ -51,8 +51,8 @@ public class LuxuryViewHolder extends RecyclerView.ViewHolder {
         return new LuxuryViewHolder(view);
     }
 
-    public interface CallBack{
-        void continueShare(int position);
-        void viewDetail(int position);
+    public interface UserActionListener {
+        void onActionShareByUser(int position);
+        void onActionViewDetailLuxuryByUser(int position);
     }
 }

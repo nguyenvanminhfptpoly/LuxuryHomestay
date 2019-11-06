@@ -29,15 +29,15 @@ public class VinHomeDetailViewHolder extends RecyclerView.ViewHolder {
         btnListDetail = itemView.findViewById(R.id.btnDetailVH);
         btnListBooking = itemView.findViewById(R.id.btnBookingVH);
     }
-    public void bind(ListVinHomes homes, CityDetailViewHolder.CallBack callBack){
+    public void bind(ListVinHomes homes, CityDetailViewHolder.UserActionListener callBack){
         image.setDefaultImageResId(R.drawable.img_home1);
         image.setErrorImageResId(R.drawable.uploadfailed);
         image.setImageUrl(homes.getImage());
         tvTitle.setText(homes.getName());
         tvDetail.setText(homes.getCreateroom());
 
-        btnListBooking.setOnClickListener(v -> callBack.openBooking(getAdapterPosition()));
-        btnListDetail.setOnClickListener(v -> callBack.openDetail(getAdapterPosition()));
+        btnListBooking.setOnClickListener(v -> callBack.onActionBookingByUser(getAdapterPosition()));
+        btnListDetail.setOnClickListener(v -> callBack.onActionDetailByUser(getAdapterPosition()));
     }
 
     public static VinHomeDetailViewHolder create(ViewGroup parent){

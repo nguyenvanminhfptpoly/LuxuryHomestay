@@ -21,6 +21,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function3;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
@@ -181,6 +182,5 @@ public class AppApiHelper implements ApiHelper {
                 .build()
                 .getStringObservable();
     }
-
 
 }

@@ -31,14 +31,14 @@ public class HomeStayViewHolder extends RecyclerView.ViewHolder {
         linearLayout = itemView.findViewById(R.id.linear_layout);
     }
 
-    public void bind(Homestay homestay, CityDetailViewHolder.CallBack callBack) {
+    public void bind(Homestay homestay, CityDetailViewHolder.UserActionListener callBack) {
         tvTitle.setText(homestay.getName());
         tvDetail.setText(homestay.getEvalute());
         image.setErrorImageResId(R.drawable.uploadfailed);
         image.setDefaultImageResId(R.drawable.img_home1);
         image.setImageUrl(homestay.getImage());
-        btnListBooking.setOnClickListener(view -> callBack.openBooking(getAdapterPosition()));
-        btnListDetail.setOnClickListener(v -> callBack.openDetail(getAdapterPosition()));
+        btnListBooking.setOnClickListener(view -> callBack.onActionBookingByUser(getAdapterPosition()));
+        btnListDetail.setOnClickListener(v -> callBack.onActionDetailByUser(getAdapterPosition()));
     }
 
     public static HomeStayViewHolder create(ViewGroup parent){

@@ -26,7 +26,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements FavoriteNavigator, FavoriteViewHolder.CallBack {
+public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements FavoriteNavigator, FavoriteViewHolder.UserActionListener {
     private static final String TAG = "FavoriteActivity";
     private List<Favorite> favorites;
     @Inject
@@ -56,14 +56,14 @@ public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements
         Toolbar toolbar = findViewById(R.id.toolbarFavorite);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setTitle("Homestay yêu thích");
-        toolbar.setNavigationOnClickListener(view -> {
-            onBackPressed();
-        });
+        toolbar.setNavigationOnClickListener(view ->
+            onBackPressed()
+        );
 
         viewmodel.ServerLoadFavorite();
         favorites = new ArrayList<>();
         adapter = new FavoriteAdapter(favorites, getApplicationContext());
-        adapter.setCallBack(this);
+        adapter.setUserAction(this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(adapter);
@@ -111,7 +111,7 @@ public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements
     }
 
     @Override
-    public void openSelected(int position) {
+    public void onActionAddFavoriteByUser(int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(FavoriteActivity.this);
         builder.setTitle("Xóa homstay yêu thích này? ");
         builder.setMessage("Bạn có muốn xóa không?");

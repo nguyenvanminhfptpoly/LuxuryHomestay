@@ -34,9 +34,10 @@ public class HomeStayPriceViewHolder extends RecyclerView.ViewHolder {
         btnBooking = itemView.findViewById(R.id.btnBookingAsc);
         btnDetail = itemView.findViewById(R.id.btnDetailAsc);
         tvPriceAgo = itemView.findViewById(R.id.tvPriceAgo);
+
     }
 
-    public void bind(HomestayPrice homestay, HomeStayPriceViewHolder.CallBack callBack) {
+    public void bind(HomestayPrice homestay, UserActionListener callBack) {
         double percent = ((homestay.getPrice() - homestay.getPriceago()) / homestay.getPriceago()) * 100;
         imgPicture.setDefaultImageResId(R.drawable.img_home1);
         imgPicture.setErrorImageResId(R.drawable.uploadfailed);
@@ -50,8 +51,10 @@ public class HomeStayPriceViewHolder extends RecyclerView.ViewHolder {
         builder.setSpan(span,0,15, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         tvPriceAgo.setText(builder);
-        btnBooking.setOnClickListener(v -> callBack.selectBooking(getAdapterPosition()));
-        btnDetail.setOnClickListener(v -> callBack.viewDetail(getAdapterPosition()));
+        btnBooking.setOnClickListener(v -> callBack.onActionBookingHomeStayByUser(getAdapterPosition()));
+        btnDetail.setOnClickListener(v -> callBack.onActionViewDetailHomeStayByUser(getAdapterPosition()));
+
+
     }
 
     public static HomeStayPriceViewHolder create(ViewGroup parent){
@@ -59,9 +62,9 @@ public class HomeStayPriceViewHolder extends RecyclerView.ViewHolder {
         return new HomeStayPriceViewHolder(view);
     }
 
-    public interface CallBack{
-        void selectBooking(int position);
-        void viewDetail(int position);
+    public interface UserActionListener {
+        void onActionBookingHomeStayByUser(int position);
+        void onActionViewDetailHomeStayByUser(int position);
     }
 
 
