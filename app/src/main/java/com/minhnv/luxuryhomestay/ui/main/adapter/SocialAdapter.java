@@ -1,16 +1,11 @@
 package com.minhnv.luxuryhomestay.ui.main.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.androidnetworking.widget.ANImageView;
-import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Story;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.SocialViewHolder;
 
@@ -22,7 +17,7 @@ import javax.inject.Inject;
 public class SocialAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Story> stories;
     private Context context;
-    private SocialViewHolder.CallBack callBack;
+    private SocialViewHolder.UserActionListener callBack;
 
     public SocialAdapter(List<Story> luxuries, Context context) {
         this.stories = luxuries;
@@ -46,7 +41,7 @@ public class SocialAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    public void setCallBack(SocialViewHolder.CallBack callBack){
+    public void setUserAction(SocialViewHolder.UserActionListener callBack){
         this.callBack = callBack;
     }
 

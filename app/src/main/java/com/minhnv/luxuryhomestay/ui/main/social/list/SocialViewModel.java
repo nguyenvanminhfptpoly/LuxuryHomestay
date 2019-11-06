@@ -39,9 +39,9 @@ public class SocialViewModel extends BaseViewModel<SocialNavigator> {
                             List<Luxury> luxuries = new ArrayList<>(response);
                             listPublishSubject.onNext(response);
                             AppLogger.d(TAG, "luxuryList: " + response);
-                        }, throwable -> {
-                            getNavigator().HandlerError(throwable);
-                        })
+                        }, throwable ->
+                            getNavigator().HandlerError(throwable)
+                        )
         );
     }
 
@@ -55,30 +55,11 @@ public class SocialViewModel extends BaseViewModel<SocialNavigator> {
                 getDataManager().doLoadListStory()
                         .subscribeOn(getSchedulerProvider().io())
                         .observeOn(getSchedulerProvider().ui())
-                        .subscribe(response -> {
-                            listBehaviorSubject.onNext(response);
-                        }, throwable -> {
-                            AppLogger.d(TAG, throwable);
-                        })
-        );
-    }
-
-    public void deleteStories() {
-        getCompositeDisposable().add(
-                getDataManager().doDeleteStories()
-                        .subscribeOn(getSchedulerProvider().io())
-                        .observeOn(getSchedulerProvider().ui())
-                        .subscribe(
-                                response -> {
-                                    if (response.equals("Success")) {
-                                        getNavigator().onSuccess();
-                                    } else if (response.equals("Failed")) {
-                                        getNavigator().onFailed();
-                                    }
-                                },
-                                throwable -> {
-                                    AppLogger.d(TAG, throwable);
-                                })
+                        .subscribe(response ->
+                            listBehaviorSubject.onNext(response)
+                        , throwable ->
+                            AppLogger.d(TAG, throwable)
+                        )
         );
     }
 

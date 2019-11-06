@@ -30,14 +30,14 @@ public class CityDetailViewHolder extends RecyclerView.ViewHolder {
         btnListDetail = itemView.findViewById(R.id.btnListCityDetail);
     }
 
-    public void bind(Homestay homestay,CallBack callBack) {
+    public void bind(Homestay homestay, UserActionListener callBack) {
         tvTitle.setText(homestay.getName());
         tvDetail.setText(homestay.getEvalute());
         image.setErrorImageResId(R.drawable.uploadfailed);
         image.setDefaultImageResId(R.drawable.img_home1);
         image.setImageUrl(homestay.getImage());
-        btnListBooking.setOnClickListener(view -> callBack.openBooking(getAdapterPosition()));
-        btnListDetail.setOnClickListener(view -> callBack.openDetail(getAdapterPosition()));
+        btnListBooking.setOnClickListener(view -> callBack.onActionBookingByUser(getAdapterPosition()));
+        btnListDetail.setOnClickListener(view -> callBack.onActionDetailByUser(getAdapterPosition()));
     }
 
     public static CityDetailViewHolder create(ViewGroup parent){
@@ -45,8 +45,8 @@ public class CityDetailViewHolder extends RecyclerView.ViewHolder {
         return new CityDetailViewHolder(view);
     }
 
-    public interface CallBack{
-        void openDetail(int position);
-        void openBooking(int position);
+    public interface UserActionListener {
+        void onActionDetailByUser(int position);
+        void onActionBookingByUser(int position);
     }
 }

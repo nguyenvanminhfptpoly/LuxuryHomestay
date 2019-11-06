@@ -1,22 +1,14 @@
 package com.minhnv.luxuryhomestay.ui.main.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.androidnetworking.widget.ANImageView;
-import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.StaggeredHomeStayViewHolder;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.StaggeredPriceViewHolder;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -25,7 +17,7 @@ import javax.inject.Inject;
 public class StaggeredRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Homestay> homeStay;
     private Context context;
-    private StaggeredPriceViewHolder.CallBack callBack;
+    private StaggeredPriceViewHolder.UserActionListener callBack;
 
     public StaggeredRecyclerViewAdapter(List<Homestay> homestays, Context context) {
         this.homeStay = homestays;
@@ -48,7 +40,7 @@ public class StaggeredRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         }
     }
 
-    public void setCallBack(StaggeredPriceViewHolder.CallBack callBack){
+    public void setUserAction(StaggeredPriceViewHolder.UserActionListener callBack){
         this.callBack = callBack;
     }
 

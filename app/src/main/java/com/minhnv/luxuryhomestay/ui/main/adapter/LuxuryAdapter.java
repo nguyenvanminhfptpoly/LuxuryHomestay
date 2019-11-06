@@ -1,24 +1,13 @@
 package com.minhnv.luxuryhomestay.ui.main.adapter;
 
 import android.content.Context;
-import android.os.SystemClock;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.androidnetworking.widget.ANImageView;
-import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.LuxuryViewHolder;
-import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +17,7 @@ import javax.inject.Inject;
 public class LuxuryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private List<Luxury> luxuries;
     private Context context;
-    private LuxuryViewHolder.CallBack callBack;
+    private LuxuryViewHolder.UserActionListener callBack;
     public long mLastClickTime = 0;
 
     public LuxuryAdapter(List<Luxury> luxuries, Context context) {
@@ -53,7 +42,7 @@ public class LuxuryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    public void setCallBack(LuxuryViewHolder.CallBack callBack){
+    public void setUserAction(LuxuryViewHolder.UserActionListener callBack){
         this.callBack = callBack;
     }
 

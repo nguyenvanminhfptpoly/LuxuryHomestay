@@ -7,7 +7,6 @@
     android:baselineAligned="false">
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -53,146 +52,86 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:tint="@color/md_white_1000"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAddress"
-            app:srcCompat="@drawable/box"
-            android:contentDescription="@string/todo"/>
-
         <Button
             android:id="@+id/btnBooking"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/bg_button_drawer_selector"
+            android:drawableStart="@drawable/ic_booking_black_24dp"
             android:text="@string/booking"
             android:textColor="@drawable/text_selector"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toTopOf="@+id/imageView3" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:tint="@color/md_white_1000"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3"
-            app:srcCompat="@drawable/heart"
-            android:contentDescription="@string/todo"/>
+            app:layout_constraintStart_toStartOf="@+id/tvAddress"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
 
         <Button
             android:id="@+id/btnFavorite"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/bg_button_drawer_selector"
+            android:drawableStart="@drawable/ic_favorite_black_24dp"
             android:text="@string/favorite"
             android:textColor="@drawable/text_selector"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView4"
-            app:layout_constraintTop_toTopOf="@+id/imageView4" />
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:tint="@color/md_white_1000"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4"
-            app:srcCompat="@drawable/socialmedia"
-            android:contentDescription="@string/todo"/>
+            app:layout_constraintStart_toStartOf="@+id/btnBooking"
+            app:layout_constraintTop_toBottomOf="@+id/btnBooking" />
 
         <Button
             android:id="@+id/btnSocial"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/bg_button_drawer_selector"
+            android:drawableStart="@drawable/ic_social_black_24dp"
             android:text="@string/social_network"
             android:textColor="@drawable/text_selector"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="@+id/imageView5" />
-
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:tint="@color/md_white_1000"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5"
-            app:srcCompat="@drawable/reunion"
-            android:contentDescription="@string/todo"/>
+            app:layout_constraintStart_toStartOf="@+id/btnFavorite"
+            app:layout_constraintTop_toBottomOf="@+id/btnFavorite" />
 
         <Button
             android:id="@+id/btnIntro"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/bg_button_drawer_selector"
+            android:drawableStart="@drawable/ic_nature_people_black_24dp"
             android:text="@string/intro"
             android:textColor="@drawable/text_selector"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView6"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView6"
-            app:layout_constraintTop_toTopOf="@+id/imageView6" />
-
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:tint="@color/md_white_1000"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6"
-            app:srcCompat="@drawable/logout"
-            android:contentDescription="@string/todo"/>
+            app:layout_constraintStart_toStartOf="@+id/btnSocial"
+            app:layout_constraintTop_toBottomOf="@+id/btnSocial" />
 
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/bg_button_drawer_selector"
+            android:drawableStart="@drawable/ic_logout_black_24dp"
             android:text="@string/logout"
             android:textColor="@drawable/text_selector"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView7"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView7"
-            app:layout_constraintTop_toTopOf="@+id/imageView7" />
+            app:layout_constraintStart_toStartOf="@+id/btnIntro"
+            app:layout_constraintTop_toBottomOf="@+id/btnIntro" />
 
         <ImageView
             android:id="@+id/imageView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/todo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnLogout"
-            app:srcCompat="@drawable/image19"
-            android:contentDescription="@string/todo"/>
+            app:srcCompat="@drawable/image19" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

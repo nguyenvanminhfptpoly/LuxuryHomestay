@@ -13,9 +13,9 @@ import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Booking;
 
 public class BookingViewHolder extends RecyclerView.ViewHolder {
-    public TextView titleDateStart, titleDateEnd, titleCountMember, tvNameHs, tvAddressHs;
-    public ConstraintLayout constraintLayout;
-    private CallBack callBack;
+    private TextView titleDateStart, titleDateEnd, titleCountMember, tvNameHs, tvAddressHs;
+    private ConstraintLayout constraintLayout;
+    private UserActionListener callBack;
 
     private BookingViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -26,7 +26,7 @@ public class BookingViewHolder extends RecyclerView.ViewHolder {
         tvNameHs = itemView.findViewById(R.id.tvNameHs);
         constraintLayout = itemView.findViewById(R.id.constraintLayout_delete);
     }
-    public void bind(Booking booking,CallBack callBack) {
+    public void bind(Booking booking, UserActionListener callBack) {
         String dateStart = "Ngày đến: " + booking.getDatestart();
         String dateEnd = "Ngày đi: " + booking.getDateend();
         String countMember = "Số lượng người: " + booking.getCountmember();
@@ -37,9 +37,9 @@ public class BookingViewHolder extends RecyclerView.ViewHolder {
         titleCountMember.setText(countMember);
         tvAddressHs.setText(addressHs);
         tvNameHs.setText(nameHs);
-        constraintLayout.setOnClickListener(view -> {
-            callBack.openSelected(getAdapterPosition());
-        });
+        constraintLayout.setOnClickListener(view ->
+            callBack.onActionSelectedByUser(getAdapterPosition())
+        );
     }
 
     public static BookingViewHolder create(ViewGroup parent){
@@ -47,8 +47,8 @@ public class BookingViewHolder extends RecyclerView.ViewHolder {
         return new BookingViewHolder(view);
     }
 
-    public interface CallBack{
-        void openSelected(int position);
+    public interface UserActionListener {
+        void onActionSelectedByUser(int position);
     }
 
 }

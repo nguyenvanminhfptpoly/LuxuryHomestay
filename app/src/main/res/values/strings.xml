@@ -125,4 +125,11 @@
     <string name="title_content">Hãy xem mọi người đã chia sẻ những gì</string>
     <string name="select_post">Bạn Muốn ?</string>
     <string name="price_ago_1">giảm: </string>
+
+    //need help
+    <string name="need_help_title">Đăng ký tài khoản nhanh chóng</string>
+    <string name="need_help_content">Nếu bạn chưa có tài khoản,
+        \n vui lòng click vào dòng chữ "Chưa có tài khoản? Đăng ký" tài khoản bên dưới
+        \n để tiến hành việc đăng ký,sau đó bạn có thể quay trở lại đăng nhập mà không cần điền lại thông tin đăng nhập </string>
+    <string name="need_help_footer">Cảm ơn</string>
 </resources>

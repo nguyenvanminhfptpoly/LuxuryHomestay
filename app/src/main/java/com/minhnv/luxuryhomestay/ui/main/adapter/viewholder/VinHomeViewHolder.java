@@ -23,20 +23,20 @@ public  class VinHomeViewHolder extends RecyclerView.ViewHolder{
         tvName = itemView.findViewById(R.id.tvNameVinHomes);
         view = itemView.findViewById(R.id.cardViewVinHomes);
     }
-    public void bind(VinHome home, VinHomeViewHolder.CallBack callBack){
+    public void bind(VinHome home, UserActionListener callBack){
         imgCity.setDefaultImageResId(R.drawable.img_home1);
         imgCity.setErrorImageResId(R.drawable.uploadfailed);
         imgCity.setImageUrl(home.getImage());
         tvName.setText(home.getName());
 
-        view.setOnClickListener(v -> callBack.viewVinHomeDetail(getAdapterPosition()));
+        view.setOnClickListener(v -> callBack.onActionViewVinHomeDetailByUser(getAdapterPosition()));
     }
     public static VinHomeViewHolder create(ViewGroup parent){
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recyclerview_vinhomes,parent,false);
         return new VinHomeViewHolder(view);
     }
 
-    public interface CallBack{
-        void viewVinHomeDetail(int position);
+    public interface UserActionListener {
+        void onActionViewVinHomeDetailByUser(int position);
     }
 }

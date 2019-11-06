@@ -1,13 +1,15 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
+def config = rootProject.extensions.getByName("ext")
+
 android {
-    compileSdkVersion 29
+    compileSdkVersion config['compileSdkVersion']
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.minhnv.luxuryhomestay"
-        minSdkVersion 19
-        targetSdkVersion 29
+        minSdkVersion config['minSdkVersion']
+        targetSdkVersion config['targetSdkVersion']
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -37,89 +39,88 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    implementation 'com.google.firebase:firebase-messaging:20.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
-    /* Dagger2 - We are going to use dagger.android which includes
-    * support for Activity and fragment injection so we need to include
-    * the following dependencies */
-    implementation 'com.google.dagger:dagger-android:2.17'
-    implementation 'com.google.dagger:dagger-android-support:2.17'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.17'
-
-    /* Dagger2 - default dependency */
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.17'
-
-    implementation 'com.amitshekhar.android:rx2-android-networking:1.0.1'
-
-    def rxjava_version = '2.1.1'
-    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
-
-    //gson
-    implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
-
-
-    implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
-
-    implementation "android.arch.lifecycle:extensions:1.1.1"
-    implementation "android.arch.lifecycle:viewmodel:1.1.1"
-    implementation 'com.squareup.picasso:picasso:2.71828'
-
-    implementation 'jp.wasabeef:picasso-transformations:2.2.1'
-    // If you want to use the GPU Filters
-    implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
-    implementation 'com.wang.avi:library:2.1.3'
-
-    implementation 'com.borjabravo:readmoretextview:2.1.0'
-
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.18'
-    implementation 'de.hdodenhof:circleimageview:3.0.1'
-
+    //app compat
+    implementation config.commonDependency.appCompart
+    //constraintLayout
+    implementation config.commonDependency.constraintLayout
+    //legacy
+    implementation config.commonDependency.legacy
+    //lifecycle
+    implementation config.commonDependency.lifeCyclerExtensions
+    //fire base
+    implementation config.commonDependency.firebase
+    //junit
+    testImplementation config.commonDependency.jUnit
+    //test runner
+    androidTestImplementation config.commonDependency.testRunner
+    //espresso
+    androidTestImplementation config.commonDependency.espressocore
+    //dagger
+    implementation config.commonDependency.dagger
+    //dagger support
+    implementation config.commonDependency.daggerAndroid
+    //dagger processor
+    annotationProcessor config.commonDependency.daggerAndroidProcessor
+    //dagger compile
+    annotationProcessor config.commonDependency.daggerAndroidCompile
+    //FAN
+    implementation config.commonDependency.rx2AndroidNetworking
+    //rxJava
+    implementation config.commonDependency.rxJavaVer
+    //gSon
+    implementation config.commonDependency.gson
+    //cardView
+    implementation config.commonDependency.cardView
+    //recyclerView
+    implementation config.commonDependency.recyclerView
+    //material
+    implementation config.commonDependency.material
+    //rxBinding
+    implementation config.commonDependency.rxBinding
+    //life cycle extensions
+    implementation config.commonDependency.lifeCyclerExtensions
+    //life cycle viewModel
+    implementation config.commonDependency.lifeViewModel
+    // picasso
+    implementation config.commonDependency.picasso
+    //picasso transform
+    implementation config.commonDependency.picassoTranform
+    //gpu
+    implementation config.commonDependency.gpuimage
+    //wang avi
+    implementation config.commonDependency.wangAvi
+    //read more text view
+    implementation config.commonDependency.readMoreTextView
+    //gif drawable
+    implementation config.commonDependency.gifDrawable
+    //circle image
+    implementation config.commonDependency.circleImage
     // Retrofit
-    def retrofitVersion = "2.5.0"
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-
+    implementation config.commonDependency.retrofit
+    //converter gSon
+    implementation config.commonDependency.conveterGson
     // Rx-Retrofit Call Adapter
-    def rxcalladapter_version = '2.5.0'
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$rxcalladapter_version"
+    implementation config.commonDependency.rxJava2Call
     // Retrofit call adapter
-    implementation 'com.r0adkll:slidableactivity:2.1.0'
-    //timeber
-    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation config.commonDependency.slideActivity
+    //timeBer
+    implementation config.commonDependency.timBer
     //loader view
-    implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'
+    implementation config.commonDependency.loadView
     //snap helper
-    implementation 'com.github.rubensousa:gravitysnaphelper:2.2.0'
+    implementation config.commonDependency.gravitySnap
     //room dataBase
-    def room_version = "2.2.1"
-
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
-    // For Kotlin use kapt instead of annotationProcessor
-
+    //room runtime
+    implementation config.commonDependency.room
+    //room compile
+    annotationProcessor config.commonDependency.roomRuntime
     //room rxJava
     // RxJava support for Room
-    implementation 'androidx.room:room-rxjava2:2.2.1'
-    // Testing support
-    androidTestImplementation "android.arch.core:core-testing:1.1.1"
-
-    implementation 'de.hdodenhof:circleimageview:3.0.1'
-
-    //rxBinding
-    implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
-
+    implementation config.commonDependency.roomRxjava
+    // Testing support core
+    androidTestImplementation config.commonDependency.coreTest
     //android debug database
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+    debugImplementation config.commonDependency.androidDebugDatabase
 
 
 }

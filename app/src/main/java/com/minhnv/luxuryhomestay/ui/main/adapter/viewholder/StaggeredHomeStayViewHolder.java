@@ -24,14 +24,14 @@ public class StaggeredHomeStayViewHolder extends RecyclerView.ViewHolder{
         imgView = itemView.findViewById(R.id.imgHomeStayHot);
         btnDetail = itemView.findViewById(R.id.btnDetailHomeStayHot);
     }
-    public void bind(Homestay homestay, StaggeredPriceViewHolder.CallBack callBack){
+    public void bind(Homestay homestay, StaggeredPriceViewHolder.UserActionListener callBack){
         imgView.setImageUrl(homestay.getImage());
         imgView.setErrorImageResId(R.drawable.uploadfailed);
         imgView.setDefaultImageResId(R.drawable.img_home1);
         tvName.setText(homestay.getName());
         tvAddress.setText(homestay.getAddress());
 
-        btnDetail.setOnClickListener(v -> callBack.viewDetail(getAdapterPosition()));
+        btnDetail.setOnClickListener(v -> callBack.onActionViewDetailHsPriceByUser(getAdapterPosition()));
     }
     public static StaggeredHomeStayViewHolder create(ViewGroup parent){
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recyclerview_staggeredgridlayout,parent,false);

@@ -27,7 +27,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class ListBookingActivity extends BaseActivity<ListBookingViewModel> implements ListBookingNavigator, BookingViewHolder.CallBack {
+public class ListBookingActivity extends BaseActivity<ListBookingViewModel> implements ListBookingNavigator, BookingViewHolder.UserActionListener {
 
     private static final String TAG = "ListBookingActivity";
     private RecyclerView recyclerView;
@@ -59,9 +59,9 @@ public class ListBookingActivity extends BaseActivity<ListBookingViewModel> impl
         Toolbar toolbar = findViewById(R.id.toolbarListBooking);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setTitle(getString(R.string.list_booking));
-        toolbar.setNavigationOnClickListener(view -> {
-            onBackPressed();
-        });
+        toolbar.setNavigationOnClickListener(view ->
+            onBackPressed()
+        );
         viewmodel.ServerLoadList();
         fetchData();
         recyclerView = findViewById(R.id.recyclerViewBooking);
@@ -69,7 +69,7 @@ public class ListBookingActivity extends BaseActivity<ListBookingViewModel> impl
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         bookings = new ArrayList<>();
         adapter = new BookingAdapter(bookings, getApplicationContext());
-        adapter.setCallBack(this::openSelected);
+        adapter.setUserAction(this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -119,9 +119,8 @@ public class ListBookingActivity extends BaseActivity<ListBookingViewModel> impl
     }
 
 
-
     @Override
-    public void openSelected(int position) {
+    public void onActionSelectedByUser(int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ListBookingActivity.this);
         builder.setTitle("Xóa lịch đặt phòng này");
         builder.setMessage("Bạn có muốn xóa không?");

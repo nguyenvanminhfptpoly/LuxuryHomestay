@@ -27,9 +27,8 @@ import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-public class SearchActivity extends BaseActivity<SearchViewModel> implements SearchNavigator, CityDetailViewHolder.CallBack {
+public class SearchActivity extends BaseActivity<SearchViewModel> implements SearchNavigator, CityDetailViewHolder.UserActionListener {
     private static final String TAG = "SearchActivity";
 
     private EditText edRating;
@@ -68,12 +67,15 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
         RecyclerView recyclerViewSearch = findViewById(R.id.recyclerViewSearch);
         homestays = new ArrayList<>();
         adapter = new HomeStaysAdapter(homestays, getApplicationContext());
-        adapter.setCallBack(this);
+        adapter.setUserAction(this);
         recyclerViewSearch.setHasFixedSize(true);
         recyclerViewSearch.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerViewSearch.setAdapter(adapter);
 
         btnSearch.setOnClickListener(view -> {
+            if(SystemClock.elapsedRealtime() - mLastClickTime < 5000){
+                return;
+            }
             mLastClickTime = SystemClock.elapsedRealtime();
             viewmodel.ServerLoadList();
             homestays.clear();
@@ -106,7 +108,6 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
             showLoading();
             compositeDisposable.add(viewmodel.listPublishSubject.share()
                     .subscribeOn(schedulerProvider.io())
-                    .throttleFirst(300, TimeUnit.SECONDS)
                     .observeOn(schedulerProvider.ui())
                     .subscribe(response ->
                             adapter.set(response)
@@ -119,14 +120,14 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
 
 
     @Override
-    public void openDetail(int position) {
+    public void onActionDetailByUser(int position) {
         Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
         intent.putExtra("detail",homestays.get(position));
         startActivity(intent);
     }
 
     @Override
-    public void openBooking(int position) {
+    public void onActionBookingByUser(int position) {
         Intent intent = BookingActivity.newIntent(getApplicationContext());
         intent.putExtra("booking",homestays.get(position));
         startActivity(intent);

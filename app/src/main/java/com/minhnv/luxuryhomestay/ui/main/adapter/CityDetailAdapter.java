@@ -1,19 +1,11 @@
 package com.minhnv.luxuryhomestay.ui.main.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.androidnetworking.widget.ANImageView;
-import com.borjabravo.readmoretextview.ReadMoreTextView;
-import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityDetailViewHolder;
 
@@ -24,7 +16,7 @@ import javax.inject.Inject;
 public class CityDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Homestay> HomeStay;
     private Context context;
-    private CityDetailViewHolder.CallBack callBack;
+    private CityDetailViewHolder.UserActionListener callBack;
 
 
     public CityDetailAdapter(List<Homestay> HomeStay, Context context) {
@@ -49,7 +41,7 @@ public class CityDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    public void setCallBack(CityDetailViewHolder.CallBack callBack){
+    public void setUserAction(CityDetailViewHolder.UserActionListener callBack){
         this.callBack = callBack;
     }
 

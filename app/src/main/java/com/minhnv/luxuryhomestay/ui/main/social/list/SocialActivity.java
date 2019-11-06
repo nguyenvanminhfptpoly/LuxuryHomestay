@@ -43,7 +43,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class SocialActivity extends BaseActivity<SocialViewModel> implements SocialNavigator, LuxuryViewHolder.CallBack, SocialViewHolder.CallBack {
+public class SocialActivity extends BaseActivity<SocialViewModel> implements SocialNavigator, LuxuryViewHolder.UserActionListener, SocialViewHolder.UserActionListener {
     private static final String TAG = "SocialActivity";
     private List<Luxury> luxuries;
     private List<Story> stories;
@@ -107,7 +107,7 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter = new LuxuryAdapter(luxuries, getApplicationContext());
-        adapter.setCallBack(this);
+        adapter.setUserAction(this);
         recyclerView.setAdapter(adapter);
     }
     private void setUpRecyclerView(){
@@ -117,7 +117,7 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
         recyclerView.setHasFixedSize(true);
         stories = new ArrayList<>();
         socialAdapter = new SocialAdapter(stories, getApplicationContext());
-        socialAdapter.setCallBack(this);
+        socialAdapter.setUserAction(this);
         recyclerView.setAdapter(socialAdapter);
     }
     private void fetchData(){
@@ -131,9 +131,9 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
         compositeDisposable.add(viewmodel.listBehaviorSubject.share()
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
-                .subscribe(data -> {
-                    socialAdapter.set(data);
-                }));
+                .subscribe(data ->
+                    socialAdapter.set(data)
+                ));
     }
 
 
@@ -192,7 +192,7 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
     }
 
     @Override
-    public void continueShare(int position) {
+    public void onActionShareByUser(int position) {
         Luxury luxury = luxuries.get(position);
         Intent senIntent = new Intent();
         senIntent.setAction(Intent.ACTION_SEND);
@@ -203,7 +203,7 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
     }
 
     @Override
-    public void viewDetail(int position) {
+    public void onActionViewDetailLuxuryByUser(int position) {
         if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
             return;
         }
@@ -214,7 +214,7 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
     }
 
     @Override
-    public void viewStoriesDetail(int position) {
+    public void onActionViewStoryDetailByUser(int position) {
         Intent intent = DetailStoryActivity.newIntent(getApplicationContext());
         intent.putExtra("detail_story",stories.get(position));
         startActivity(intent);

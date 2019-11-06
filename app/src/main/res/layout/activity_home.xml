@@ -34,6 +34,7 @@
                         android:layout_width="match_parent"
                         android:id="@+id/toolbar_home"
                         style="@style/ToolBarHome"
+                        app:title="@string/vinHomes"
                         android:background="@color/colorPrimary"
                         app:titleTextColor="@color/md_white_1000"
                         />

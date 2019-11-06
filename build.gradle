@@ -27,3 +27,94 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    //sdk and tools
+    compileSdkVersion = 29
+    targetSdkVersion = 29
+    minSdkVersion = 19
+    supportLibVer = "29.0.2"
+
+
+    //app
+    appCompartVer = "1.1.0"
+    constraintLayoutVer = "1.1.3"
+    firebase = "20.0.0"
+    jUnitVer = "4.12"
+    espressocoreVer = "3.2.0"
+    testRunnerVer = "1.2.0"
+    legacy = "1.0.0"
+
+
+    //App dependencies
+    dagger2Version = "2.17"
+    rx2AndroidNetworkingVer = "1.0.1"
+    rxJavaVer = "2.1.1"
+    gsonVer = "2.8.6"
+    cardViewVer = "1.0.0"
+    recyclerViewVer = "1.0.0"
+    materialVer = "1.0.0"
+    rxBindingVer = "3.0.0"
+    lifecycleExtensionsVer = "1.1.1"
+    lifeCycleViewModelVer = "1.1.1"
+    picassoVer = "2.71828"
+    picassoTRansformationsVer = "2.2.1"
+    gpuimageVer = "1.4.1"
+    wangAviVer = "2.1.3"
+    readMoreTextViewVer = "2.1.0"
+    androidGifDrawableVer = "1.2.18"
+    circleImageViewVer = "3.0.1"
+    retrofitVer = "2.5.0"
+    conveterGson = "2.5.0"
+    rxCallAdapterVer = "2.5.0"
+    slidableActivityVer = "2.1.0"
+    timeBerVer = "4.7.1"
+    loaderViewVer = "2.0.0"
+    gravitySnapHelper = "2.2.0"
+    roomVer = "2.2.1"
+    androidDebugDatabase = "1.0.6"
+    coreTesting = "1.1.1"
+
+    commonDependency = [
+            dagger                : "com.google.dagger:dagger-android:${dagger2Version}",
+            daggerAndroid         : "com.google.dagger:dagger-android-support:${dagger2Version}",
+            daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${dagger2Version}",
+            daggerAndroidCompile  : "com.google.dagger:dagger-compiler:${dagger2Version}",
+            rx2AndroidNetworking  : "com.amitshekhar.android:rx2-android-networking:${rx2AndroidNetworkingVer}",
+            rxJavaVer             : "io.reactivex.rxjava2:rxjava:${rxJavaVer}",
+            gson                  : "com.google.code.gson:gson:${gsonVer}",
+            cardView              : "androidx.cardview:cardview:${cardViewVer}",
+            recyclerView          : "androidx.recyclerview:recyclerview:${recyclerViewVer}",
+            material              : "com.google.android.material:material:${materialVer}",
+            rxBinding             : "com.jakewharton.rxbinding3:rxbinding:${rxBindingVer}",
+            lifeCyclerExtensions  : "android.arch.lifecycle:extensions:${lifecycleExtensionsVer}",
+            lifeViewModel         : "android.arch.lifecycle:viewmodel:${lifeCycleViewModelVer}",
+            picasso               : "com.squareup.picasso:picasso:${picassoVer}",
+            picassoTranform       : "jp.wasabeef:picasso-transformations:${picassoTRansformationsVer}",
+            gpuimage              : "jp.co.cyberagent.android.gpuimage:gpuimage-library:${gpuimageVer}",
+            wangAvi               : "com.wang.avi:library:${wangAviVer}",
+            readMoreTextView      : "com.borjabravo:readmoretextview:${readMoreTextViewVer}",
+            gifDrawable           : "pl.droidsonroids.gif:android-gif-drawable:${androidGifDrawableVer}",
+            circleImage           : "de.hdodenhof:circleimageview:${circleImageViewVer}",
+            retrofit              : "com.squareup.retrofit2:retrofit:${retrofitVer}",
+            conveterGson          : "com.squareup.retrofit2:converter-gson:${retrofitVer}",
+            slideActivity         : "com.r0adkll:slidableactivity:${slidableActivityVer}",
+            timBer                : "com.jakewharton.timber:timber:${timeBerVer}",
+            loadView              : "com.elyeproj.libraries:loaderviewlibrary:${loaderViewVer}",
+            gravitySnap           : "com.github.rubensousa:gravitysnaphelper:${gravitySnapHelper}",
+            room                : "androidx.room:room-runtime:${roomVer}",
+            roomRuntime         : "androidx.room:room-compiler:${roomVer}",
+            roomRxjava          : "androidx.room:room-rxjava2:${roomVer}",
+            androidDebugDatabase: "com.amitshekhar.android:debug-db:${androidDebugDatabase}",
+            rxJava2Call         : "com.squareup.retrofit2:adapter-rxjava2:${rxCallAdapterVer}",
+            coreTest            : "android.arch.core:core-testing:${coreTesting}",
+            appCompart          : "androidx.appcompat:appcompat:${appCompartVer}",
+            constraintLayout    : "androidx.constraintlayout:constraintlayout:${constraintLayoutVer}",
+            firebase            : "com.google.firebase:firebase-messaging:${firebase}",
+            jUnit               : "junit:junit:${jUnitVer}",
+            espressocore        : "androidx.test.espresso:espresso-core:${espressocoreVer}",
+            testRunner          : "androidx.test:runner:${testRunnerVer}",
+            legacy              : "androidx.legacy:legacy-support-v4:${legacy}"
+
+    ]
+}

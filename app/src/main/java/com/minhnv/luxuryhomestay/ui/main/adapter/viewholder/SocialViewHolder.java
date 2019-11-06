@@ -20,15 +20,15 @@ public  class SocialViewHolder extends RecyclerView.ViewHolder{
         view = itemView.findViewById(R.id.cardSocial);
         imgSocial = itemView.findViewById(R.id.imgSocial);
     }
-    public void bind(Story luxury,CallBack callBack){
+    public void bind(Story luxury, UserActionListener callBack){
         imgSocial.setImageUrl(luxury.getImage());
         imgSocial.setDefaultImageResId(R.drawable.img_home1);
         imgSocial.setErrorImageResId(R.drawable.uploadfailed);
 
-        imgSocial.setOnClickListener(v -> callBack.viewStoriesDetail(getAdapterPosition()));
+        imgSocial.setOnClickListener(v -> callBack.onActionViewStoryDetailByUser(getAdapterPosition()));
     }
-    public interface CallBack{
-        void viewStoriesDetail(int position);
+    public interface UserActionListener {
+        void onActionViewStoryDetailByUser(int position);
     }
 
     public static SocialViewHolder create(ViewGroup parent){

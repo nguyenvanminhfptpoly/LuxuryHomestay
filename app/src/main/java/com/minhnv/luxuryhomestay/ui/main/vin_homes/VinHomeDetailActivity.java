@@ -29,7 +29,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class VinHomeDetailActivity extends BaseActivity<VinHomeDetailViewModel> implements VinHomeDetailNavigator, CityDetailViewHolder.CallBack {
+public class VinHomeDetailActivity extends BaseActivity<VinHomeDetailViewModel> implements VinHomeDetailNavigator, CityDetailViewHolder.UserActionListener {
     private static final String TAG = "VinHomeDetailActivity";
     private Toolbar toolbar;
     @Inject
@@ -78,7 +78,7 @@ public class VinHomeDetailActivity extends BaseActivity<VinHomeDetailViewModel> 
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         listVinHomes = new ArrayList<>();
         adapter = new VinHomeDetailAdapter(listVinHomes, getApplicationContext());
-        adapter.setCallBack(this);
+        adapter.setUserAction(this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -124,9 +124,9 @@ public class VinHomeDetailActivity extends BaseActivity<VinHomeDetailViewModel> 
             .subscribe(response -> {
                 listVinHomes.addAll(response);
                 adapter.notifyDataSetChanged();
-            },throwable -> {
-                AppLogger.d(TAG,throwable);
-            }));
+            },throwable ->
+                AppLogger.d(TAG,throwable)
+            ));
     }
 
     @Override
@@ -145,14 +145,14 @@ public class VinHomeDetailActivity extends BaseActivity<VinHomeDetailViewModel> 
     }
 
     @Override
-    public void openDetail(int position) {
+    public void onActionDetailByUser(int position) {
         Intent detail = HomeStayDetailActivity.newIntent(getApplicationContext());
         detail.putExtra("vinHomes",listVinHomes.get(position));
         startActivity(detail);
     }
 
     @Override
-    public void openBooking(int position) {
+    public void onActionBookingByUser(int position) {
         Intent booking = BookingActivity.newIntent(getApplicationContext());
         booking.putExtra("vinHomes",listVinHomes.get(position));
         startActivity(booking);

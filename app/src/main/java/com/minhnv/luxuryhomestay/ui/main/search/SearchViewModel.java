@@ -37,15 +37,14 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
         getCompositeDisposable().add(
                 getDataManager().doSearchHomeStayFollowRating(new UserResponse.ServerSearchHomeStaysFollowRating(rating))
                 .subscribeOn(getSchedulerProvider().io())
-                        .throttleFirst(300, TimeUnit.SECONDS)
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
                     getNavigator().onSuccess();
                     list = new ArrayList<>(response);
                     listPublishSubject.onNext(response);
-                },throwable -> {
-                    getNavigator().HandlerError(throwable);
-                })
+                },throwable ->
+                    getNavigator().HandlerError(throwable)
+                )
         );
     }
 

@@ -1,20 +1,13 @@
 package com.minhnv.luxuryhomestay.ui.main.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.androidnetworking.widget.ANImageView;
-import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Favorite;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.FavoriteViewHolder;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -23,7 +16,7 @@ import javax.inject.Inject;
 public class FavoriteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Favorite> favorites;
     private Context context;
-    private FavoriteViewHolder.CallBack callBack;
+    private FavoriteViewHolder.UserActionListener callBack;
 
     public FavoriteAdapter(List<Favorite> favorites, Context context) {
         this.favorites = favorites;
@@ -47,7 +40,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    public void setCallBack(FavoriteViewHolder.CallBack  callBack){
+    public void setUserAction(FavoriteViewHolder.UserActionListener callBack){
         this.callBack = callBack;
     }
     @Override
@@ -61,12 +54,5 @@ public class FavoriteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         favorites.addAll(list);
         notifyDataSetChanged();
     }
-
-    public void remove(List<Favorite> list){
-        int position = favorites.indexOf(list);
-        favorites.remove(position);
-        notifyItemRemoved(position);
-    }
-
 
 }
