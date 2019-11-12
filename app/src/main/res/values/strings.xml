@@ -23,7 +23,7 @@
     //signUp
     <string name="sign_up">Đăng Ký</string>
     <string name="have_account">Đã có tài khoản? Quay lại</string>
-    <string name="email_password_valid">Sai định dạng</string>
+    <string name="email_password_valid">Giá trị bạn nhập không đúng hoặc không đủ</string>
     <string name="username">Tên Người Dùng</string>
     <string name="address">Địa Chỉ</string>
     <string name="add_successfully">Thêm Thành Công</string>
@@ -59,6 +59,9 @@
     <string name="new_feed">Bảng tin </string>
     <string name="story_post">Đăng tin của bạn </string>
     <string name="error">Đã xảy ra lỗi</string>
+    <string name="convert_to_dark_themes">Chế độ ban đêm</string>
+    <string name="user_get">Chào mừng</string>
+    <string name="image_detail">Một số hình ảnh của HomeStay</string>
 
     //booking
     <string name="date_start">Ngày đến</string>

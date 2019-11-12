@@ -28,12 +28,9 @@ public class DetailStoryActivity extends BaseActivity<DetailStoryViewModel> impl
     }
 
     @Override
-    public int getLayoutId() {
-        return R.layout.activity_detail_story;
-    }
-
-    @Override
-    public void onCreateActivity(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setContentView(R.layout.activity_detail_story);
+        super.onCreate(savedInstanceState);
         viewmodel = ViewModelProviders.of(this,factory).get(DetailStoryViewModel.class);
         viewmodel.setNavigator(this);
         initView();

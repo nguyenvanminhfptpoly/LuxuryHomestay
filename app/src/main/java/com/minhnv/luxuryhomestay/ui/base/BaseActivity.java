@@ -12,11 +12,13 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.minhnv.luxuryhomestay.BaseApplication;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.ViewModelProviderFactory;
 import com.minhnv.luxuryhomestay.data.local.preference.AppPreferenceHelper;
 import com.minhnv.luxuryhomestay.ui.login.signin.SignInActivity;
 import com.minhnv.luxuryhomestay.utils.CommonUtils;
+import com.minhnv.luxuryhomestay.utils.CustomToast;
 import com.minhnv.luxuryhomestay.utils.rx.NetworkUtils;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
@@ -43,18 +45,13 @@ public abstract class BaseActivity<V extends BaseViewModel> extends AppCompatAct
     private ProgressDialog progressDialog;
     public long mLastClickTime = 0;
 
-    public abstract @LayoutRes int getLayoutId();
-
-    public abstract void onCreateActivity(@Nullable Bundle savedInstanceState);
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         performDependencyInjection();
         super.onCreate(savedInstanceState);
         compositeDisposable = new CompositeDisposable();
-        setContentView(getLayoutId());
-        onCreateActivity(savedInstanceState);
     }
+
 
     public void performDependencyInjection(){
         AndroidInjection.inject(this);
@@ -96,8 +93,9 @@ public abstract class BaseActivity<V extends BaseViewModel> extends AppCompatAct
     public void backToLogin(){
         Intent  intent = SignInActivity.newIntent(getApplicationContext());
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        Toast.makeText(this, getString(R.string.internet_error), Toast.LENGTH_SHORT).show();
+        CustomToast.makeTake(this,getString(R.string.internet_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
         startActivity(intent);
     }
+
 
 }

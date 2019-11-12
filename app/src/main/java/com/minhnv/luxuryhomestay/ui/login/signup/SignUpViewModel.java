@@ -2,12 +2,15 @@ package com.minhnv.luxuryhomestay.ui.login.signup;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.minhnv.luxuryhomestay.data.DataManager;
 import com.minhnv.luxuryhomestay.data.model.User;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
+import com.minhnv.luxuryhomestay.utils.CommonUtils;
+import com.minhnv.luxuryhomestay.utils.CustomToast;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
 public class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
@@ -20,13 +23,16 @@ public class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
     }
 
     public boolean isRequestValidate(String password, String phonenumber, String address) {
-        if (TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(password) || password.length() <= 10) {
             return false;
         }
-        if (TextUtils.isEmpty(phonenumber)) {
+        if (TextUtils.isEmpty(phonenumber) || phonenumber.length() < 10) {
             return false;
         }
-        return !TextUtils.isEmpty(address);
+        if (TextUtils.isEmpty(address) || address.length() <= 10) {
+            return false;
+        }
+        return (!TextUtils.isEmpty(address));
     }
 
     public void signup(String password, String phonenumber, String address) {
@@ -48,18 +54,6 @@ public class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
                         ));
     }
 
-    public void insertUser(String pass, String phone, String name) {
-        getCompositeDisposable().add(
-                getDataManager().insertUser(new User(pass, phone, name))
-                        .subscribeOn(getSchedulerProvider().io())
-                        .observeOn(getSchedulerProvider().ui())
-                        .subscribe(data ->
-                            AppLogger.d(TAG, "insertUser: " + data)
-                        , throwable ->
-                            AppLogger.d(TAG, throwable)
-                        )
-        );
-    }
 
     public void onSignUp() {
         getNavigator().login();

@@ -1,6 +1,7 @@
 package com.minhnv.luxuryhomestay.ui.main.social.story;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -23,6 +24,7 @@ import com.minhnv.luxuryhomestay.data.remote.DataClient;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.utils.ApiUtils;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
+import com.minhnv.luxuryhomestay.utils.CustomToast;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -54,14 +56,13 @@ public class PostStoryActivity extends BaseActivity<PostStoryViewModel> implemen
 
     }
 
-
     @Override
-    public int getLayoutId() {
-        return R.layout.activity_post_story;
-    }
-
-    @Override
-    public void onCreateActivity(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkThemes);
+        }
+        setContentView(R.layout.activity_post_story);
+        super.onCreate(savedInstanceState);
         viewmodel = ViewModelProviders.of(this, factory).get(PostStoryViewModel.class);
         viewmodel.setNavigator(this);
         slide = Slidr.attach(this);
@@ -161,7 +162,9 @@ public class PostStoryActivity extends BaseActivity<PostStoryViewModel> implemen
                                 assert result != null;
                                 if (result.equals("Success")) {
                                     hideLoading();
-                                    Toast.makeText(PostStoryActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                    CustomToast.makeTake(getApplicationContext(),"Thêm thành công",Toast.LENGTH_LONG,CustomToast.SUCCESS).show();
+                                }else if(result.equals("Failed")){
+                                    CustomToast.makeTake(getApplicationContext(),"Thêm không thành công",Toast.LENGTH_LONG,CustomToast.ERROR).show();
                                 }
                             }
 

@@ -6,6 +6,7 @@ import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -20,12 +21,13 @@ public class VinHomeDetailViewModel extends BaseViewModel<VinHomeDetailNavigator
          Observable<List<ListVinHomes>> observable = listPublishSubject.share();
     }
 
-    public void loadList(Integer id){
+    public void loadList(int id){
          getCompositeDisposable().add(
                  getDataManager().doLoadListHomeStayVinHomes(new UserResponse.ServerLoadHomeStayVinHomes(id))
                  .subscribeOn(getSchedulerProvider().io())
                  .observeOn(getSchedulerProvider().ui())
                  .subscribe(response -> {
+                     List<ListVinHomes> listVinHomes = new ArrayList<>(response);
                      listPublishSubject.onNext(response);
                      getNavigator().onSuccess();
                  },throwable -> {

@@ -1,19 +1,40 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
+    <!-- Light themes application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="switch_colorPrimary">#7793a1</item>
+        <item name="colorPrimaryDark">#203b47</item>
+        <item name="colorAccent">#D81B60</item>
+        <item name="switch_black_white">#fff</item>
+        <item name="switch_yellow_blue">#fedd02</item>
+        <item name="background_dark">#fff</item>
+        <item name="switch_white_black">#121212</item>
+        <item name="android:windowAnimationStyle">@style/WindowTransitionAnimation</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <!-- Dark themes application theme. -->
+    <style name="DarkThemes" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="switch_colorPrimary">#203b47</item>
+        <item name="colorPrimaryDark">#001520</item>
+        <item name="colorAccent">#a00037</item>
+        <item name="switch_black_white">#121212</item>
+        <item name="switch_yellow_blue">#00e676</item>
+        <item name="background_dark">#001520</item>
+        <item name="switch_white_black">#fff</item>
+        <item name="android:windowAnimationStyle">@style/WindowTransitionAnimation</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 
     <style name="ToolbarBg">
-        <item name="android:background">@color/md_white_1000</item>
+        <item name="android:background">?attr/switch_black_white</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
         <item name="android:theme">?attr/actionBarTheme</item>
-
     </style>
 
     <style name="CardViewBackGround">
@@ -26,7 +47,7 @@
     </style>
 
     <style name="EditTextBackGround">
-        <item name="android:background">@drawable/bg_eddittext</item>
+        <item name="android:background">@drawable/bg_edittext</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">@dimen/design_text_size</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
@@ -35,14 +56,14 @@
 
     <style name="TextViewBackground">
         <item name="android:fontFamily">@font/roboto_bold</item>
-        <item name="android:textSize">19sp</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">?attr/switch_white_black</item>
     </style>
 
     <style name="TextViewBackgroundLight">
-        <item name="android:fontFamily">@font/robotocondensed_light</item>
-        <item name="android:textSize">15sp</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:fontFamily">@font/roboto_light</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?attr/switch_white_black</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
@@ -54,7 +75,7 @@
     </style>
 
     <style name="ToolBarHome">
-        <item name="android:background">@color/md_white_1000</item>
+        <item name="android:background">?attr/switch_colorPrimary</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
@@ -73,13 +94,33 @@
         <item name="android:textSize">15sp</item>
     </style>
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+
         <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/WindowTransitionAnimation</item>
     </style>
 
     <style name="AppTheme.SlideActivityTheme">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:colorBackground">@android:color/transparent</item>
     </style>
+
+    <style name="TextViewRegular">
+        <item name="android:fontFamily">@font/robotocondensed_regular</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextViewBold">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
 
 
 
@@ -90,4 +131,10 @@
         <item name="android:progressDrawable">@drawable/progress_layer_list</item>
         <item name="android:minWidth">200dp</item>
     </style>
+
+    <style name="WindowTransitionAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
 </resources>

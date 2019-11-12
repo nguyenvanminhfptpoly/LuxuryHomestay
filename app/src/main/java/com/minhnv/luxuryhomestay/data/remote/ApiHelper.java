@@ -5,6 +5,7 @@ import com.minhnv.luxuryhomestay.data.model.City;
 import com.minhnv.luxuryhomestay.data.model.Favorite;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
+import com.minhnv.luxuryhomestay.data.model.ImageDetail;
 import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.data.model.Story;
@@ -14,7 +15,6 @@ import com.minhnv.luxuryhomestay.data.model.VinHome;
 import java.util.List;
 
 import io.reactivex.Observable;
-import okhttp3.MultipartBody;
 
 public interface ApiHelper {
     Observable<String> doServerSignUp(UserResponse.ServerSignUpRequest request);
@@ -54,4 +54,6 @@ public interface ApiHelper {
     Observable<List<Story>> doLoadListStory();
 
     Observable<String> doDeleteStories();
+
+    Observable<List<ImageDetail>> doLoadListImageDetail(UserResponse.ServerGetImageDetail detail);
 }

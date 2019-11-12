@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -31,6 +32,7 @@ import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
 import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
+import com.minhnv.luxuryhomestay.utils.CustomToast;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -49,44 +51,30 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
 
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.booking_fragment;
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public void onCreateActivity(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkThemes);
+        }
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.booking_fragment);
         viewmodel = ViewModelProviders.of(this, factory).get(BookingViewModel.class);
         viewmodel.setNavigator(this);
         SlidrInterface slide = Slidr.attach(this);
         bindViewModel();
         initIntent();
-
     }
 
     private void initIntent() {
-        if (getIntent().getSerializableExtra("booking") != null) {
-            Homestay homestay = (Homestay) getIntent().getSerializableExtra("booking");
-            assert homestay != null;
-            tvNameHomeStay.setText(homestay.getName());
-            tvAddressHomeStay.setText(homestay.getAddress());
-            imgBooking.setImageUrl(homestay.getImage());
-        } else if (getIntent().getSerializableExtra("detailprice") != null) {
-            HomestayPrice price = (HomestayPrice) getIntent().getSerializableExtra("detailprice");
-            assert price != null;
-            tvNameHomeStay.setText(price.getTitle());
-            tvAddressHomeStay.setText(price.getAddress());
-            imgBooking.setImageUrl(price.getImage());
-        } else if (getIntent().getSerializableExtra("vinHomes") != null) {
-            ListVinHomes homes = (ListVinHomes) getIntent().getSerializableExtra("vinHomes");
-            assert homes != null;
-            tvNameHomeStay.setText(homes.getName());
-            tvAddressHomeStay.setText(homes.getAddress());
-            imgBooking.setImageUrl(homes.getImage());
-
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle != null){
+            String name = bundle.getString("bookingName");
+            String address = bundle.getString("bookingAddress");
+            tvNameHomeStay.setText(name);
+            tvAddressHomeStay.setText(address);
         }
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -164,14 +152,14 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
     @Override
     public void onSuccess() {
         AppLogger.d(TAG, "onUploadImageSuccess: ");
-        Toast.makeText(this,   getString(R.string.booking_success), Toast.LENGTH_SHORT).show();
+        CustomToast.makeTake(this,getString(R.string.booking_success),Toast.LENGTH_LONG,CustomToast.SUCCESS).show();
         hideLoading();
     }
 
     @Override
     public void onFailed() {
         hideLoading();
-        Toast.makeText(this, getString(R.string.booking_failed), Toast.LENGTH_SHORT).show();
+        CustomToast.makeTake(this,getString(R.string.booking_failed),Toast.LENGTH_LONG,CustomToast.ERROR).show();
     }
 
     @Override
@@ -186,7 +174,7 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
             viewmodel.booking(dateStart, dateEnd, countMember,nameHomeStay,address);
             showLoading();
         } else {
-            Toast.makeText(this, getString(R.string.booking_error), Toast.LENGTH_SHORT).show();
+            CustomToast.makeTake(this,getString(R.string.booking_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
         }
     }
 
@@ -195,7 +183,7 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
         DatePickerDialog dialog = new DatePickerDialog(this,
                 (datePicker, year, month, date) -> {
                     if (date < mDay || month < mMonth || year < mYear) {
-                        Toast.makeText(this, getString(R.string.date_valid), Toast.LENGTH_SHORT).show();
+                        CustomToast.makeTake(this,getString(R.string.date_valid),Toast.LENGTH_LONG,CustomToast.ERROR).show();
                     }
                     String dateEnd = "" + year + "-" + (month + 1) + "-" + date + "";
                     tvDateStart.setText(dateEnd);
@@ -208,7 +196,7 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
         DatePickerDialog dialog = new DatePickerDialog(this,
                 (datePicker, year, month, date) -> {
                     if (date < mDay || month < mMonth || year < mYear) {
-                        Toast.makeText(this, getString(R.string.date_valid), Toast.LENGTH_SHORT).show();
+                        CustomToast.makeTake(this,getString(R.string.date_valid),Toast.LENGTH_LONG,CustomToast.ERROR).show();
                     }
                     String dateEnd = "" + year + "-" + (month + 1) + "-" + date + "";
                     tvDateEnd.setText(dateEnd);

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.social.story.PostStoryActivity"
-    android:background="@color/md_white_1000">
+    android:background="?attr/switch_black_white">
 
     <ImageView
         android:id="@+id/imgStoryPost"
@@ -40,7 +40,7 @@
         android:layout_marginTop="24dp"
         android:background="@drawable/bg_checkin_checkout_selector"
         android:text="@string/story_post"
-        android:textColor="@drawable/text_selected"
+        android:textColor="@color/md_black_1000"
         app:layout_constraintEnd_toEndOf="@+id/includeTitleStoryPost"
         app:layout_constraintStart_toStartOf="@+id/includeTitleStoryPost"
         app:layout_constraintTop_toBottomOf="@+id/includeTitleStoryPost" />
@@ -49,10 +49,10 @@
         android:id="@+id/toolbarStory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:title="@string/story_post"
+        style="@style/ToolBarHome"
         app:titleTextColor="@color/md_white_1000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

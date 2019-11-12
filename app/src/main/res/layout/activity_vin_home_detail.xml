@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.vin_homes.VinHomeDetailActivity"
-    android:background="@color/md_white_1000">
+    android:background="?attr/switch_black_white">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_home3"
+                android:src="@drawable/img_home1"
                 app:layout_collapseMode="parallax"
                 android:contentDescription="@string/todo"/>
 

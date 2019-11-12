@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.StaggeredHomeStayViewHolder;
-import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.StaggeredPriceViewHolder;
+
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import javax.inject.Inject;
 public class StaggeredRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Homestay> homeStay;
     private Context context;
-    private StaggeredPriceViewHolder.UserActionListener callBack;
+    private StaggeredHomeStayViewHolder.UserActionListener callBack;
 
     public StaggeredRecyclerViewAdapter(List<Homestay> homestays, Context context) {
         this.homeStay = homestays;
@@ -40,7 +40,7 @@ public class StaggeredRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         }
     }
 
-    public void setUserAction(StaggeredPriceViewHolder.UserActionListener callBack){
+    public void setUserAction(StaggeredHomeStayViewHolder.UserActionListener callBack){
         this.callBack = callBack;
     }
 

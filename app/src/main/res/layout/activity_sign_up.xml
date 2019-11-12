@@ -43,6 +43,7 @@
             android:hint="@string/phone_number"
             android:padding="10dp"
             android:inputType="phone"
+            android:maxLength="10"
             android:textColor="@android:color/background_dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

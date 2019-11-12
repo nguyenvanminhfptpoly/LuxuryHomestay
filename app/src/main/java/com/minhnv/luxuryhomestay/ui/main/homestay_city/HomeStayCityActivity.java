@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -43,12 +44,12 @@ public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> im
     }
 
     @Override
-    public int getLayoutId() {
-        return R.layout.activity_homestay_city;
-    }
-
-    @Override
-    public void onCreateActivity(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkThemes);
+        }
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_homestay_city);
         viewmodel = ViewModelProviders.of(this,factory).get(HomeStayCityViewModel.class);
         viewmodel.setNavigator(this);
         slide = Slidr.attach(this);
@@ -57,6 +58,7 @@ public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> im
         initIntent();
         fetchData();
     }
+
     private void setUpToolBar(){
         toolbarCity = findViewById(R.id.toolbarCity);
         setSupportActionBar(toolbarCity);
@@ -133,14 +135,4 @@ public class HomeStayCityActivity extends BaseActivity<HomeStayCityViewModel> im
         startActivity(intent);
     }
 
-    @Override
-    public void onActionBookingByUser(int position) {
-        if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
-            return;
-        }
-        mLastClickTime = SystemClock.elapsedRealtime();
-        Intent intent = BookingActivity.newIntent(getApplicationContext());
-        intent.putExtra("booking",homeStays.get(position));
-        startActivity(intent);
-    }
 }

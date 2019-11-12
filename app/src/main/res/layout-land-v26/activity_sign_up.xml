@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_white_1000"
+    android:orientation="vertical"
+    tools:context=".ui.login.signup.SignUpActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/md_white_1000"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="@string/title" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/linear_layout_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_margin="8dp">
+
+            <EditText
+                android:layout_marginTop="50dp"
+                android:id="@+id/includePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edittext"
+                android:fontFamily="@font/robotocondensed_regular"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:autofillHints="@string/todo" />
+
+            <EditText
+                android:id="@+id/includeCountMember"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="31dp"
+                android:background="@drawable/bg_edittext"
+                android:fontFamily="@font/robotocondensed_regular"
+                android:hint="@string/phone_number"
+                android:inputType="phone"
+                android:padding="10dp"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/includePassword"
+                android:autofillHints="@string/todo"
+                tools:targetApi="o"/>
+
+            <EditText
+                android:id="@+id/includeAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/bg_edittext"
+                android:fontFamily="@font/robotocondensed_regular"
+                android:hint="@string/name"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/includeCountMember"
+                android:autofillHints="@string/todo"
+                tools:targetApi="o"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnSignUp"
+                style="@style/ButtonBackGround"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="50dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginStart="16dp"
+                android:paddingEnd="50dp"
+                android:text="@string/sign_up"
+                />
+
+            <TextView
+                android:id="@+id/tvBackSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/robotocondensed_regular"
+                android:paddingTop="10dp"
+                android:layout_margin="@dimen/dp16"
+                android:text="@string/have_account"
+                android:textColor="@color/md_black_1000"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

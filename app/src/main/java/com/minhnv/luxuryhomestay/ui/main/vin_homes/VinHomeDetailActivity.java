@@ -1,6 +1,7 @@
 package com.minhnv.luxuryhomestay.ui.main.vin_homes;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -46,12 +47,12 @@ public class VinHomeDetailActivity extends BaseActivity<VinHomeDetailViewModel> 
     }
 
     @Override
-    public int getLayoutId() {
-        return R.layout.activity_vin_home_detail;
-    }
-
-    @Override
-    public void onCreateActivity(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkThemes);
+        }
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_vin_home_detail);
         viewmodel = ViewModelProviders.of(this,factory).get(VinHomeDetailViewModel.class);
         viewmodel.setNavigator(this);
         slide = Slidr.attach(this);
@@ -66,7 +67,7 @@ public class VinHomeDetailActivity extends BaseActivity<VinHomeDetailViewModel> 
         setSupportActionBar(toolbar);
         toolbar.setTitle("VinHomes");
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        toolbar.setNavigationOnClickListener(view ->
+        toolbar.setNavigationOnClickListener(v -> 
                 onBackPressed()
         );
 
@@ -121,10 +122,9 @@ public class VinHomeDetailActivity extends BaseActivity<VinHomeDetailViewModel> 
         compositeDisposable.add(viewmodel.listPublishSubject.share()
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())
-            .subscribe(response -> {
-                listVinHomes.addAll(response);
-                adapter.notifyDataSetChanged();
-            },throwable ->
+            .subscribe(response ->
+                adapter.set(response)
+            ,throwable ->
                 AppLogger.d(TAG,throwable)
             ));
     }
@@ -151,10 +151,4 @@ public class VinHomeDetailActivity extends BaseActivity<VinHomeDetailViewModel> 
         startActivity(detail);
     }
 
-    @Override
-    public void onActionBookingByUser(int position) {
-        Intent booking = BookingActivity.newIntent(getApplicationContext());
-        booking.putExtra("vinHomes",listVinHomes.get(position));
-        startActivity(booking);
-    }
 }

@@ -1,137 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="350dp"
     android:background="@drawable/bg_item_recyclerview"
-    android:layout_marginEnd="4dp"
-    android:layout_marginStart="4dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp">
+    app:cardCornerRadius="20dp"
+    android:id="@+id/itemTouchCity"
+    android:layout_margin="4dp">
 
-
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp">
+        android:layout_height="match_parent"
+       >
 
         <com.androidnetworking.widget.ANImageView
             android:id="@+id/imgCityDetail"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@drawable/img_home1"
-            android:contentDescription="@string/todo"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            />
-    </androidx.cardview.widget.CardView>
+            android:background="@drawable/img_home1"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:orientation="vertical"
-        android:paddingTop="10dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_gradient_blue"/>
 
         <TextView
             android:id="@+id/tvTitleCityDetail"
-            style="@style/TextViewBackground"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/title"
-            android:textSize="22sp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/like"
-                android:contentDescription="@string/todo" />
-
-            <Space
-                android:layout_width="2dp"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/like"
-                android:contentDescription="@string/todo" />
-
-            <Space
-                android:layout_width="2dp"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/like"
-                android:contentDescription="@string/todo" />
-
-            <Space
-                android:layout_width="2dp"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/like"
-                android:contentDescription="@string/todo" />
-
-            <Space
-                android:layout_width="2dp"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/like"
-                android:contentDescription="@string/todo" />
-        </LinearLayout>
+            android:layout_marginBottom="8dp"
+            android:text="@string/name_hs"
+            style="@style/TextViewBold"
+            app:layout_constraintBottom_toTopOf="@+id/tvDetailCity"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetailCity"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailCity" />
 
         <TextView
             android:id="@+id/tvDetailCity"
-            style="@style/TextViewBackgroundLight"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/varela"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:text="@string/detail_hs" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="4dp">
-
-        <Button
-            android:id="@+id/btnListCityDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_btn_home_selector"
-            android:text="@string/detail"
-            android:textColor="@drawable/text_selected" />
-
-        <Button
-            android:id="@+id/btnListCityBooking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_btn_home_selector"
-            android:text="@string/booking"
-            android:textColor="@drawable/text_selected" />
-    </LinearLayout>
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/detail_hs"
+            style="@style/TextViewRegular"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

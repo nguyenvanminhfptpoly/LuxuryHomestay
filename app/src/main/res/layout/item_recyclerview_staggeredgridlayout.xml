@@ -1,46 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="370dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginBottom="8dp"
-    android:layout_marginTop="8dp"
-    android:background="@color/md_white_1000">
+    app:cardCornerRadius="20dp"
+    android:id="@+id/itemTouchHomeStayHot"
+    android:layout_margin="4dp">
 
-    <com.androidnetworking.widget.ANImageView
-        android:id="@+id/imgHomeStayHot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:background="@drawable/img_home1"
-        android:contentDescription="@string/todo" />
-
-    <TextView
-        android:id="@+id/tvNameHomStayHot"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/name_hs"
-        style="@style/TextViewBackground"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"/>
+        android:layout_height="match_parent"
+        >
 
-    <TextView
-        android:id="@+id/tvAddressHomeStayHot"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/address"
-        style="@style/TextViewBackgroundLight"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"/>
+        <com.androidnetworking.widget.ANImageView
+            android:id="@+id/imgHomeStayHot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:background="@drawable/img_home1"
+            tools:layout_editor_absoluteX="-39dp"
+            tools:layout_editor_absoluteY="0dp" />
 
-    <Button
-        android:id="@+id/btnDetailHomeStayHot"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/detail"
-        android:background="@drawable/bg_btn_home_selector"
-        android:textColor="@drawable/text_selected"/>
-</LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_gradient_green"/>
+
+        <TextView
+            android:id="@+id/tvNameHomStayHot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/name_hs"
+            style="@style/TextViewBold"
+            app:layout_constraintBottom_toTopOf="@+id/tvAddressHomeStayHot"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvAddressHomeStayHot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/addressHs"
+            style="@style/TextViewRegular"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

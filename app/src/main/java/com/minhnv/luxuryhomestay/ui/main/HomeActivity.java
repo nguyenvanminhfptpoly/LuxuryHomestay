@@ -11,10 +11,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -42,7 +44,6 @@ import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityDetailViewHolder
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityViewHolder;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.HomeStayPriceViewHolder;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.VinHomeViewHolder;
-import com.minhnv.luxuryhomestay.ui.main.booking.booking.BookingActivity;
 import com.minhnv.luxuryhomestay.ui.main.booking.list.ListBookingActivity;
 import com.minhnv.luxuryhomestay.ui.main.favorite.FavoriteActivity;
 import com.minhnv.luxuryhomestay.ui.main.homestay_city.HomeStayCityActivity;
@@ -80,10 +81,6 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
     @Inject
     public VinHomeAdapter homeAdapter;
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_home;
-    }
 
     public static Intent newIntent(Context context) {
         return new Intent(context, HomeActivity.class);
@@ -91,9 +88,15 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
 
 
     @Override
-    public void onCreateActivity(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkThemes);
+        }
+        setContentView(R.layout.activity_home);
         viewmodel = ViewModelProviders.of(this, factory).get(HomeViewModel.class);
         viewmodel.setNavigator(this);
+        switchToDarkMode();
         initView();
         setUpToolBar();
         setUpNavigationView();
@@ -134,11 +137,27 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
             dialog.show();
         });
 
-
     }
 
+    private void switchToDarkMode(){
+        Switch aSwitch = findViewById(R.id.switchToDarkMode);
+        aSwitch.setChecked(appPreferenceHelper.getCheckedToSwitchDarkMode());
+        if(aSwitch.isChecked()){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        aSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                appPreferenceHelper.setCheckedToSwitchDarkMode(true);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                appPreferenceHelper.setCheckedToSwitchDarkMode(false);
+            }
+        });
+    }
+
+
     private void setUpRecyclerViewCity() {
-        //city
         helper = new SnapHelperOneByOne();
         RecyclerView recyclerViewCity = findViewById(R.id.recyclerCity);
         viewmodel.ServerLoadCity();
@@ -204,7 +223,6 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         homeAdapter.setUserAction(this);
         recyclerView.setAdapter(homeAdapter);
         helper.attachToRecyclerView(recyclerView);
-
     }
 
 
@@ -223,9 +241,8 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         navigationView.findViewById(R.id.btnCancelDrawer).setOnClickListener(view -> viewmodel.closeDrawer());
         navigationView.findViewById(R.id.btnLogout).setOnClickListener(view -> viewmodel.logout());
         TextView tvUserName = navigationView.findViewById(R.id.tvUserName);
-        TextView tvAddress = navigationView.findViewById(R.id.tvAddress);
-        tvAddress.setText(appPreferenceHelper.getCurrentPhoneNumber());
-        tvUserName.setText(appPreferenceHelper.getCurrentAddress() == null ? "" : appPreferenceHelper.getCurrentAddress());
+        String userGet = getString(R.string.user_get) + " " + ( appPreferenceHelper.getCurrentAddress() == null ? appPreferenceHelper.getCurrentPhoneNumber() : appPreferenceHelper.getCurrentAddress());
+        tvUserName.setText(userGet);
     }
 
     @Override
@@ -284,8 +301,6 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
     public void doLoadCity() {
         viewmodel.loadCity();
         compositeDisposable.add(viewmodel.listCityPublishSubject.share()
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
                 .subscribe(data -> cityAdapter.set(data)));
     }
 
@@ -293,8 +308,6 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
     public void doLoadHomeStaysRating() {
         viewmodel.loadListHomeStayRating();
         compositeDisposable.add(viewmodel.homeStayPublishObservable.share()
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
                 .subscribe(data -> adapter.set(data)));
     }
 
@@ -302,8 +315,6 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
     public void doLoadHomeStaysPriceAsc() {
         viewmodel.loadListHomeStaysPriceAsc();
         compositeDisposable.add(viewmodel.listPublishSubject.share()
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
                 .subscribe(data -> ascAdapter.set(data)));
     }
 
@@ -311,8 +322,6 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
     public void doLoadCityVinHome() {
         viewmodel.loadCityVinHome();
         compositeDisposable.add(viewmodel.listBehaviorSubject.share()
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
                 .subscribe(data -> homeAdapter.set(data)));
     }
 
@@ -323,7 +332,10 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
                 "https://www.luxstay.com/blog/wp-content/uploads/2019/09/BANNER-03-1024x536.jpg",
                 "https://www.luxstay.com/blog/wp-content/uploads/2019/09/BANNER-04-1024x536.jpg",
                 "https://www.luxstay.com/blog/wp-content/uploads/2019/09/Untitled-1-03-1024x536.jpg",
-                "https://www.luxstay.com/blog/wp-content/uploads/2019/09/banner-01-1-1024x536.jpg"
+                "https://www.luxstay.com/blog/wp-content/uploads/2019/09/banner-01-1-1024x536.jpg",
+                "https://www.luxstay.com/blog/wp-content/uploads/2019/11/thumb-1024x536.png",
+                "https://www.luxstay.com/blog/wp-content/uploads/2019/10/png-1024x536.png",
+                "https://www.luxstay.com/blog/wp-content/uploads/2019/10/Golden80_Adaptsize_Facebook-BlogBanner_1200x628-1024x536.jpg"
         ));
         for (int i = 0; i < strings.size(); i++) {
             ImageView img = new ImageView(HomeActivity.this);
@@ -333,7 +345,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         }
         viewFlipper.setFlipInterval(3000);
         viewFlipper.setAutoStart(true);
-        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in);
         viewFlipper.setAnimation(animation);
     }
 
@@ -341,20 +353,6 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
     public void onActionDetailByUser(int position) {
         Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
         intent.putExtra("detail", homestays.get(position));
-        startActivity(intent);
-    }
-
-    @Override
-    public void onActionBookingByUser(int position) {
-        Intent intent = BookingActivity.newIntent(getApplicationContext());
-        intent.putExtra("booking", homestays.get(position));
-        startActivity(intent);
-    }
-
-    @Override
-    public void onActionBookingHomeStayByUser(int position) {
-        Intent intent = BookingActivity.newIntent(getApplicationContext());
-        intent.putExtra("detailprice", homestayPrices.get(position));
         startActivity(intent);
     }
 
@@ -411,4 +409,6 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
                 break;
         }
     }
+
+
 }

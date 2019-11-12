@@ -1,138 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linear_layout"
     android:layout_width="320dp"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_item_recyclerview"
-    android:orientation="vertical"
-    android:layout_marginEnd="4dp"
-    android:layout_marginStart="4dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp">
+    android:layout_height="370dp"
+    app:cardCornerRadius="20dp"
+    android:layout_margin="4dp"
+    >
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp">
+        android:layout_height="match_parent"
+        >
 
         <com.androidnetworking.widget.ANImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="match_parent"
             android:background="@drawable/img_home1"
-            android:contentDescription="@string/todo"
             android:scaleType="centerCrop"
-            />
-    </androidx.cardview.widget.CardView>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:orientation="vertical"
-        android:paddingTop="10dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_gradient_red"/>
 
         <TextView
             android:id="@+id/tvTitle"
-            style="@style/TextViewBackground"
-            android:layout_width="wrap_content"
+            style="@style/TextViewBold"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/title"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:textSize="22sp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/like"
-                android:contentDescription="@string/todo" />
-
-            <Space
-                android:layout_width="2dp"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/like"
-                android:contentDescription="@string/todo" />
-
-            <Space
-                android:layout_width="2dp"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/like"
-                android:contentDescription="@string/todo" />
-
-            <Space
-                android:layout_width="2dp"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/like"
-                android:contentDescription="@string/todo" />
-
-            <Space
-                android:layout_width="2dp"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/like"
-                android:contentDescription="@string/todo" />
-        </LinearLayout>
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/name_hs"
+            app:layout_constraintBottom_toTopOf="@+id/tvDetail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tvDetail"
-            style="@style/TextViewBackgroundLight"
-            android:layout_width="wrap_content"
+            style="@style/TextViewRegular"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/varela"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:text="@string/detail_hs" />
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/mo_ta"
+            app:layout_constraintBottom_toBottomOf="@+id/image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tvTitle" />
 
-    </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="4dp">
-
-        <Button
-            android:id="@+id/btnListDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_btn_home_selector"
-            android:text="@string/detail"
-            android:textColor="@drawable/text_selected" />
-
-        <Button
-            android:id="@+id/btnListBooking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_btn_home_selector"
-            android:text="@string/booking"
-            android:textColor="@drawable/text_selected" />
-    </LinearLayout>
-
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

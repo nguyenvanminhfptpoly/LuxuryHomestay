@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidnetworking.widget.ANImageView;
+import com.google.android.material.card.MaterialCardView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 
@@ -18,16 +19,14 @@ public class VinHomeDetailViewHolder extends RecyclerView.ViewHolder {
     private ANImageView image;
     private TextView tvTitle;
     private TextView tvDetail;
-    private Button btnListDetail, btnListBooking;
-    private LinearLayout linearLayout;
+    private MaterialCardView cardView;
 
     private VinHomeDetailViewHolder(@NonNull View itemView) {
         super(itemView);
         image = itemView.findViewById(R.id.imgDetailVH);
         tvTitle = itemView.findViewById(R.id.tvNameVH);
         tvDetail = itemView.findViewById(R.id.tvAddressVH);
-        btnListDetail = itemView.findViewById(R.id.btnDetailVH);
-        btnListBooking = itemView.findViewById(R.id.btnBookingVH);
+        cardView = itemView.findViewById(R.id.itemTouchVinHomes);
     }
     public void bind(ListVinHomes homes, CityDetailViewHolder.UserActionListener callBack){
         image.setDefaultImageResId(R.drawable.img_home1);
@@ -36,8 +35,7 @@ public class VinHomeDetailViewHolder extends RecyclerView.ViewHolder {
         tvTitle.setText(homes.getName());
         tvDetail.setText(homes.getCreateroom());
 
-        btnListBooking.setOnClickListener(v -> callBack.onActionBookingByUser(getAdapterPosition()));
-        btnListDetail.setOnClickListener(v -> callBack.onActionDetailByUser(getAdapterPosition()));
+        cardView.setOnClickListener(v -> callBack.onActionDetailByUser(getAdapterPosition()));
     }
 
     public static VinHomeDetailViewHolder create(ViewGroup parent){

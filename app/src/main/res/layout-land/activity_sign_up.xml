@@ -46,7 +46,9 @@
                 android:textColor="@android:color/background_dark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:autofillHints="@string/todo"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/includeCountMember"
@@ -61,7 +63,9 @@
                 android:textColor="@android:color/background_dark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/includePassword" />
+                app:layout_constraintTop_toBottomOf="@+id/includePassword"
+                android:autofillHints="@string/todo"
+                tools:targetApi="o"/>
 
             <EditText
                 android:id="@+id/includeAddress"
@@ -76,7 +80,9 @@
                 android:textColor="@android:color/background_dark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/includeCountMember" />
+                app:layout_constraintTop_toBottomOf="@+id/includeCountMember"
+                android:autofillHints="@string/todo"
+                tools:targetApi="o"/>
 
         </LinearLayout>
 

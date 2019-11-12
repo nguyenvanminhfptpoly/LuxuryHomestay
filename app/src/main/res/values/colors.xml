@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4A6572</color>
+    <color name="colorPrimary">#7793a1</color>
     <color name="colorPrimaryDark">#232F43</color>
     <color name="colorAccent">#D81B60</color>
 
@@ -287,7 +287,7 @@
     <color name="md_grey_700">#616161</color>
     <color name="md_grey_800">#424242</color>
     <color name="md_grey_900">#212121</color>
-    <color name="md_black_1000">#000000</color>
+    <color name="md_black_1000">#B5000000</color>
     <color name="md_white_1000">#ffffff</color>
 
     <!--blue grey-->

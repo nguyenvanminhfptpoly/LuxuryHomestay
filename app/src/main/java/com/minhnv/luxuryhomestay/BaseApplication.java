@@ -11,10 +11,12 @@ import com.google.gson.GsonBuilder;
 import com.minhnv.luxuryhomestay.di.component.DaggerAppComponent;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
 
+
 import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+
 
 public class BaseApplication extends Application implements HasActivityInjector {
     @Inject
@@ -25,6 +27,7 @@ public class BaseApplication extends Application implements HasActivityInjector 
         return activityDispatchingAndroidInjector;
     }
 
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -32,6 +35,7 @@ public class BaseApplication extends Application implements HasActivityInjector 
                 .application(this)
                 .build()
                 .inject(this);
+
         AppLogger.init();
         AndroidNetworking.initialize(getApplicationContext());
         if (BuildConfig.DEBUG) {
@@ -41,5 +45,6 @@ public class BaseApplication extends Application implements HasActivityInjector 
                 .setLenient()
                 .create();
         AndroidNetworking.setParserFactory(new GsonParserFactory(gson));
+
     }
 }

@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import io.reactivex.subjects.BehaviorSubject;
 
 public class UserResponse {
+
     public static class ServerSignUpRequest {
         @Expose
         @SerializedName("password")
@@ -151,6 +152,15 @@ public class UserResponse {
         private Integer id;
 
         public ServerLoadHomeStayVinHomes(Integer id) {
+            this.id = id;
+        }
+    }
+
+    public static class ServerGetImageDetail{
+        @SerializedName("idhomestay")
+        private int id;
+
+        public ServerGetImageDetail(int id) {
             this.id = id;
         }
     }

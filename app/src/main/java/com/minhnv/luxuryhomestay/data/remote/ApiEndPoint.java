@@ -23,5 +23,6 @@ class ApiEndPoint {
     static final String ENDPOINT_LIST_HOMESTAYS_VINHOMES =  BuildConfig.BASE_URL + "getlisthomestayvinhomes.php";
     static final String ENDPOINT_LIST_STORY =  BuildConfig.BASE_URL + "getliststory.php";
     static final String ENDPOINT_DELETE_STORY =  BuildConfig.BASE_URL + "deletestories.php";
+    static final String ENDPOINT_GET_IMAGE_DATA =  BuildConfig.BASE_URL + "getimagedetail.php";
 
 }

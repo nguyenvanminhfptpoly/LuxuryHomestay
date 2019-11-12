@@ -10,6 +10,7 @@ import com.minhnv.luxuryhomestay.data.model.City;
 import com.minhnv.luxuryhomestay.data.model.Favorite;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
+import com.minhnv.luxuryhomestay.data.model.ImageDetail;
 import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.data.model.Story;
@@ -86,6 +87,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setCurrentPassword(String currentPassword) {
         preferenceHelper.setCurrentPassword(currentPassword);
+    }
+
+    @Override
+    public Boolean getCheckedToSwitchDarkMode() {
+        return preferenceHelper.getCheckedToSwitchDarkMode();
+    }
+
+    @Override
+    public void setCheckedToSwitchDarkMode(Boolean isCheck) {
+        preferenceHelper.setCheckedToSwitchDarkMode(isCheck);
     }
 
     @Override
@@ -189,6 +200,11 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<String> doDeleteStories() {
         return apiHelper.doDeleteStories();
+    }
+
+    @Override
+    public Observable<List<ImageDetail>> doLoadListImageDetail(UserResponse.ServerGetImageDetail detail) {
+        return apiHelper.doLoadListImageDetail(detail);
     }
 
 

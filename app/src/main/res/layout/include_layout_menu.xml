@@ -1,137 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:baselineAligned="false">
-
+    android:baselineAligned="false"
+    android:background="@drawable/bg_navigation_drawer">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/image19"
+        android:contentDescription="@string/todo"/>
+
+    <TextView
+        android:id="@+id/tvUserName"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1.5"
-        android:background="@color/colorPrimaryDark">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/intro"
+        android:textColor="?attr/switch_white_black"
+        style="@style/TextViewBold"
+        android:paddingStart="16dp"
+        android:paddingEnd="0dp"
+        android:maxLines="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-        <ImageView
-            android:id="@+id/btnCancelDrawer"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/ic_close_black_24dp"
-            android:contentDescription="@string/todo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <Switch
+        android:id="@+id/switchToDarkMode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/convert_to_dark_themes"
+        android:paddingStart="16dp"
+        android:paddingEnd="0dp"
+        android:textColor="?attr/switch_white_black"
+        app:layout_constraintEnd_toEndOf="@+id/tvUserName"
+        app:layout_constraintStart_toStartOf="@+id/tvUserName"
+        app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
-        <TextView
-            android:id="@+id/tvUserName"
-            style="@style/TitleNavigationDrawer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/app_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCancelDrawer" />
+    <Button
+        android:id="@+id/btnBooking"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textAlignment="textStart"
+        android:text="@string/booking"
+        android:background="@drawable/bg_button_drawer_selector"
+        android:textColor="@drawable/text_selected"
+        android:drawableEnd="@drawable/ic_booking_black_24dp"
+        app:layout_constraintEnd_toEndOf="@+id/switchToDarkMode"
+        app:layout_constraintStart_toStartOf="@+id/switchToDarkMode"
+        app:layout_constraintTop_toBottomOf="@+id/switchToDarkMode" />
 
-        <TextView
-            android:id="@+id/tvAddress"
-            style="@style/ContentNavigationDrawer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/version"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+    <Button
+        android:id="@+id/btnFavorite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/favorite"
+        android:textSize="16sp"
+        android:textAlignment="textStart"
+        android:background="@drawable/bg_button_drawer_selector"
+        android:textColor="@drawable/text_selected"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:drawableEnd="@drawable/ic_favorite_black_24dp"
+        app:layout_constraintEnd_toEndOf="@+id/btnBooking"
+        app:layout_constraintStart_toStartOf="@+id/btnBooking"
+        app:layout_constraintTop_toBottomOf="@+id/btnBooking" />
 
-        <Button
-            android:id="@+id/btnBooking"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_button_drawer_selector"
-            android:drawableStart="@drawable/ic_booking_black_24dp"
-            android:text="@string/booking"
-            android:textColor="@drawable/text_selector"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tvAddress"
-            app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
+    <Button
+        android:id="@+id/btnSocial"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/social_network"
+        android:textSize="16sp"
+        android:textAlignment="textStart"
+        android:background="@drawable/bg_button_drawer_selector"
+        android:textColor="@drawable/text_selected"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:drawableEnd="@drawable/ic_social_black_24dp"
+        app:layout_constraintEnd_toEndOf="@+id/btnFavorite"
+        app:layout_constraintStart_toStartOf="@+id/btnFavorite"
+        app:layout_constraintTop_toBottomOf="@+id/btnFavorite" />
 
-        <Button
-            android:id="@+id/btnFavorite"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_button_drawer_selector"
-            android:drawableStart="@drawable/ic_favorite_black_24dp"
-            android:text="@string/favorite"
-            android:textColor="@drawable/text_selector"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/btnBooking"
-            app:layout_constraintTop_toBottomOf="@+id/btnBooking" />
+    <Button
+        android:id="@+id/btnIntro"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/intro"
+        android:textSize="16sp"
+        android:textAlignment="textStart"
+        android:background="@drawable/bg_button_drawer_selector"
+        android:textColor="@drawable/text_selected"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:drawableEnd="@drawable/ic_nature_people_black_24dp"
+        app:layout_constraintEnd_toEndOf="@+id/btnSocial"
+        app:layout_constraintStart_toStartOf="@+id/btnSocial"
+        app:layout_constraintTop_toBottomOf="@+id/btnSocial" />
 
-        <Button
-            android:id="@+id/btnSocial"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_button_drawer_selector"
-            android:drawableStart="@drawable/ic_social_black_24dp"
-            android:text="@string/social_network"
-            android:textColor="@drawable/text_selector"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/btnFavorite"
-            app:layout_constraintTop_toBottomOf="@+id/btnFavorite" />
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/logout"
+        android:textSize="16sp"
+        android:textAlignment="textStart"
+        android:background="@drawable/bg_button_drawer_selector"
+        android:textColor="@drawable/text_selected"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:drawableEnd="@drawable/ic_logout_black_24dp"
+        app:layout_constraintEnd_toEndOf="@+id/btnIntro"
+        app:layout_constraintStart_toStartOf="@+id/btnIntro"
+        app:layout_constraintTop_toBottomOf="@+id/btnIntro" />
 
-        <Button
-            android:id="@+id/btnIntro"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_button_drawer_selector"
-            android:drawableStart="@drawable/ic_nature_people_black_24dp"
-            android:text="@string/intro"
-            android:textColor="@drawable/text_selector"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/btnSocial"
-            app:layout_constraintTop_toBottomOf="@+id/btnSocial" />
+    <ImageView
+        android:id="@+id/btnCancelDrawer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/todo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/ic_close_black_24dp" />
 
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_button_drawer_selector"
-            android:drawableStart="@drawable/ic_logout_black_24dp"
-            android:text="@string/logout"
-            android:textColor="@drawable/text_selector"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/btnIntro"
-            app:layout_constraintTop_toBottomOf="@+id/btnIntro" />
-
-        <ImageView
-            android:id="@+id/imageView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/todo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogout"
-            app:srcCompat="@drawable/image19" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>
