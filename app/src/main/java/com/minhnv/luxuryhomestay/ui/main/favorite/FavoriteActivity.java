@@ -109,7 +109,13 @@ public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements
 
     @Override
     public void ServerLoadListFavorite() {
-        viewmodel.loadFavorite();
+        try {
+            int idUser = Integer.parseInt(appPreferenceHelper.getCurrentId());
+            viewmodel.loadFavorite(idUser);
+        }catch (NumberFormatException e){
+            e.getMessage();
+        }
+
     }
 
     @Override

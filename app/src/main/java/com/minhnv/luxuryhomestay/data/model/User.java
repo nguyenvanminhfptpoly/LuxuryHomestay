@@ -13,7 +13,7 @@ public class User {
     @Expose
     @SerializedName("userId")
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    public int id;
 
     @Expose
     @SerializedName("password")
@@ -41,7 +41,7 @@ public class User {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

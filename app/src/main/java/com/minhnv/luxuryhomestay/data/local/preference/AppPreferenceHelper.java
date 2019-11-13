@@ -14,6 +14,7 @@ public class AppPreferenceHelper implements PreferenceHelper  {
     private static final String PREF_KEY_ADDRESS = "PREF_KEY_ADDRESS";
     private static final String PREF_PASS = "PREF_PASS";
     private static final String PREF_IS_CHECKED = "PREF_IS_CHECKED";
+    private static final String PREF_ID_USER = "PREF_ID_USER";
 
 
 
@@ -74,6 +75,16 @@ public class AppPreferenceHelper implements PreferenceHelper  {
     @Override
     public void setCheckedToSwitchDarkMode(Boolean isCheck) {
         preferences.edit().putBoolean(PREF_IS_CHECKED,isCheck).apply();
+    }
+
+    @Override
+    public String getCurrentId() {
+        return preferences.getString(PREF_ID_USER, null);
+    }
+
+    @Override
+    public void setCurrentId(String currentId) {
+        preferences.edit().putString(PREF_ID_USER, currentId).apply();
     }
 
     public void deleteSavedData(String key) {

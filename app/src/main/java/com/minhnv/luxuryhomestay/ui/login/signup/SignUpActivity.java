@@ -4,24 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.text.InputFilter;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
-import com.minhnv.luxuryhomestay.ui.login.signin.SignInActivity;
-import com.minhnv.luxuryhomestay.ui.main.search.InputFilterMinMax;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
-import com.minhnv.luxuryhomestay.utils.CommonUtils;
 import com.minhnv.luxuryhomestay.utils.CustomToast;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;

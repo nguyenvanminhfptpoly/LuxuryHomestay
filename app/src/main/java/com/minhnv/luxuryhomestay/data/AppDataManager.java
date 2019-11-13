@@ -15,6 +15,7 @@ import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.data.model.Story;
 import com.minhnv.luxuryhomestay.data.model.User;
+import com.minhnv.luxuryhomestay.data.model.UserInfo;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.data.model.VinHome;
 import com.minhnv.luxuryhomestay.data.remote.ApiHelper;
@@ -100,6 +101,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public String getCurrentId() {
+        return preferenceHelper.getCurrentId();
+    }
+
+    @Override
+    public void setCurrentId(String currentId) {
+
+    }
+
+    @Override
     public void updateUserInfo(String password, String phoneNumber, String address) {
         setCurrentAddress(address);
         setCurrentPhoneNumber(phoneNumber);
@@ -148,8 +159,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Observable<List<Booking>> doLoadListBooking() {
-        return apiHelper.doLoadListBooking();
+    public Observable<List<Booking>> doLoadListBooking(UserResponse.ServerListBooking booking) {
+        return apiHelper.doLoadListBooking(booking);
     }
 
     @Override
@@ -168,8 +179,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Observable<List<Favorite>> doLoadListFavorite() {
-        return apiHelper.doLoadListFavorite();
+    public Observable<List<Favorite>> doLoadListFavorite(UserResponse.ServerListBooking favorite) {
+        return apiHelper.doLoadListFavorite(favorite);
     }
 
     @Override
@@ -205,6 +216,11 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<List<ImageDetail>> doLoadListImageDetail(UserResponse.ServerGetImageDetail detail) {
         return apiHelper.doLoadListImageDetail(detail);
+    }
+
+    @Override
+    public Observable<List<UserInfo>> doLoadInformationUser(UserResponse.ServerGetUser user) {
+        return apiHelper.doLoadInformationUser(user);
     }
 
 

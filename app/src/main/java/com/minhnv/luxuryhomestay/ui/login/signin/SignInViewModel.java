@@ -1,23 +1,18 @@
 package com.minhnv.luxuryhomestay.ui.login.signin;
 
-import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.minhnv.luxuryhomestay.data.DataManager;
 import com.minhnv.luxuryhomestay.data.model.User;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
-import com.minhnv.luxuryhomestay.ui.base.ViewModelType;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
-import com.minhnv.luxuryhomestay.utils.CommonUtils;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
-import timber.log.Timber;
 
 
 public class SignInViewModel extends BaseViewModel<SignInNavigator> {
@@ -44,8 +39,8 @@ public class SignInViewModel extends BaseViewModel<SignInNavigator> {
             .observeOn(getSchedulerProvider().ui())
             .subscribe(response -> {
                 if(response.equals("Success")){
-                    getDataManager().setCurrentPhoneNumber(password);
                     getDataManager().setCurrentPassword(phonenumber);
+                    getDataManager().setCurrentPhoneNumber(password);
                     getNavigator().onSuccess();
                 }else if(response.equals("Failed") || response.equals("Null")){
                     getNavigator().onFailed();

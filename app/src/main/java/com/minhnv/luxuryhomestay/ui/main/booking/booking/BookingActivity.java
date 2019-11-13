@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.InputType;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -27,16 +26,11 @@ import androidx.lifecycle.ViewModelProviders;
 import com.androidnetworking.widget.ANImageView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.minhnv.luxuryhomestay.R;
-import com.minhnv.luxuryhomestay.data.model.Homestay;
-import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
-import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.minhnv.luxuryhomestay.utils.CustomToast;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
-
-import java.util.Calendar;
 
 public class BookingActivity extends BaseActivity<BookingViewModel> implements BookingNavigator {
     private static final String TAG = "BookingActivity";
@@ -169,13 +163,19 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
         String countMember = edCountMember.getText().toString().trim();
         String nameHomeStay = tvNameHomeStay.getText().toString();
         String address = tvAddressHomeStay.getText().toString();
-
-        if (viewmodel.isRequestValid(dateStart, dateEnd, countMember,nameHomeStay,address) && isNetworkConnected()) {
-            viewmodel.booking(dateStart, dateEnd, countMember,nameHomeStay,address);
-            showLoading();
-        } else {
-            CustomToast.makeTake(this,getString(R.string.booking_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+        try {
+            int idUser = Integer.parseInt(appPreferenceHelper.getCurrentId());
+            if (viewmodel.isRequestValid(dateStart, dateEnd, countMember,nameHomeStay,address) && isNetworkConnected()) {
+                viewmodel.booking(dateStart, dateEnd, countMember,nameHomeStay,address,idUser);
+                showLoading();
+            } else {
+                CustomToast.makeTake(this,getString(R.string.booking_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+            }
+        }catch (NumberFormatException e){
+            e.getMessage();
         }
+
+
     }
 
     @Override

@@ -39,4 +39,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     public void setCompositeDisposable(CompositeDisposable compositeDisposable) {
         this.compositeDisposable = compositeDisposable;
     }
+
+
 }

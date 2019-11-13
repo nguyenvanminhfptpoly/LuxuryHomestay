@@ -17,6 +17,7 @@ public interface PreferenceHelper {
     Boolean getCheckedToSwitchDarkMode();
     void setCheckedToSwitchDarkMode(Boolean isCheck);
 
-
+    String getCurrentId();
+    void setCurrentId(String currentId);
 
 }

@@ -37,7 +37,6 @@ import com.minhnv.luxuryhomestay.ui.main.social.post.PostLuxuryActivity;
 import com.minhnv.luxuryhomestay.ui.main.social.story.PostStoryActivity;
 import com.minhnv.luxuryhomestay.ui.main.social.story.detail.DetailStoryActivity;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
-import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
@@ -72,7 +71,6 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
         setContentView(R.layout.social_fragment);
         viewmodel = ViewModelProviders.of(this,factory).get(SocialViewModel.class);
         viewmodel.setNavigator(this);
-        slide = Slidr.attach(this);
         initView();
         setUpRecyclerView();
         setUpRecyclerViewLuxury();

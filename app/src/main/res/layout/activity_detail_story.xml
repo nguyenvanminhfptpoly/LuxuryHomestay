@@ -20,29 +20,28 @@
         android:background="@drawable/img_home1" />
 
 
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:background="@drawable/bg_detail_story"
-        app:layout_constraintBottom_toBottomOf="@+id/imgDetailStory"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/tvDetailStory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_bold"
         android:text="@string/detail"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
         android:textColor="@color/md_black_1000"
-        app:layout_constraintBottom_toBottomOf="@+id/imgDetailStory"
-        app:layout_constraintEnd_toEndOf="@+id/imgDetailStory"
-        app:layout_constraintHorizontal_bias="0.045"
-        app:layout_constraintStart_toStartOf="@+id/imgDetailStory"
-        app:layout_constraintTop_toTopOf="@+id/view2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabDownload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/switch_yellow_blue"
+        android:clickable="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/stat_sys_download"
+        android:focusable="true" />
 </androidx.constraintlayout.widget.ConstraintLayout>

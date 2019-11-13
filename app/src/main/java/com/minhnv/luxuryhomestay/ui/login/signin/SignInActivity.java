@@ -18,19 +18,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.User;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.ui.login.signup.SignUpActivity;
 import com.minhnv.luxuryhomestay.ui.main.HomeActivity;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
-import com.minhnv.luxuryhomestay.utils.CommonUtils;
 import com.minhnv.luxuryhomestay.utils.CustomToast;
 
 import java.util.ArrayList;
@@ -58,7 +55,7 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
      * Permissions that need to be explicitly requested from end user.
      */
     private static final String[] REQUIRED_SDK_PERMISSIONS = new String[] {
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CALL_PHONE };
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CALL_PHONE,Manifest.permission.READ_EXTERNAL_STORAGE };
 
 
     @Override

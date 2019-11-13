@@ -10,6 +10,7 @@ import com.minhnv.luxuryhomestay.data.model.ImageDetail;
 import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.data.model.Story;
+import com.minhnv.luxuryhomestay.data.model.UserInfo;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.data.model.VinHome;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
@@ -96,8 +97,9 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Observable<List<Booking>> doLoadListBooking() {
+    public Observable<List<Booking>> doLoadListBooking(UserResponse.ServerListBooking booking) {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_LIST_BOOKING)
+                .addBodyParameter(booking)
                 .build()
                 .getObjectListObservable(Booking.class);
     }
@@ -126,8 +128,9 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Observable<List<Favorite>> doLoadListFavorite() {
+    public Observable<List<Favorite>> doLoadListFavorite(UserResponse.ServerListBooking favorite) {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_LIST_FAVORITE)
+                .addBodyParameter(favorite)
                 .build()
                 .getObjectListObservable(Favorite.class);
     }
@@ -183,6 +186,14 @@ public class AppApiHelper implements ApiHelper {
                 .addBodyParameter(detail)
                 .build()
                 .getObjectListObservable(ImageDetail.class);
+    }
+
+    @Override
+    public Observable<List<UserInfo>> doLoadInformationUser(UserResponse.ServerGetUser user) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_GET_USER)
+                .addBodyParameter(user)
+                .build()
+                .getObjectListObservable(UserInfo.class);
     }
 
 }

@@ -9,6 +9,7 @@ import com.minhnv.luxuryhomestay.data.model.ImageDetail;
 import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.data.model.Story;
+import com.minhnv.luxuryhomestay.data.model.UserInfo;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.data.model.VinHome;
 
@@ -33,7 +34,7 @@ public interface ApiHelper {
 
     Observable<String> doServerBooking(UserResponse.ServerBooking booking);
 
-    Observable<List<Booking>> doLoadListBooking();
+    Observable<List<Booking>> doLoadListBooking(UserResponse.ServerListBooking booking);
 
     Observable<String> doServerDeleteBooking(UserResponse.ServerDeleteBooking booking);
 
@@ -41,7 +42,7 @@ public interface ApiHelper {
 
     Observable<String> doServerPostFavorite(UserResponse.ServerAddFavorite favorite);
 
-    Observable<List<Favorite>> doLoadListFavorite();
+    Observable<List<Favorite>> doLoadListFavorite(UserResponse.ServerListBooking favorite);
 
     Observable<String> doDeleteFavorite(UserResponse.ServerDeleteBooking favorite);
 
@@ -56,4 +57,6 @@ public interface ApiHelper {
     Observable<String> doDeleteStories();
 
     Observable<List<ImageDetail>> doLoadListImageDetail(UserResponse.ServerGetImageDetail detail);
+
+    Observable<List<UserInfo>> doLoadInformationUser(UserResponse.ServerGetUser user);
 }

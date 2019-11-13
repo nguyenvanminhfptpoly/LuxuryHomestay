@@ -19,9 +19,9 @@ public class HomeStaysDetailViewModel extends BaseViewModel<HomeStayDetailNaviga
         super(dataManager, schedulerProvider);
     }
 
-    public void addFavorite(String image,String name,String address){
+    public void addFavorite(String image,String name,String address,int idUser){
         getCompositeDisposable().add(
-                getDataManager().doServerPostFavorite(new UserResponse.ServerAddFavorite(name,image,address))
+                getDataManager().doServerPostFavorite(new UserResponse.ServerAddFavorite(name,image,address,idUser))
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {

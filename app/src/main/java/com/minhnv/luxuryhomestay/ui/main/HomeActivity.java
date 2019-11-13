@@ -30,6 +30,7 @@ import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.City;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
+import com.minhnv.luxuryhomestay.data.model.UserInfo;
 import com.minhnv.luxuryhomestay.data.model.VinHome;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.ui.intro.IntroductionActivity;
@@ -39,6 +40,7 @@ import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysPriceAscAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.LinearLayoutManagerWithSmoothScroller;
 import com.minhnv.luxuryhomestay.ui.main.adapter.SnapHelperOneByOne;
+import com.minhnv.luxuryhomestay.ui.main.adapter.UserAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.VinHomeAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityDetailViewHolder;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityViewHolder;
@@ -81,6 +83,11 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
     @Inject
     public VinHomeAdapter homeAdapter;
 
+    private RecyclerView recyclerViewUser;
+    private List<UserInfo> userInfos;
+    @Inject
+    public UserAdapter userAdapter;
+
 
     public static Intent newIntent(Context context) {
         return new Intent(context, HomeActivity.class);
@@ -105,6 +112,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         setUpRecyclerViewHomeStayPriceAsc();
         setUpRecyclerViewVinHomes();
         ViewFlipper();
+        setUpRecyclerView();
     }
 
     private void initView() {
@@ -113,6 +121,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         Button btnDetailHSH = findViewById(R.id.buttonDetailHSH);
         Button btnDetailHSP = findViewById(R.id.btnDetailHSP);
         TextView tvNameUser = findViewById(R.id.tvNameUser);
+
         btnGotoBooking.setOnClickListener(view -> startActivity(ListBookingActivity.newIntent(getApplicationContext())));
         btnDetailHSH.setOnClickListener(view ->
             startActivity(HomeStayHotActivity.newIntent(HomeActivity.this))
@@ -136,6 +145,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
             Dialog dialog = builder.create();
             dialog.show();
         });
+
 
     }
 
@@ -223,6 +233,16 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         homeAdapter.setUserAction(this);
         recyclerView.setAdapter(homeAdapter);
         helper.attachToRecyclerView(recyclerView);
+    }
+
+    private void setUpRecyclerView(){
+        recyclerViewUser = findViewById(R.id.recyclerViewUserInfo);
+        recyclerViewUser.setHasFixedSize(true);
+        recyclerViewUser.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this));
+        userInfos = new ArrayList<>();
+        viewmodel.ServerLoadUser();
+        userAdapter = new UserAdapter(userInfos,getApplicationContext(),appPreferenceHelper);
+        recyclerViewUser.setAdapter(userAdapter);
     }
 
 
@@ -323,6 +343,17 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         viewmodel.loadCityVinHome();
         compositeDisposable.add(viewmodel.listBehaviorSubject.share()
                 .subscribe(data -> homeAdapter.set(data)));
+    }
+
+    @Override
+    public void LoadUser() {
+        try {
+            viewmodel.loadUser(Integer.parseInt(appPreferenceHelper.getCurrentPassword()));
+        }catch (NumberFormatException e){
+            e.getMessage();
+        }
+        compositeDisposable.add(viewmodel.listPublishSubjectUser.share()
+                .subscribe(data -> userAdapter.set(data)));
     }
 
 

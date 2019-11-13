@@ -111,7 +111,13 @@ public class ListBookingActivity extends BaseActivity<ListBookingViewModel> impl
 
     @Override
     public void ServerLoadList() {
-        viewmodel.loadList();
+        try {
+            int idUser = Integer.parseInt(appPreferenceHelper.getCurrentId());
+            viewmodel.loadList(idUser);
+        }catch (NumberFormatException e){
+            e.getMessage();
+        }
+
     }
 
     @Override

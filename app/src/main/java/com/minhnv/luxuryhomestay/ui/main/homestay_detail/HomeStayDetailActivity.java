@@ -229,7 +229,12 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
         String name = tvName.getText().toString();
         String address = tvAddress.getText().toString();
         String image = nameImage;
-        viewmodel.addFavorite(image, name, address);
+        try {
+            int idUser = Integer.parseInt(appPreferenceHelper.getCurrentId());
+            viewmodel.addFavorite(image, name, address, idUser);
+        }catch (NumberFormatException e){
+            e.getMessage();
+        }
     }
 
     @Override

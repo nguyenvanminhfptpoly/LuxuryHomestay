@@ -29,6 +29,7 @@
     <string name="add_successfully">Thêm Thành Công</string>
     <string name="failed">Lỗi Khi Tạo Tài Khoản</string>
     <string name="name">Tên người dùng</string>
+    <string name="user_name">Tên Đăng Nhập</string>
 
     //home
     <string name="detail">Chi tiết</string>
@@ -38,7 +39,7 @@
     <string name="home_stay_price">Homestay giá tốt nhất</string>
     <string name="favorite">Homestay Yêu thích</string>
     <string name="social_network">Mạng xã hội</string>
-    <string name="intro">Về chúng tôi</string>
+    <string name="intro">Thông tin người dùng</string>
     <string name="logout">Đăng xuất</string>
     <string name="search">Tìm Kiếm</string>
     <string name="validate">Nhập đủ dữ liệu</string>
