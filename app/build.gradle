@@ -13,6 +13,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+
     }
     buildTypes {
         release {
@@ -47,8 +49,6 @@ dependencies {
     implementation config.commonDependency.legacy
     //lifecycle
     implementation config.commonDependency.lifeCyclerExtensions
-    //fire base
-    implementation config.commonDependency.firebase
     //junit
     testImplementation config.commonDependency.jUnit
     //test runner
@@ -121,6 +121,12 @@ dependencies {
     androidTestImplementation config.commonDependency.coreTest
     //android debug database
     debugImplementation config.commonDependency.androidDebugDatabase
+    //leak memory
+    //switch
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 
 
 }

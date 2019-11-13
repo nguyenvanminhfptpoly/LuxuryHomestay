@@ -14,5 +14,7 @@
         gpb:layout_constraintBottom_toBottomOf="parent"
         gpb:layout_constraintEnd_toEndOf="parent"
         gpb:layout_constraintStart_toStartOf="parent"
-        gpb:layout_constraintTop_toTopOf="parent" />
+        gpb:layout_constraintTop_toTopOf="parent"
+        gpb:layout_constraintVertical_bias="0.499" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

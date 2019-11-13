@@ -1,7 +1,5 @@
 package com.minhnv.luxuryhomestay.ui.main.booking.list;
 
-import android.util.Log;
-
 import com.minhnv.luxuryhomestay.data.DataManager;
 import com.minhnv.luxuryhomestay.data.model.Booking;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
@@ -25,9 +23,9 @@ public class ListBookingViewModel extends BaseViewModel<ListBookingNavigator> {
         Observable<List<Booking>> listObservable = listPublishSubject.share();
     }
 
-    public void loadList(){
+    public void loadList(int idUser){
         getCompositeDisposable().add(
-                getDataManager().doLoadListBooking()
+                getDataManager().doLoadListBooking(new UserResponse.ServerListBooking(idUser))
                         .subscribeOn(getSchedulerProvider().io())
                         .observeOn(getSchedulerProvider().ui())
                         .subscribe(response ->{

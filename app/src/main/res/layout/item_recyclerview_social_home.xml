@@ -9,11 +9,11 @@
     app:cardCornerRadius="50dp">
 
 
-    <com.androidnetworking.widget.ANImageView
+    <ImageView
         android:id="@+id/imgSocial"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/img_home3"
+        android:background="@drawable/img_home1"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

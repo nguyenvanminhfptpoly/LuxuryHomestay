@@ -5,5 +5,5 @@
         android:icon="@drawable/ic_search_black_24dp"
         app:showAsAction="always"
         android:title="@string/phone_number"
-        android:iconTint="@color/md_white_1000"/>
+        />
 </menu>

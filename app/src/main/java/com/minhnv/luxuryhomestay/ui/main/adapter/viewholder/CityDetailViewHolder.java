@@ -1,5 +1,6 @@
 package com.minhnv.luxuryhomestay.ui.main.adapter.viewholder;
 
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidnetworking.widget.ANImageView;
+import com.google.android.material.card.MaterialCardView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 
@@ -18,16 +20,15 @@ public class CityDetailViewHolder extends RecyclerView.ViewHolder {
     private ANImageView image;
     private TextView tvTitle;
     private TextView tvDetail;
-    private Button btnListDetail, btnListBooking;
-    private LinearLayout linearLayout;
+    private MaterialCardView cardView;
+    public long mLastClickTime = 0;
 
     private CityDetailViewHolder(@NonNull View itemView) {
         super(itemView);
         image = itemView.findViewById(R.id.imgCityDetail);
         tvTitle = itemView.findViewById(R.id.tvTitleCityDetail);
         tvDetail = itemView.findViewById(R.id.tvDetailCity);
-        btnListBooking = itemView.findViewById(R.id.btnListCityBooking);
-        btnListDetail = itemView.findViewById(R.id.btnListCityDetail);
+        cardView = itemView.findViewById(R.id.itemTouchCity);
     }
 
     public void bind(Homestay homestay, UserActionListener callBack) {
@@ -36,8 +37,12 @@ public class CityDetailViewHolder extends RecyclerView.ViewHolder {
         image.setErrorImageResId(R.drawable.uploadfailed);
         image.setDefaultImageResId(R.drawable.img_home1);
         image.setImageUrl(homestay.getImage());
-        btnListBooking.setOnClickListener(view -> callBack.onActionBookingByUser(getAdapterPosition()));
-        btnListDetail.setOnClickListener(view -> callBack.onActionDetailByUser(getAdapterPosition()));
+        cardView.setOnClickListener(view -> {
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
+                return;
+            }
+            mLastClickTime = SystemClock.elapsedRealtime();
+            callBack.onActionDetailByUser(getAdapterPosition());});
     }
 
     public static CityDetailViewHolder create(ViewGroup parent){
@@ -47,6 +52,5 @@ public class CityDetailViewHolder extends RecyclerView.ViewHolder {
 
     public interface UserActionListener {
         void onActionDetailByUser(int position);
-        void onActionBookingByUser(int position);
     }
 }

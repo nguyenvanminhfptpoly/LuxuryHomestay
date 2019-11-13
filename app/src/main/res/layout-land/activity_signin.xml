@@ -47,7 +47,7 @@
                 android:background="@drawable/bg_edittext"
                 android:fontFamily="@font/robotocondensed_regular"
                 android:hint="@string/password"
-                android:inputType="textPassword"
+                android:inputType="numberPassword"
                 android:padding="10dp"
                 android:textColor="@android:color/black"
                  />
@@ -59,9 +59,9 @@
                 android:layout_marginTop="31dp"
                 android:background="@drawable/bg_edittext"
                 android:fontFamily="@font/robotocondensed_regular"
-                android:hint="@string/phone_number"
+                android:hint="@string/user_name"
                 android:padding="10dp"
-                android:inputType="phone"
+                android:inputType="text"
                 android:textColor="@android:color/black"
                  />
         </LinearLayout>

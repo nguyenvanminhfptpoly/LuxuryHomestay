@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
-import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.StaggeredPriceViewHolder;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.StaggeredHomeStayViewHolder;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import javax.inject.Inject;
 public class StaggeredAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<HomestayPrice> homeStay;
     private Context context;
-    private StaggeredPriceViewHolder.UserActionListener callBack;
+    private StaggeredHomeStayViewHolder.UserActionListener callBack;
 
     public StaggeredAdapter(List<HomestayPrice> homestays, Context context) {
         this.homeStay = homestays;
@@ -30,17 +30,17 @@ public class StaggeredAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return StaggeredPriceViewHolder.create(parent);
+        return StaggeredHomeStayViewHolder.create(parent);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof StaggeredPriceViewHolder){
-            ((StaggeredPriceViewHolder) holder).bind(homeStay.get(position),callBack);
+        if(holder instanceof StaggeredHomeStayViewHolder){
+            ((StaggeredHomeStayViewHolder) holder).bindTo(homeStay.get(position),callBack);
         }
     }
 
-    public void setUserAction(StaggeredPriceViewHolder.UserActionListener callBack){
+    public void setUserAction(StaggeredHomeStayViewHolder.UserActionListener callBack){
         this.callBack = callBack;
     }
 

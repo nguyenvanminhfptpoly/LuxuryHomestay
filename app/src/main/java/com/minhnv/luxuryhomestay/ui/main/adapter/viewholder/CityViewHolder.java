@@ -1,5 +1,6 @@
 package com.minhnv.luxuryhomestay.ui.main.adapter.viewholder;
 
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import com.minhnv.luxuryhomestay.data.model.City;
 public class CityViewHolder extends RecyclerView.ViewHolder {
     private ANImageView imageView;
     private LoaderTextView tvName;
-
+    public long mLastClickTime = 0;
     private CityViewHolder(@NonNull View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.imgCity);
@@ -26,7 +27,12 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
         imageView.setDefaultImageResId(R.drawable.img_home1);
         imageView.setImageUrl(city.getImage());
         tvName.setText(city.getName());
-        imageView.setOnClickListener(v -> callBack.onActionViewDetailByUser(getAdapterPosition()));
+        imageView.setOnClickListener(v -> {
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
+                return;
+            }
+            mLastClickTime = SystemClock.elapsedRealtime();
+            callBack.onActionViewDetailByUser(getAdapterPosition());});
     }
 
     public static CityViewHolder create(ViewGroup parent){

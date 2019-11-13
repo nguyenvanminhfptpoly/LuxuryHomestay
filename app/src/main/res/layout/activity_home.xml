@@ -34,15 +34,13 @@
                         android:layout_width="match_parent"
                         android:id="@+id/toolbar_home"
                         style="@style/ToolBarHome"
-                        app:title="@string/vinHomes"
-                        android:background="@color/colorPrimary"
+                        app:title="@string/app_name"
+                        android:background="?attr/switch_colorPrimary"
                         app:titleTextColor="@color/md_white_1000"
                         />
 
                 </com.google.android.material.appbar.AppBarLayout>
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
+
 
                 <FrameLayout
                     android:id="@+id/content_view_home"
@@ -70,7 +68,9 @@
             android:background="@android:color/transparent"
             app:itemBackground="@color/md_white_1000"
             app:itemIconTint="@color/md_black_1000"
-            app:itemTextColor="@color/md_black_1000">
+            app:itemTextColor="@color/md_black_1000"
+            android:fitsSystemWindows="false"
+            >
 
             <include layout="@layout/include_layout_menu" />
 

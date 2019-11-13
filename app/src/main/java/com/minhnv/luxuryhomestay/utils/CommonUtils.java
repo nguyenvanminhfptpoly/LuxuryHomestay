@@ -11,8 +11,12 @@ import androidx.appcompat.app.AlertDialog;
 import com.minhnv.luxuryhomestay.R;
 
 import java.text.DecimalFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 public class CommonUtils {
+
 
     public static boolean isEmailValid(String email) {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
@@ -29,6 +33,7 @@ public class CommonUtils {
         progressDialog.setCanceledOnTouchOutside(false);
         return progressDialog;
     }
+
 
     public static boolean isPhoneValid(String phone){
         return Patterns.PHONE.matcher(phone).matches();
@@ -53,6 +58,27 @@ public class CommonUtils {
         alertDialog.show();
         return builder;
     }
+
+
+    public static String StringFilter(String str) throws PatternSyntaxException {
+        // 只允许字母和数字
+        // String regEx = "[^a-zA-Z0-9]";
+        // 清除掉所有特殊字符
+        String regEx = "[`~!@#$%^&*()+=|{}':;',//[//].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(str);
+        return m.replaceAll("").trim();
+    }
+
+    public static int parseIntSafely(String content, int defaultValue) {
+        if (content == null) return defaultValue;
+        try {
+            return Integer.parseInt(content);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+
 
 
 

@@ -6,7 +6,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".BaseApplication"
@@ -20,13 +22,13 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup">
         <activity android:name=".ui.main.social.story.detail.DetailStoryActivity"
-            android:theme="@style/AppTheme.SlideActivityTheme" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.main.social.story.PostStoryActivity"
-            android:theme="@style/AppTheme.SlideActivityTheme" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.main.vin_homes.VinHomeDetailActivity"
-            android:theme="@style/AppTheme.SlideActivityTheme" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -38,39 +40,39 @@
         </activity>
         <activity
             android:name=".ui.main.social.post.PostLuxuryActivity"
-            android:theme="@style/AppTheme.SlideActivityTheme" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.main.homestay_price_ago.HomeStayPriceAgoActivity"
-            android:theme="@style/AppTheme.SlideActivityTheme" />
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".ui.main.homestay_hot.HomeStayHotActivity"
-            android:theme="@style/AppTheme.SlideActivityTheme" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.main.booking.list.ListBookingActivity"
-            android:theme="@style/AppTheme.SlideActivityTheme" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.main.homestay_detail.HomeStayDetailActivity"
-            android:theme="@style/AppTheme.SlideActivityTheme" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.main.homestay_city.HomeStayCityActivity"
-            android:theme="@style/AppTheme.SlideActivityTheme" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.main.search.SearchActivity"
-            android:theme="@style/AppTheme.SlideActivityTheme" />
+            android:theme="@style/AppTheme"/>
         <activity android:name=".ui.main.HomeActivity" />
         <activity
             android:name=".ui.main.booking.booking.BookingActivity"
-            android:theme="@style/AppTheme.SlideActivityTheme" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.main.favorite.FavoriteActivity"
-            android:theme="@style/AppTheme.SlideActivityTheme" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.intro.IntroductionActivity"
-            android:theme="@style/AppTheme.SlideActivityTheme" />
+            android:theme="@style/AppTheme" />
         <activity android:name=".ui.main.social.list.SocialActivity" />
         <activity
             android:name=".ui.login.signup.SignUpActivity"
-            android:theme="@style/AppTheme.SlideActivityTheme" />
+            android:theme="@style/AppTheme"/>
         <activity android:name=".ui.login.signin.SignInActivity" />
 
         <meta-data

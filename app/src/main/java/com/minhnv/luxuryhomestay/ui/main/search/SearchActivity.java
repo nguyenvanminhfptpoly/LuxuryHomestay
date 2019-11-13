@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,11 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
+import com.minhnv.luxuryhomestay.ui.main.adapter.CityDetailAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityDetailViewHolder;
 import com.minhnv.luxuryhomestay.ui.main.booking.booking.BookingActivity;
 import com.minhnv.luxuryhomestay.ui.main.homestay_detail.HomeStayDetailActivity;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
+import com.minhnv.luxuryhomestay.utils.CustomToast;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -32,7 +35,7 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
     private static final String TAG = "SearchActivity";
 
     private EditText edRating;
-    private HomeStaysAdapter adapter;
+    private CityDetailAdapter adapter;
     private List<Homestay> homestays;
     private int rating;
     private SlidrInterface slide;
@@ -44,18 +47,19 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
     }
 
     @Override
-    public int getLayoutId() {
-        return R.layout.activity_search;
-    }
-
-    @Override
-    public void onCreateActivity(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkThemes);
+        }
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search);
         viewmodel = ViewModelProviders.of(this, factory).get(SearchViewModel.class);
         viewmodel.setNavigator(this);
         slide = Slidr.attach(this);
         initView();
         setUpRecyclerView();
     }
+
     private void initView(){
         btnSearch = findViewById(R.id.btnSearch);
         edRating = findViewById(R.id.includeSearch);
@@ -66,7 +70,7 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
     private void setUpRecyclerView(){
         RecyclerView recyclerViewSearch = findViewById(R.id.recyclerViewSearch);
         homestays = new ArrayList<>();
-        adapter = new HomeStaysAdapter(homestays, getApplicationContext());
+        adapter = new CityDetailAdapter(homestays, getApplicationContext());
         adapter.setUserAction(this);
         recyclerViewSearch.setHasFixedSize(true);
         recyclerViewSearch.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -113,7 +117,7 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
                             adapter.set(response)
                         ));
         } else {
-            Toast.makeText(this, getString(R.string.validate), Toast.LENGTH_SHORT).show();
+            CustomToast.makeTake(this,getString(R.string.validate),Toast.LENGTH_LONG,CustomToast.ERROR).show();
         }
 
     }
@@ -126,10 +130,4 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
         startActivity(intent);
     }
 
-    @Override
-    public void onActionBookingByUser(int position) {
-        Intent intent = BookingActivity.newIntent(getApplicationContext());
-        intent.putExtra("booking",homestays.get(position));
-        startActivity(intent);
-    }
 }

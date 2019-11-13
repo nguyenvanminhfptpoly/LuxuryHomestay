@@ -4,15 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_white_1000"
+    android:background="?attr/switch_black_white"
     tools:context=".ui.main.homestay_price_ago.HomeStayPriceAgoActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarHomeStayPrice"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        style="@style/ToolBarHome"
+        app:title="@string/home_stay_price"
+        app:titleTextColor="@color/md_white_1000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewHomeStayPrice"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/toolbarHomeStayPrice" />
 </androidx.constraintlayout.widget.ConstraintLayout>

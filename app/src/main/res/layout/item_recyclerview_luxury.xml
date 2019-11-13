@@ -1,98 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="350dp"
     android:background="@drawable/bg_luxury_item"
     android:orientation="vertical"
-    android:layout_marginBottom="10dp">
+    android:id="@+id/itemTouchLuxury"
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp"
+    android:layout_marginTop="15dp"
+    app:cardCornerRadius="20dp">
 
-    <TextView
-        android:id="@+id/tvNameUser"
-        style="@style/TextViewBackground"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/name_hs"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/imgLuxury"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
-    <TextView
-        android:id="@+id/tvAddressUser"
-        style="@style/TextViewBackgroundLight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/detail"
-        app:layout_constraintStart_toStartOf="@+id/tvNameUser"
-        app:layout_constraintTop_toBottomOf="@+id/tvNameUser" />
+        <ImageView
+            android:id="@+id/imgLuxury"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/img_home1"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/todo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.androidnetworking.widget.ANImageView
-        android:id="@+id/imgLuxury"
-        android:layout_width="0dp"
-        android:layout_height="400dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/img_home3"
-        android:contentDescription="@string/todo"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddressUser" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_gradient_orange"
+            tools:layout_editor_absoluteX="39dp"
+            tools:layout_editor_absoluteY="0dp" />
 
-    <TextView
-        android:id="@+id/tvDetailLuxury"
-        style="@style/TextViewBackgroundLight"
-        android:textSize="18sp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:text="@string/detail"
-        app:layout_constraintEnd_toEndOf="@+id/imgLuxury"
-        app:layout_constraintStart_toStartOf="@+id/imgLuxury"
-        app:layout_constraintTop_toBottomOf="@+id/imgLuxury" />
+        <TextView
+            android:id="@+id/tvDetailLuxury"
+            style="@style/TextViewRegular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/name_hs"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btnDetailLuxury"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/bg_btn_home_selector"
-        android:text="@string/detail"
-        android:textColor="@drawable/text_selected"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imgLuxury"
-        app:layout_constraintTop_toBottomOf="@+id/tvDetailLuxury" />
+        <ImageButton
+            android:id="@+id/imgShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_item_social_home"
+            android:padding="10dp"
+            android:src="@drawable/ic_share_black_24dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imgFavoriteLuxury"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:contentDescription="@string/todo"
-        android:padding="10dp"
-        android:src="@drawable/ic_favorite_black_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnDetailLuxury"
-        app:layout_constraintEnd_toStartOf="@+id/imgShare"
-        app:layout_constraintTop_toTopOf="@+id/btnDetailLuxury"
-        app:layout_constraintVertical_bias="1.0" />
+        <TextView
+            android:id="@+id/tvNameUser"
+            style="@style/TextViewBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/username"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintEnd_toEndOf="@+id/imageView4"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toStartOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
-    <ImageButton
-        android:id="@+id/imgShare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/md_white_1000"
-        android:contentDescription="@string/todo"
-        android:padding="10dp"
-        android:src="@drawable/ic_share_black_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imgFavoriteLuxury"
-        app:layout_constraintEnd_toEndOf="@+id/imgLuxury"
-        app:layout_constraintTop_toTopOf="@+id/imgFavoriteLuxury" />
+        <TextView
+            android:id="@+id/tvAddressUser"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/name_hs"
+            style="@style/TextViewBold"
+            app:layout_constraintBottom_toTopOf="@+id/tvDetailLuxury"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetailLuxury"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailLuxury" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="308dp"
+            android:layout_height="54dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/bg_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</com.google.android.material.card.MaterialCardView>

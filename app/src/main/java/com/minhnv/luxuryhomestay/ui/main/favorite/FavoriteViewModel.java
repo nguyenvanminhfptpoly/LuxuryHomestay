@@ -1,7 +1,5 @@
 package com.minhnv.luxuryhomestay.ui.main.favorite;
 
-import android.util.Log;
-
 import com.minhnv.luxuryhomestay.data.DataManager;
 import com.minhnv.luxuryhomestay.data.model.Favorite;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
@@ -23,9 +21,9 @@ public class FavoriteViewModel extends BaseViewModel<FavoriteNavigator> {
         super(dataManager, schedulerProvider);
         Observable<List<Favorite>> listObservable = listBehaviorSubject.share();
     }
-    public void loadFavorite(){
+    public void loadFavorite(int idUser){
         getCompositeDisposable().add(
-                getDataManager().doLoadListFavorite()
+                getDataManager().doLoadListFavorite(new UserResponse.ServerListBooking(idUser))
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {

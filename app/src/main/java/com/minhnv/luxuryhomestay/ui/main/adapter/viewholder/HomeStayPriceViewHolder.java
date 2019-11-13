@@ -1,6 +1,7 @@
 package com.minhnv.luxuryhomestay.ui.main.adapter.viewholder;
 
 import android.content.Context;
+import android.os.SystemClock;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidnetworking.widget.ANImageView;
+import com.google.android.material.card.MaterialCardView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
 import com.minhnv.luxuryhomestay.utils.CommonUtils;
@@ -22,17 +24,16 @@ import com.minhnv.luxuryhomestay.utils.CommonUtils;
 public class HomeStayPriceViewHolder extends RecyclerView.ViewHolder {
     private ANImageView imgPicture;
     private TextView tvPrice, tvName, tvDetail, tvPriceAgo;
-    private Button btnDetail, btnBooking;
+    private MaterialCardView cardView;
     private Context context;
-
+    public long mLastClickTime = 0;
     private HomeStayPriceViewHolder(@NonNull View itemView) {
         super(itemView);
         imgPicture = itemView.findViewById(R.id.imgPriceAsc);
         tvPrice = itemView.findViewById(R.id.tvPriceAsc);
         tvName = itemView.findViewById(R.id.tvNamePriceAsc);
         tvDetail = itemView.findViewById(R.id.tvDetailPriceAsc);
-        btnBooking = itemView.findViewById(R.id.btnBookingAsc);
-        btnDetail = itemView.findViewById(R.id.btnDetailAsc);
+        cardView = itemView.findViewById(R.id.itemTouchHomeStayPrice);
         tvPriceAgo = itemView.findViewById(R.id.tvPriceAgo);
 
     }
@@ -51,8 +52,12 @@ public class HomeStayPriceViewHolder extends RecyclerView.ViewHolder {
         builder.setSpan(span,0,15, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         tvPriceAgo.setText(builder);
-        btnBooking.setOnClickListener(v -> callBack.onActionBookingHomeStayByUser(getAdapterPosition()));
-        btnDetail.setOnClickListener(v -> callBack.onActionViewDetailHomeStayByUser(getAdapterPosition()));
+        cardView.setOnClickListener(v ->{
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
+                return;
+            }
+            mLastClickTime = SystemClock.elapsedRealtime();
+            callBack.onActionViewDetailHomeStayByUser(getAdapterPosition());});
 
 
     }
@@ -63,7 +68,6 @@ public class HomeStayPriceViewHolder extends RecyclerView.ViewHolder {
     }
 
     public interface UserActionListener {
-        void onActionBookingHomeStayByUser(int position);
         void onActionViewDetailHomeStayByUser(int position);
     }
 

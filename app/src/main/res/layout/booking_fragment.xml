@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_white_1000"
+    android:background="?attr/switch_black_white"
     tools:context=".ui.main.booking.booking.BookingActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -12,7 +12,6 @@
         style="@style/ToolBarHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +23,7 @@
         android:id="@+id/imgBooking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/img_home3"
+        android:background="@drawable/img_home1"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -163,7 +162,8 @@
         android:src="@drawable/ic_call_black_24dp"
         app:backgroundTint="#4CAF50"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/constraintLayout" />
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+        android:focusable="true" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

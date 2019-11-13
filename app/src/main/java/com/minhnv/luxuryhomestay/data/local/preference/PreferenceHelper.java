@@ -14,8 +14,10 @@ public interface PreferenceHelper {
     String getCurrentPassword();
     void setCurrentPassword(String currentPassword);
 
+    Boolean getCheckedToSwitchDarkMode();
+    void setCheckedToSwitchDarkMode(Boolean isCheck);
 
-
-
+    String getCurrentId();
+    void setCurrentId(String currentId);
 
 }

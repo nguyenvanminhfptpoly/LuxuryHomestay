@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.SystemClock;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +16,7 @@ import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.ui.main.adapter.StaggeredAdapter;
-import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.StaggeredPriceViewHolder;
+import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.StaggeredHomeStayViewHolder;
 import com.minhnv.luxuryhomestay.ui.main.homestay_detail.HomeStayDetailActivity;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.r0adkll.slidr.Slidr;
@@ -25,13 +27,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class
-HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements HomeStayPriceNavigator, StaggeredPriceViewHolder.UserActionListener {
+public class HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements HomeStayPriceNavigator, StaggeredHomeStayViewHolder.UserActionListener {
     private static final String TAG = "HomeStayPriceAgoActivit";
     private List<HomestayPrice> homestays;
     @Inject
     public StaggeredAdapter adapter;
     private SlidrInterface slide;
+    private Toolbar mToolbar;
 
 
     public static Intent newIntent(Context context) {
@@ -39,18 +41,20 @@ HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements
     }
 
     @Override
-    public int getLayoutId() {
-        return R.layout.activity_home_stay_price_ago;
-    }
-
-    @Override
-    public void onCreateActivity(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkThemes);
+        }
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home_stay_price_ago);
+        initView();
         viewmodel = ViewModelProviders.of(this, factory).get(HomeStayPriceViewModel.class);
         viewmodel.setNavigator(this);
         slide = Slidr.attach(this);
         setUpRecyclerView();
     }
-    private void setUpRecyclerView(){
+
+    private void setUpRecyclerView() {
         viewmodel.ServerLoadHomeStaysPriceAsc();
         RecyclerView recyclerView = findViewById(R.id.recyclerViewHomeStayPrice);
         homestays = new ArrayList<>();
@@ -81,7 +85,7 @@ HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(data ->
-                    adapter.set(data)
+                        adapter.set(data)
                 ));
     }
 
@@ -94,5 +98,12 @@ HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewModel> implements
         Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
         intent.putExtra("detailprice", homestays.get(position));
         startActivity(intent);
+    }
+
+    private void initView() {
+        mToolbar = findViewById(R.id.toolbarHomeStayPrice);
+        setSupportActionBar(mToolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        mToolbar.setNavigationOnClickListener(v -> onBackPressed());
     }
 }

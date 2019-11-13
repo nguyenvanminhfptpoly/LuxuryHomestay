@@ -6,26 +6,21 @@ import com.minhnv.luxuryhomestay.data.model.City;
 import com.minhnv.luxuryhomestay.data.model.Favorite;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
+import com.minhnv.luxuryhomestay.data.model.ImageDetail;
 import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.data.model.Story;
+import com.minhnv.luxuryhomestay.data.model.UserInfo;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.data.model.VinHome;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
-import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Function3;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 
 @Singleton
 public class AppApiHelper implements ApiHelper {
@@ -102,8 +97,9 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Observable<List<Booking>> doLoadListBooking() {
+    public Observable<List<Booking>> doLoadListBooking(UserResponse.ServerListBooking booking) {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_LIST_BOOKING)
+                .addBodyParameter(booking)
                 .build()
                 .getObjectListObservable(Booking.class);
     }
@@ -132,8 +128,9 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Observable<List<Favorite>> doLoadListFavorite() {
+    public Observable<List<Favorite>> doLoadListFavorite(UserResponse.ServerListBooking favorite) {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_LIST_FAVORITE)
+                .addBodyParameter(favorite)
                 .build()
                 .getObjectListObservable(Favorite.class);
     }
@@ -181,6 +178,22 @@ public class AppApiHelper implements ApiHelper {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_DELETE_STORY)
                 .build()
                 .getStringObservable();
+    }
+
+    @Override
+    public Observable<List<ImageDetail>> doLoadListImageDetail(UserResponse.ServerGetImageDetail detail) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_GET_IMAGE_DATA)
+                .addBodyParameter(detail)
+                .build()
+                .getObjectListObservable(ImageDetail.class);
+    }
+
+    @Override
+    public Observable<List<UserInfo>> doLoadInformationUser(UserResponse.ServerGetUser user) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_GET_USER)
+                .addBodyParameter(user)
+                .build()
+                .getObjectListObservable(UserInfo.class);
     }
 
 }

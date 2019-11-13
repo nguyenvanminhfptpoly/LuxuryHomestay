@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_white_1000"
+    android:background="?attr/switch_black_white"
     tools:context=".ui.main.favorite.FavoriteActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarFavorite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        style="@style/ToolBarHome"
         app:titleTextColor="@color/md_white_1000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

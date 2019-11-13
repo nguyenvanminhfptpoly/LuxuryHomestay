@@ -1,12 +1,11 @@
 package com.minhnv.luxuryhomestay.ui.main;
 
-import android.util.Log;
-
 import com.minhnv.luxuryhomestay.data.DataManager;
 import com.minhnv.luxuryhomestay.data.model.City;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
+import com.minhnv.luxuryhomestay.data.model.UserInfo;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.data.model.VinHome;
 import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
@@ -17,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.BiFunction;
-import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 
 public class HomeViewModel extends BaseViewModel<HomeNavigator> {
@@ -33,6 +30,8 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
     public PublishSubject<List<Luxury>> listLuxuryBehaviorSubject = PublishSubject.create();
 
+    public PublishSubject<List<UserInfo>> listPublishSubjectUser = PublishSubject.create();
+
     public List<Homestay> list;
     public List<HomestayPrice> priceList;
     public List<City> cityList;
@@ -46,6 +45,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
         Observable<List<HomestayPrice>> listObservable = listPublishSubject.share();
         Observable<List<VinHome>> listVinHomeObservable = listBehaviorSubject.share();
         Observable<List<Luxury>> listLuxuryObservable = listLuxuryBehaviorSubject.share();
+        Observable<List<UserInfo>> listObservableUser = listPublishSubjectUser.share();
     }
 
 
@@ -149,6 +149,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
     public void logout() {
         getNavigator().logout();
+
     }
 
     public void closeDrawer() {
@@ -156,5 +157,25 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     }
 
 
+    public void loadUser(int phoneNumber){
+        getCompositeDisposable().add(
+                getDataManager().doLoadInformationUser(new UserResponse.ServerGetUser(phoneNumber))
+                        .subscribeOn(getSchedulerProvider().io())
+                        .observeOn(getSchedulerProvider().ui())
+                        .subscribe(
+                                response -> {
+                                    List<UserInfo> userInfos = new ArrayList<>(response);
+                                    listPublishSubjectUser.onNext(response);
+                                    getNavigator().onSuccess();
+                                }
+                                ,throwable -> {
+                                    getNavigator().HandlerError(throwable);
+                                }
+                        )
+        );
+    }
 
+    public void ServerLoadUser(){
+        getNavigator().LoadUser();
+    }
 }

@@ -1,6 +1,7 @@
 package com.minhnv.luxuryhomestay.ui.login.signin;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -27,6 +28,7 @@ import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.ui.login.signup.SignUpActivity;
 import com.minhnv.luxuryhomestay.ui.main.HomeActivity;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
+import com.minhnv.luxuryhomestay.utils.CustomToast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,16 +55,13 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
      * Permissions that need to be explicitly requested from end user.
      */
     private static final String[] REQUIRED_SDK_PERMISSIONS = new String[] {
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CALL_PHONE };
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_signin;
-    }
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CALL_PHONE,Manifest.permission.READ_EXTERNAL_STORAGE };
 
 
     @Override
-    public void onCreateActivity(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_signin);
         viewmodel = ViewModelProviders.of(this, factory).get(SignInViewModel.class);
         viewmodel.setNavigator(this);
         initView();
@@ -97,7 +96,7 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
 
         tvNeedHelp.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this);
-            View view = getLayoutInflater().inflate(R.layout.dialog_need_help,null);
+            @SuppressLint("InflateParams") View view = getLayoutInflater().inflate(R.layout.dialog_need_help,null);
             builder.setView(view);
             Dialog dialog = builder.create();
             dialog.show();
@@ -174,13 +173,15 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
     public void onSuccess() {
         startActivity(HomeActivity.newIntent(SignInActivity.this));
         finish();
-        Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show();
+        String message = getString(R.string.login_success);
+        CustomToast.makeTake(SignInActivity.this,message,Toast.LENGTH_LONG,CustomToast.SUCCESS).show();
     }
 
     @Override
     public void handlerError(Throwable throwable) {
         AppLogger.d("failed" + throwable);
-        Toast.makeText(this, getString(R.string.login_error), Toast.LENGTH_SHORT).show();
+        hideLoading();
+        CustomToast.makeTake(SignInActivity.this,getString(R.string.login_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
     }
 
     @Override
@@ -192,16 +193,16 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
             hideKeyboard();
             showLoading();
         } else if(!isNetworkConnected()) {
-            Toast.makeText(this, getString(R.string.login_error), Toast.LENGTH_SHORT).show();
+            CustomToast.makeTake(SignInActivity.this,getString(R.string.login_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
         } else {
-            Toast.makeText(this, getString(R.string.email_password_valid), Toast.LENGTH_SHORT).show();
+            CustomToast.makeTake(SignInActivity.this,getString(R.string.email_password_valid),Toast.LENGTH_LONG,CustomToast.ERROR).show();
         }
     }
 
     @Override
     public void onFailed() {
         hideLoading();
-        Toast.makeText(this, getString(R.string.login_error), Toast.LENGTH_SHORT).show();
+        CustomToast.makeTake(SignInActivity.this,getString(R.string.login_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
     }
 
     @Override
@@ -212,6 +213,7 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
             phoneNumber.setText(appPreferenceHelper.getCurrentPassword());
         }
     }
+
 
 
 }

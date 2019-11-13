@@ -1,7 +1,6 @@
 package com.minhnv.luxuryhomestay.ui.main.booking.booking;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.minhnv.luxuryhomestay.data.DataManager;
 import com.minhnv.luxuryhomestay.data.model.UserResponse;
@@ -32,9 +31,9 @@ public class BookingViewModel extends BaseViewModel<BookingNavigator> {
         return !TextUtils.isEmpty(InputCountMember);
     }
 
-    public void booking(String DateStart,String DateEnd,String CountMember,String nameHomeStay,String address){
+    public void booking(String DateStart,String DateEnd,String CountMember,String nameHomeStay,String address,int idUser){
         getCompositeDisposable().add(
-                getDataManager().doServerBooking(new UserResponse.ServerBooking(DateStart,DateEnd,CountMember,nameHomeStay,address))
+                getDataManager().doServerBooking(new UserResponse.ServerBooking(DateStart,DateEnd,CountMember,nameHomeStay,address,idUser))
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {

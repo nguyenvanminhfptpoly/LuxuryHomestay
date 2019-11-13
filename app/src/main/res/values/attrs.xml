@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="dark">
+        <attr name="switch_black_white" format="color"/>
+        <attr name="switch_yellow_blue" format="color" />
+        <attr name="background_dark" format="color"/>
+        <attr name="switch_white_black" format="color" />
+        <attr name="switch_colorPrimary" format="color" />
+
+    </declare-styleable>
+</resources>

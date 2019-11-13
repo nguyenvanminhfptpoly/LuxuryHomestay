@@ -5,4 +5,5 @@ public interface HomeStayDetailNavigator {
     void onSuccess();
     void onFailed();
     void addFavorite();
+    void loadImageDetail();
 }

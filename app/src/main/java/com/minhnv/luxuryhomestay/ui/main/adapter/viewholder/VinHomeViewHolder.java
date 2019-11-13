@@ -10,13 +10,14 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidnetworking.widget.ANImageView;
+import com.google.android.material.card.MaterialCardView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.VinHome;
 
 public  class VinHomeViewHolder extends RecyclerView.ViewHolder{
     private ANImageView imgCity;
     private TextView tvName;
-    private CardView view;
+    private MaterialCardView view;
     private VinHomeViewHolder(@NonNull View itemView) {
         super(itemView);
         imgCity = itemView.findViewById(R.id.imgVinHomes);

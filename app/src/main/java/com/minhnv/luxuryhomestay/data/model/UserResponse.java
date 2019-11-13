@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import io.reactivex.subjects.BehaviorSubject;
 
 public class UserResponse {
+
     public static class ServerSignUpRequest {
         @Expose
         @SerializedName("password")
@@ -82,13 +83,16 @@ public class UserResponse {
         private String nameHomeStay;
         @SerializedName("address")
         private String address;
+        @SerializedName("iduser")
+        private int idUser;
 
-        public ServerBooking(String dateStart, String dateEnd, String countMember, String nameHomeStay, String address) {
+        public ServerBooking(String dateStart, String dateEnd, String countMember, String nameHomeStay, String address,int idUser) {
             this.dateStart = dateStart;
             this.dateEnd = dateEnd;
             this.countMember = countMember;
             this.nameHomeStay = nameHomeStay;
             this.address = address;
+            this.idUser = idUser;
         }
     }
 
@@ -126,11 +130,14 @@ public class UserResponse {
         private String image;
         @SerializedName("address")
         private String address;
+        @SerializedName("iduser")
+        private int idUser;
 
-        public ServerAddFavorite(String nameHomeStay, String image, String address) {
+        public ServerAddFavorite(String nameHomeStay, String image, String address,int idUser) {
             this.nameHomeStay = nameHomeStay;
             this.image = image;
             this.address = address;
+            this.idUser = idUser;
         }
     }
 
@@ -152,6 +159,33 @@ public class UserResponse {
 
         public ServerLoadHomeStayVinHomes(Integer id) {
             this.id = id;
+        }
+    }
+
+    public static class ServerGetImageDetail{
+        @SerializedName("idhomestay")
+        private int id;
+
+        public ServerGetImageDetail(int id) {
+            this.id = id;
+        }
+    }
+
+    public static class ServerGetUser{
+        @SerializedName("phonenumber")
+        private int phonenumber;
+
+        public ServerGetUser(int phonenumber) {
+            this.phonenumber = phonenumber;
+        }
+    }
+
+    public static class ServerListBooking{
+        @SerializedName("iduser")
+        private int idUser;
+
+        public ServerListBooking(int idUser) {
+            this.idUser = idUser;
         }
     }
 

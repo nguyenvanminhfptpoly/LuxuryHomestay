@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.ui.main.adapter.BookingAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.BookingViewHolder;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
+import com.minhnv.luxuryhomestay.utils.CustomToast;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -41,14 +43,13 @@ public class ListBookingActivity extends BaseActivity<ListBookingViewModel> impl
 
     }
 
-
     @Override
-    public int getLayoutId() {
-        return R.layout.activity_list_booking;
-    }
-
-    @Override
-    public void onCreateActivity(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkThemes);
+        }
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_list_booking);
         viewmodel = ViewModelProviders.of(this, factory).get(ListBookingViewModel.class);
         viewmodel.setNavigator(this);
         slide = Slidr.attach(this);
@@ -99,7 +100,7 @@ public class ListBookingActivity extends BaseActivity<ListBookingViewModel> impl
     @Override
     public void onFailed() {
         hideLoading();
-        Toast.makeText(this, getString(R.string.delete_error), Toast.LENGTH_SHORT).show();
+        CustomToast.makeTake(this,getString(R.string.delete_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
     }
 
     @Override
@@ -110,7 +111,13 @@ public class ListBookingActivity extends BaseActivity<ListBookingViewModel> impl
 
     @Override
     public void ServerLoadList() {
-        viewmodel.loadList();
+        try {
+            int idUser = Integer.parseInt(appPreferenceHelper.getCurrentId());
+            viewmodel.loadList(idUser);
+        }catch (NumberFormatException e){
+            e.getMessage();
+        }
+
     }
 
     @Override

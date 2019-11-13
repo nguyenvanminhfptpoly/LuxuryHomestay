@@ -4,5 +4,5 @@
     <item android:id="@+id/postLuxury"
         android:icon="@drawable/ic_near_me_black_24dp"
         app:showAsAction="always"
-        android:title="Đăng bài"/>
+        android:title="@string/luxury_post"/>
 </menu>

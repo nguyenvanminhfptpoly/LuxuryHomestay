@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="320dp"
+    android:layout_height="300dp"
+    android:background="?attr/switch_black_white"
+    app:cardCornerRadius="20dp"
+    android:layout_margin="4dp"
+    >
+
+    <com.androidnetworking.widget.ANImageView
+        android:id="@+id/imgDetailHomeStay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/img_home1"
+        android:scaleType="centerCrop"/>
+
+</com.google.android.material.card.MaterialCardView>

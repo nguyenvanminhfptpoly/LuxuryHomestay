@@ -28,7 +28,7 @@ public class LuxuryDiffCallBack extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return oldLuxuries.get(oldItemPosition).getId() == newLuxuries.get(newItemPosition).getId();
+        return oldLuxuries.get(oldItemPosition).getId().equals(newLuxuries.get(newItemPosition).getId());
     }
 
     @Override

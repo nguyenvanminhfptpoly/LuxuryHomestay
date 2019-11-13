@@ -1,5 +1,6 @@
 package com.minhnv.luxuryhomestay.ui.main.social.list;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,7 +37,6 @@ import com.minhnv.luxuryhomestay.ui.main.social.post.PostLuxuryActivity;
 import com.minhnv.luxuryhomestay.ui.main.social.story.PostStoryActivity;
 import com.minhnv.luxuryhomestay.ui.main.social.story.detail.DetailStoryActivity;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
-import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
@@ -55,21 +56,21 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
     private SlidrInterface slide;
     private Handler  handler = new Handler();
     private Runnable runnable;
+
     public static Intent newIntent(Context context) {
         return new Intent(context, SocialActivity.class);
 
     }
 
     @Override
-    public int getLayoutId() {
-        return R.layout.social_fragment;
-    }
-
-    @Override
-    public void onCreateActivity(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkThemes);
+        }
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.social_fragment);
         viewmodel = ViewModelProviders.of(this,factory).get(SocialViewModel.class);
         viewmodel.setNavigator(this);
-        slide = Slidr.attach(this);
         initView();
         setUpRecyclerView();
         setUpRecyclerViewLuxury();
@@ -178,7 +179,7 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
         if(item.getItemId() == R.id.postLuxury){
 //            startActivity(PostLuxuryActivity.newIntent(getApplicationContext()));
             AlertDialog.Builder builder = new AlertDialog.Builder(SocialActivity.this);
-            View view = getLayoutInflater().inflate(R.layout.dialog_select_post_luxury,null);
+            @SuppressLint("InflateParams") View view = getLayoutInflater().inflate(R.layout.dialog_select_post_luxury,null);
             LinearLayout ll_post_luxury = view.findViewById(R.id.ll_post_luxury);
             LinearLayout ll_post_story = view.findViewById(R.id.ll_post_story);
             builder.setView(view);
@@ -219,4 +220,6 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
         intent.putExtra("detail_story",stories.get(position));
         startActivity(intent);
     }
+
+//
 }
