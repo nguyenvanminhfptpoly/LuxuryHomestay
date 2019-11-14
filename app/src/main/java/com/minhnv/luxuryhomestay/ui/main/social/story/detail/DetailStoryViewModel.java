@@ -45,14 +45,16 @@ public class DetailStoryViewModel extends BaseViewModel<DetailStoryNavigator> {
                         }
                         String isSaveDir = wallpaperDirectory.toString();
                         File file = new File(isSaveDir,fileName);
-                        try {
-                            FileOutputStream fileOutputStream = new FileOutputStream(file);
-                            fileOutputStream.close();
+                        if(!file.exists()){
+                            try {
+                                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                                fileOutputStream.close();
 
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            getNavigator().hideProgress();
                         }
-
                     }
 
                     @Override

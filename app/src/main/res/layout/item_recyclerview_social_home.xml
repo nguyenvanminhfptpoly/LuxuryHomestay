@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardSocial"
     android:layout_width="100dp"
     android:layout_height="100dp"
     android:layout_margin="4dp"
     android:orientation="vertical"
-    app:cardCornerRadius="50dp">
+    android:background="@drawable/bg_stoke_gradient"
+    >
 
-
-    <ImageView
-        android:id="@+id/imgSocial"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/img_home1"
-        android:scaleType="centerCrop"
+        app:cardCornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+            android:id="@+id/imgSocial"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/img_home1"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            />
+    </androidx.cardview.widget.CardView>
 
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

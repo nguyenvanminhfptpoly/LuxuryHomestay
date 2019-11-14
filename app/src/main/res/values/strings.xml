@@ -136,4 +136,5 @@
         \n vui lòng click vào dòng chữ "Chưa có tài khoản? Đăng ký" tài khoản bên dưới
         \n để tiến hành việc đăng ký,sau đó bạn có thể quay trở lại đăng nhập mà không cần điền lại thông tin đăng nhập </string>
     <string name="need_help_footer">Cảm ơn</string>
+    <string name="download_success">Lưu thành công</string>
 </resources>

@@ -21,14 +21,14 @@
 
     <com.androidnetworking.widget.ANImageView
         android:id="@+id/imgBooking"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/img_home1"
+        android:contentDescription="@string/todo"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarBooking"
-        android:contentDescription="@string/todo"/>
+        app:layout_constraintTop_toBottomOf="@+id/toolbarBooking" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -101,16 +101,18 @@
         <TextView
             android:id="@+id/tvDateStart"
             style="@style/TextViewBackground"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/btnDateStart"
             app:layout_constraintStart_toStartOf="@+id/btnDateStart"
             app:layout_constraintTop_toBottomOf="@+id/btnDateStart" />
 
         <TextView
             android:id="@+id/tvDateEnd"
             style="@style/TextViewBackground"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/btnDateEnd"
             app:layout_constraintStart_toStartOf="@+id/btnDateEnd"
             app:layout_constraintTop_toBottomOf="@+id/btnDateEnd" />
 

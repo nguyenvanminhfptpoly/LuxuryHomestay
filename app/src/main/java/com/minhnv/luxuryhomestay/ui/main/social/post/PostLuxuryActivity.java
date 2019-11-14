@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -81,7 +80,7 @@ public class PostLuxuryActivity extends BaseActivity<PostLuxuryViewModel> implem
         edAddressHs = findViewById(R.id.includeAddress).findViewById(R.id.edValue);
         edUsername = findViewById(R.id.includeTitleStoryPost).findViewById(R.id.edValue);
         edDetailHs = findViewById(R.id.includeDetail).findViewById(R.id.edValue);
-        edUsername.setText(appPreferenceHelper.getCurrentAddress());
+        edUsername.setText(appPreferenceHelper.getCurrentPhoneNumber());
         uploadImage();
 
         Button btnPostLuxury = findViewById(R.id.btnPostStory);

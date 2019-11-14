@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
@@ -15,6 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Story;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
+import com.minhnv.luxuryhomestay.utils.CustomToast;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -63,6 +65,7 @@ public class DetailStoryActivity extends BaseActivity<DetailStoryViewModel> impl
     public void onClick(View v) {
         if (v.getId() == R.id.fabDownload) {
             viewmodel.DownLoad();
+            showLoading();
         }
     }
 
@@ -81,6 +84,7 @@ public class DetailStoryActivity extends BaseActivity<DetailStoryViewModel> impl
     @Override
     public void hideProgress() {
         hideLoading();
+        CustomToast.makeTake(DetailStoryActivity.this,getString(R.string.download_success), Toast.LENGTH_LONG,CustomToast.SUCCESS).show();
     }
 
 

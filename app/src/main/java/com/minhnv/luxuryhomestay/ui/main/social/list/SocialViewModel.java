@@ -1,18 +1,13 @@
 package com.minhnv.luxuryhomestay.ui.main.social.list;
 
-import android.util.Log;
-
 import com.minhnv.luxuryhomestay.data.DataManager;
 import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.data.model.Story;
-import com.minhnv.luxuryhomestay.data.model.UserResponse;
 import com.minhnv.luxuryhomestay.ui.base.BaseViewModel;
-import com.minhnv.luxuryhomestay.ui.base.ViewModelType;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.minhnv.luxuryhomestay.utils.rx.SchedulerProvider;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import io.reactivex.Observable;

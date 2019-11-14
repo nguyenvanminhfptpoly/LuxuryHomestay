@@ -1,10 +1,5 @@
 package com.minhnv.luxuryhomestay.ui.main.social.story;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,6 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.remote.DataClient;
@@ -135,52 +135,58 @@ public class PostStoryActivity extends BaseActivity<PostStoryViewModel> implemen
             hideLoading();
             Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show();
         } else {
-        String filePath = file.getAbsolutePath();
-        String[] nameImage = filePath.split("\\.");
+            String filePath = file.getAbsolutePath();
+            String[] nameImage = filePath.split("\\.");
 
             filePath = nameImage[0] + System.currentTimeMillis() + "." + nameImage[0];
 
             RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
-            MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", filePath, requestBody);
+            try {
+                MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", filePath, requestBody);
 
-            DataClient dataClient = ApiUtils.getData();
-            Call<String> call = dataClient.UploadPhot(body);
-            call.enqueue(new Callback<String>() {
-                @Override
-                public void onResponse(@NotNull Call<String> call, @NotNull Response<String> response) {
-                    String message = response.body();
-                    assert message != null;
-                    if (message.length() > 0) {
-                        DataClient postStory = ApiUtils.getData();
-                        String img = ApiUtils.baseUrl + "image/" + message;
-                        Call<String> callb = postStory.postStory(title, img);
-                        callb.enqueue(new Callback<String>() {
-                            @Override
-                            public void onResponse(@NotNull Call<String> call, @NotNull Response<String> response) {
-                                String result = response.body();
-                                assert result != null;
-                                if (result.equals("Success")) {
-                                    hideLoading();
-                                    CustomToast.makeTake(getApplicationContext(),"Thêm thành công",Toast.LENGTH_LONG,CustomToast.SUCCESS).show();
-                                }else if(result.equals("Failed")){
-                                    CustomToast.makeTake(getApplicationContext(),"Thêm không thành công",Toast.LENGTH_LONG,CustomToast.ERROR).show();
+                DataClient dataClient = ApiUtils.getData();
+                Call<String> call = dataClient.UploadPhot(body);
+                call.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(@NotNull Call<String> call, @NotNull Response<String> response) {
+                        String message = response.body();
+                        assert message != null;
+                        if (message.length() > 0) {
+                            DataClient postStory = ApiUtils.getData();
+                            String img = ApiUtils.baseUrl + "image/" + message;
+                            Call<String> callb = postStory.postStory(title, img);
+                            callb.enqueue(new Callback<String>() {
+                                @Override
+                                public void onResponse(@NotNull Call<String> call, @NotNull Response<String> response) {
+                                    String result = response.body();
+                                    assert result != null;
+                                    if (result.equals("Success")) {
+                                        hideLoading();
+                                        CustomToast.makeTake(getApplicationContext(), "Thêm thành công", Toast.LENGTH_LONG, CustomToast.SUCCESS).show();
+                                    } else if (result.equals("Failed")) {
+                                        CustomToast.makeTake(getApplicationContext(), "Thêm không thành công", Toast.LENGTH_LONG, CustomToast.ERROR).show();
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(@NotNull Call<String> call, @NotNull Throwable t) {
-                                AppLogger.d(TAG, t.getMessage());
-                            }
-                        });
+                                @Override
+                                public void onFailure(@NotNull Call<String> call, @NotNull Throwable t) {
+                                    AppLogger.d(TAG, t.getMessage());
+                                }
+                            });
+                        }
                     }
-                }
 
-                @Override
-                public void onFailure(@NotNull Call<String> call, @NotNull Throwable t) {
-                    AppLogger.d(TAG, "onFailure: " + t.getMessage());
-                }
-            });
+                    @Override
+                    public void onFailure(@NotNull Call<String> call, @NotNull Throwable t) {
+                        AppLogger.d(TAG, "onFailure: " + t.getMessage());
+                    }
+                });
+            } catch (IllegalArgumentException e) {
+                e.fillInStackTrace();
+            }
         }
+
     }
+
 }

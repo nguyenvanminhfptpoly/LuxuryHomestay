@@ -30,6 +30,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
         String id = String.valueOf(user.getId());
         tvId.setText(id);
         appPreferenceHelper.setCurrentId(id);
+        appPreferenceHelper.setCurrentAddress(user.getAddress());
     }
 
     public static UserViewHolder create(ViewGroup parent) {

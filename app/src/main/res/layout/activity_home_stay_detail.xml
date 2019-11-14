@@ -8,10 +8,6 @@
     tools:context=".ui.main.homestay_detail.HomeStayDetailActivity"
     >
 
-
-
-
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
@@ -139,15 +135,15 @@
                     />
 
                 <TextView
+                    android:id="@+id/tvTitleImageHomeStay"
+                    style="@style/TextViewBackgroundLight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/image_detail"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp"
                     android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="30dp"
-                    style="@style/TextViewBackgroundLight"
-                    />
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/image_detail" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewListImage"
