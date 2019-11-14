@@ -66,8 +66,10 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
         if(bundle != null){
             String name = bundle.getString("bookingName");
             String address = bundle.getString("bookingAddress");
+            String image = bundle.getString("image");
             tvNameHomeStay.setText(name);
             tvAddressHomeStay.setText(address);
+            imgBooking.setImageUrl(image);
         }
     }
 

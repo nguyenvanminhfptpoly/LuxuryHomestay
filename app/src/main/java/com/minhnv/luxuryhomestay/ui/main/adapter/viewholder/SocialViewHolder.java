@@ -7,20 +7,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.BitmapRequestListener;
-import com.androidnetworking.widget.ANImageView;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Story;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 public  class SocialViewHolder extends RecyclerView.ViewHolder{
-    private CardView view;
+    private ConstraintLayout view;
     private ImageView imgSocial;
     private SocialViewHolder(@NonNull View itemView) {
         super(itemView);

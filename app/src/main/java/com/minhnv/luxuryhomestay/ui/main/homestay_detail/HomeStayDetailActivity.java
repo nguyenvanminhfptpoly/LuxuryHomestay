@@ -47,14 +47,20 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
     private TextView tvName, tvAddress, tvHasTag, tvPrice, tvEvaLute;
     private ReadMoreTextView tvDetail;
     private ANImageView imgDetail;
-    private String nameImage;
+    private String nameImage,nameHS, addressHS;
     private SlidrInterface slide;
-    private Button viewRating,btnBooking;private Animator curentAnimator;
+    private Button viewRating, btnBooking;
+    private Animator curentAnimator;
     private int shortAnimationDuration;
     private List<ImageDetail> imageDetails;
     private ImageDetailAdapter adapter;
     private int idHomeStay;
     private SnapHelperOneByOne helperOneByOne;
+    private RecyclerView recyclerView;
+    /**
+     * Một số hình ảnh của HomeStay
+     */
+    private TextView tvTitleImageHomeStay;
 
 
     public static Intent newIntent(Context context) {
@@ -74,7 +80,7 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
         initView();
     }
 
-    private void initView(){
+    private void initView() {
         helperOneByOne = new SnapHelperOneByOne();
         tvName = findViewById(R.id.tvNameHomeStaysDetail);
         tvAddress = findViewById(R.id.tvAddressHomeStayDetail);
@@ -94,24 +100,28 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
         );
         imgDetail.setDefaultImageResId(R.drawable.img_home1);
         imgDetail.setErrorImageResId(R.drawable.uploadfailed);
-        String name = tvName.getText().toString();
-        String address = tvAddress.getText().toString();
 
-        btnBooking.setOnClickListener(v -> {
-            Intent intent = BookingActivity.newIntent(getApplicationContext());
-            intent.putExtra("bookingName", name );
-            intent.putExtra("bookingAddress",address);
-            startActivity(intent);
-        });
+
+
+
+        recyclerView = findViewById(R.id.recyclerViewListImage);
+        tvTitleImageHomeStay = findViewById(R.id.tvTitleImageHomeStay);
         initIntent();
         imageDetails = new ArrayList<>();
         viewmodel.ServerLoadImageDetail();
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewListImage);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this, LinearLayoutManager.HORIZONTAL,false));
-        adapter = new ImageDetailAdapter(imageDetails,getApplicationContext());
+        recyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this, LinearLayoutManager.HORIZONTAL, false));
+        adapter = new ImageDetailAdapter(imageDetails, getApplicationContext());
         recyclerView.setAdapter(adapter);
         helperOneByOne.attachToRecyclerView(recyclerView);
+
+        btnBooking.setOnClickListener(v -> {
+            Intent intent = BookingActivity.newIntent(getApplicationContext());
+            intent.putExtra("bookingName", nameHS);
+            intent.putExtra("bookingAddress", addressHS);
+            intent.putExtra("image", nameImage);
+            startActivity(intent);
+        });
     }
 
     @Override
@@ -149,6 +159,8 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
             String hasTag = getString(R.string.has_tag_home_stay) + homestay.getHastag();
             String address = getString(R.string.addressHs) + homestay.getAddress();
             idHomeStay = Integer.parseInt(homestay.getId());
+            nameHS = homestay.getName();
+            addressHS = homestay.getAddress();
             nameImage = homestay.getImage();
             tvName.setText(name);
             viewRating.setText(rating);
@@ -165,6 +177,8 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
             String rating = price.getRating();
             String hasTag = getString(R.string.has_tag_home_stay) + price.getHastag();
             String address = getString(R.string.addressHs) + price.getAddress();
+            nameHS = price.getTitle();
+            addressHS = price.getAddress();
             idHomeStay = Integer.parseInt(price.getId());
             nameImage = price.getImage();
             tvName.setText(name);
@@ -189,9 +203,13 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
             tvEvaLute.setVisibility(View.GONE);
             tvAddress.setVisibility(View.GONE);
             btnBooking.setVisibility(View.GONE);
-        } else if(getIntent().getSerializableExtra("vinHomes") != null){
+            recyclerView.setVisibility(View.GONE);
+            tvTitleImageHomeStay.setVisibility(View.GONE);
+        } else if (getIntent().getSerializableExtra("vinHomes") != null) {
             ListVinHomes homes = (ListVinHomes) getIntent().getSerializableExtra("vinHomes");
             assert homes != null;
+            nameHS = homes.getName();
+            addressHS = homes.getAddress();
             idHomeStay = Integer.parseInt(homes.getId());
             nameImage = homes.getImage();
             imgDetail.setImageUrl(homes.getImage());
@@ -214,14 +232,14 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
 
     @Override
     public void onSuccess() {
-        CustomToast.makeTake(this,getString(R.string.add_favorite_success),Toast.LENGTH_LONG,CustomToast.SUCCESS).show();
+        CustomToast.makeTake(this, getString(R.string.add_favorite_success), Toast.LENGTH_LONG, CustomToast.SUCCESS).show();
         AppLogger.d(TAG, "onSuccess: ");
     }
 
     @Override
     public void onFailed() {
         hideLoading();
-        CustomToast.makeTake(this,getString(R.string.add_favorite_failed),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+        CustomToast.makeTake(this, getString(R.string.add_favorite_failed), Toast.LENGTH_LONG, CustomToast.ERROR).show();
     }
 
     @Override
@@ -232,7 +250,7 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
         try {
             int idUser = Integer.parseInt(appPreferenceHelper.getCurrentId());
             viewmodel.addFavorite(image, name, address, idUser);
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             e.getMessage();
         }
     }
@@ -241,7 +259,7 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
     public void loadImageDetail() {
         viewmodel.loadList(idHomeStay);
         compositeDisposable.add(viewmodel.listPublishSubject.share()
-            .subscribe(data -> adapter.set(data)));
+                .subscribe(data -> adapter.set(data)));
     }
 
 }

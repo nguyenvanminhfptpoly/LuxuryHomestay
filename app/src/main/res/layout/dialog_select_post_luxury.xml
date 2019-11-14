@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     android:background="?attr/background_dark">
 
+
+
     <TextView
         android:id="@+id/textView22"
         style="@style/TextViewBackground"
