@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.HomeStayPriceViewHolder;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -54,5 +55,6 @@ public class HomeStaysPriceAscAdapter extends RecyclerView.Adapter<RecyclerView.
         homeStays.clear();
         homeStays.addAll(list);
         notifyDataSetChanged();
+        Collections.reverse(homeStays);
     }
 }
