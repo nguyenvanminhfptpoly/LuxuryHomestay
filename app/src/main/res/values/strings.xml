@@ -7,7 +7,6 @@
     <string name="title">Đăng Nhập</string>
     <string name="not_have_account">Chưa có tài khoản? Đăng Ký</string>
     <string name="phone_number">Số điện thoại</string>
-    <string name="password">Mật Khẩu</string>
     <string name="sign_in">Đăng Nhập</string>
     <string name="login_error">Đăng Nhập Thất Bại</string>
     <string name="login_success">Đăng Nhập Thành Công</string>
@@ -110,19 +109,9 @@
 
     //guide
     <string name="guide_title">Danh sách các Homestay được chúng tôi phổ biến đến bạn hằng ngày.</string>
-    <string name="guide_article">Lựa chọn Homestay yêu thích qua các tiêu chí \n + Giá Thành\n + Địa điểm \n +  Không gian \n+  Phương tiên
-        \n - Khi bạn chọn được cho mình Homestay yêu thích thì tiến hành đặt phòng ngày bên dưới
-        \n- Chúng tôi giúp bạn lên lịch CheckIn, CheckOut và Số lượng người được thông báo đến chủ HomeStay
-        \n- Sau khi thực hiện đặt phòng thành công sẽ có cuộc gọi đến từ chủ Homestay nhằm xác định bạn có thực sự đặt phòng hay không
-        \n- Các Homestay chúng tôi lựa chọn đều là những Homestay uy tín</string>
-    <string name="guide_payment">
-        Thanh toán khi đến nhận phòng Homestay
-    </string>
-    <string name="guide_payment_article">
-        Khi bạn nhận được cuộc gọi từ bên phía Chủ Homestay \n
-        \n Chủ Homestay sẽ xác nhận với bạn một lần nữa về việc CheckIn và CheckOut cũng như số lượng người
-        \n Chúng tôi cũng đảm bảo về tính đúng đắn khi nhận HomeStay
-    </string>
+    <string name="guide_article">Lựa chọn Homestay yêu thích qua các tiêu chí   + Giá Thành  + Địa điểm   +  Không gian  +  Phương tiên           - Khi bạn chọn được cho mình Homestay yêu thích thì tiến hành đặt phòng ngày bên dưới          - Chúng tôi giúp bạn lên lịch CheckIn, CheckOut và Số lượng người được thông báo đến chủ HomeStay          - Sau khi thực hiện đặt phòng thành công sẽ có cuộc gọi đến từ chủ Homestay nhằm xác định bạn có thực sự đặt phòng hay không          - Các Homestay chúng tôi lựa chọn đều là những Homestay uy tín</string>
+    <string name="guide_payment">"         Thanh toán khi đến nhận phòng Homestay     "</string>
+    <string name="guide_payment_article">"         Khi bạn nhận được cuộc gọi từ bên phía Chủ Homestay             Chủ Homestay sẽ xác nhận với bạn một lần nữa về việc CheckIn và CheckOut cũng như số lượng người           Chúng tôi cũng đảm bảo về tính đúng đắn khi nhận HomeStay     "</string>
 
     //social home
     <string name="title_header">Xin chào:  </string>
@@ -132,9 +121,8 @@
 
     //need help
     <string name="need_help_title">Đăng ký tài khoản nhanh chóng</string>
-    <string name="need_help_content">Nếu bạn chưa có tài khoản,
-        \n vui lòng click vào dòng chữ "Chưa có tài khoản? Đăng ký" tài khoản bên dưới
-        \n để tiến hành việc đăng ký,sau đó bạn có thể quay trở lại đăng nhập mà không cần điền lại thông tin đăng nhập </string>
+    <string name="need_help_content">"Nếu bạn chưa có tài khoản,           vui lòng click vào dòng chữ Chưa có tài khoản? Đăng ký tài khoản bên dưới           để tiến hành việc đăng ký,sau đó bạn có thể quay trở lại đăng nhập mà không cần điền lại thông tin đăng nhập "</string>
     <string name="need_help_footer">Cảm ơn</string>
     <string name="download_success">Lưu thành công</string>
+    <string name="password">Mật khẩu</string>
 </resources>

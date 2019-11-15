@@ -87,7 +87,9 @@ public class AppPreferenceHelper implements PreferenceHelper  {
         preferences.edit().putString(PREF_ID_USER, currentId).apply();
     }
 
-    public void deleteSavedData(String key) {
-        preferences.edit().remove(key).apply();
+    @Override
+    public void deleteAll() {
+        preferences.edit().clear().apply();
     }
+
 }

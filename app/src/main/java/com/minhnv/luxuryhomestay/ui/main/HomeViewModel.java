@@ -33,7 +33,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     public PublishSubject<List<UserInfo>> listPublishSubjectUser = PublishSubject.create();
 
     public List<Homestay> list;
-    public List<HomestayPrice> priceList;
+    private List<HomestayPrice> priceList;
     public List<City> cityList;
     public List<VinHome> vinHomeList;
 
@@ -67,7 +67,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
     public void loadListHomeStayRating() {
         getCompositeDisposable().add(
-                getDataManager().doLoadListHomeStayRating(new UserResponse.ServerListHomeStaysRating(4))
+                getDataManager().doLoadListHomeStayRating(new UserResponse.ServerListHomeStaysRating(5))
                         .subscribeOn(getSchedulerProvider().io())
                         .observeOn(getSchedulerProvider().ui())
                         .subscribe(response -> {

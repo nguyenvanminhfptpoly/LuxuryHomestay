@@ -111,6 +111,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void deleteAll() {
+        preferenceHelper.deleteAll();
+    }
+
+    @Override
     public void updateUserInfo(String password, String phoneNumber, String address) {
         setCurrentAddress(address);
         setCurrentPhoneNumber(phoneNumber);

@@ -20,4 +20,6 @@ public interface PreferenceHelper {
     String getCurrentId();
     void setCurrentId(String currentId);
 
+    void deleteAll();
+
 }
