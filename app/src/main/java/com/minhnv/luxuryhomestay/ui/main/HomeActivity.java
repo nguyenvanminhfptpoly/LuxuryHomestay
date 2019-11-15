@@ -295,6 +295,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
 
     @Override
     public void logout() {
+        appPreferenceHelper.deleteAll();
         startActivity(SignInActivity.newIntent(this));
     }
 

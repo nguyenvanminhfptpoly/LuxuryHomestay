@@ -190,6 +190,7 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
                     String dateEnd = "" + year + "-" + (month + 1) + "-" + date + "";
                     tvDateStart.setText(dateEnd);
                 }, mYear, mMonth, mDay);
+        dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         dialog.show();
     }
 
@@ -203,6 +204,7 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
                     String dateEnd = "" + year + "-" + (month + 1) + "-" + date + "";
                     tvDateEnd.setText(dateEnd);
                 }, mYear, mMonth, mDay);
+        dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         dialog.show();
     }
 

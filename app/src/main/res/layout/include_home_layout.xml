@@ -128,6 +128,8 @@
             android:layout_marginEnd="16dp"
             android:background="@drawable/bg_edittext"
             android:text="@string/detail"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView15"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView15" />
@@ -139,6 +141,8 @@
             android:layout_marginEnd="16dp"
             android:background="@drawable/bg_edittext"
             android:text="@string/detail"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView9" />

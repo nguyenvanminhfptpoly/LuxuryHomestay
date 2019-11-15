@@ -104,6 +104,7 @@ public class PostStoryActivity extends BaseActivity<PostStoryViewModel> implemen
             Uri uri = data.getData();
             realPath = getRealPathFromURI(uri);
             try {
+                assert uri != null;
                 InputStream inputStream = getContentResolver().openInputStream(uri);
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                 imgStoryPost.setImageBitmap(bitmap);
