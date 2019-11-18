@@ -19,6 +19,7 @@ import com.minhnv.luxuryhomestay.ui.main.homestay_price_ago.HomeStayPriceViewMod
 import com.minhnv.luxuryhomestay.ui.main.search.SearchViewModel;
 import com.minhnv.luxuryhomestay.ui.main.social.list.SocialViewModel;
 import com.minhnv.luxuryhomestay.ui.main.social.post.PostLuxuryViewModel;
+import com.minhnv.luxuryhomestay.ui.main.social.post.detail.PostDetailViewModel;
 import com.minhnv.luxuryhomestay.ui.main.social.story.PostStoryViewModel;
 import com.minhnv.luxuryhomestay.ui.main.social.story.detail.DetailStoryViewModel;
 import com.minhnv.luxuryhomestay.ui.main.vin_homes.VinHomeDetailViewModel;
@@ -78,6 +79,8 @@ public class ViewModelProviderFactory extends ViewModelProvider.NewInstanceFacto
             return (T) new PostStoryViewModel(dataManager,schedulerProvider);
         }else if(modelClass.isAssignableFrom(DetailStoryViewModel.class)){
             return (T) new DetailStoryViewModel(dataManager,schedulerProvider);
+        }else if(modelClass.isAssignableFrom(PostDetailViewModel.class)){
+            return (T) new PostDetailViewModel(dataManager,schedulerProvider);
         }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }

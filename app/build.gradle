@@ -27,14 +27,14 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    buildTypes{
+    buildTypes {
         debug {
-            buildConfigField("String","BASE_URL",'"https://luxuryhomestay.000webhostapp.com/"')
+            buildConfigField("String", "BASE_URL", '"https://luxuryhomestay.000webhostapp.com/"')
         }
         release {
             minifyEnabled = true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField("String","BASE_URL",'"https://luxuryhomestay.000webhostapp.com/"')
+            buildConfigField("String", "BASE_URL", '"https://luxuryhomestay.000webhostapp.com/"')
         }
     }
 }
@@ -50,6 +50,8 @@ dependencies {
     //lifecycle
     implementation config.commonDependency.lifeCyclerExtensions
     //junit
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation config.commonDependency.jUnit
     //test runner
     androidTestImplementation config.commonDependency.testRunner
@@ -127,6 +129,14 @@ dependencies {
     //glide
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+
+    //dexter permissions
+    implementation "com.karumi:dexter:5.0.0"
+
+    // circular imageview
+    implementation 'com.mikhaellopez:circularimageview:3.2.0'
+
+    implementation 'com.github.yalantis:ucrop:2.2.4'
 
 
 }
