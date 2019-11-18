@@ -32,8 +32,8 @@ import com.minhnv.luxuryhomestay.ui.main.adapter.LuxuryAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.SocialAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.LuxuryViewHolder;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.SocialViewHolder;
-import com.minhnv.luxuryhomestay.ui.main.homestay_detail.HomeStayDetailActivity;
 import com.minhnv.luxuryhomestay.ui.main.social.post.PostLuxuryActivity;
+import com.minhnv.luxuryhomestay.ui.main.social.post.detail.PostDetailActivity;
 import com.minhnv.luxuryhomestay.ui.main.social.story.PostStoryActivity;
 import com.minhnv.luxuryhomestay.ui.main.social.story.detail.DetailStoryActivity;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
@@ -86,7 +86,7 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
         toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
         TextView tvNameUser = findViewById(R.id.tvNameUser);
-        String nameUser = getString(R.string.title_header) + (appPreferenceHelper.getCurrentAddress() == null ? appPreferenceHelper.getCurrentPhoneNumber() : appPreferenceHelper.getCurrentAddress());
+        String nameUser = getString(R.string.title_header) + " " + (appPreferenceHelper.getCurrentAddress() == null ? appPreferenceHelper.getCurrentPhoneNumber() : appPreferenceHelper.getCurrentAddress());
         tvNameUser.setText(nameUser);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             luxuries.clear();
@@ -209,7 +209,7 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
             return;
         }
         mLastClickTime = SystemClock.elapsedRealtime();
-        Intent intent = HomeStayDetailActivity.newIntent(getApplicationContext());
+        Intent intent = new Intent(SocialActivity.this , PostDetailActivity.class);
         intent.putExtra("luxury_detail", luxuries.get(position));
         startActivity(intent);
     }

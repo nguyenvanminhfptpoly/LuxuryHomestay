@@ -22,6 +22,7 @@ import com.minhnv.luxuryhomestay.ui.main.homestay_price_ago.HomeStayPriceAgoActi
 import com.minhnv.luxuryhomestay.ui.main.search.SearchActivity;
 import com.minhnv.luxuryhomestay.ui.main.social.list.SocialActivity;
 import com.minhnv.luxuryhomestay.ui.main.social.post.PostLuxuryActivity;
+import com.minhnv.luxuryhomestay.ui.main.social.post.detail.PostDetailActivity;
 import com.minhnv.luxuryhomestay.ui.main.social.story.PostStoryActivity;
 import com.minhnv.luxuryhomestay.ui.main.social.story.detail.DetailStoryActivity;
 import com.minhnv.luxuryhomestay.ui.main.vin_homes.VinHomeDetailActivity;
@@ -96,4 +97,8 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
     abstract DetailStoryActivity detailStoryActivity();
+
+    @ContributesAndroidInjector
+    abstract PostDetailActivity postDetailActivity();
+
 }

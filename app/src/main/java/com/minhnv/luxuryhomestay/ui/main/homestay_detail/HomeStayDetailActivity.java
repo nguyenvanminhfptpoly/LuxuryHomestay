@@ -28,7 +28,6 @@ import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
 import com.minhnv.luxuryhomestay.data.model.ImageDetail;
 import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
-import com.minhnv.luxuryhomestay.data.model.Luxury;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.ui.main.adapter.ImageDetailAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.LinearLayoutManagerWithSmoothScroller;
@@ -189,22 +188,6 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
             tvAddress.setText(address);
             tvEvaLute.setText("");
             tvPrice.setText(CommonUtils.FormatCredits(price.getPrice()));
-        } else if (getIntent().getSerializableExtra("luxury_detail") != null) {
-            Luxury luxury = (Luxury) getIntent().getSerializableExtra("luxury_detail");
-            assert luxury != null;
-            idHomeStay = Integer.parseInt(luxury.getId());
-            nameImage = luxury.getImage();
-            imgDetail.setImageUrl(luxury.getImage());
-            tvName.setText(luxury.getUsername());
-            tvDetail.setText(luxury.getDetail());
-            tvPrice.setVisibility(View.GONE);
-            viewRating.setVisibility(View.GONE);
-            tvHasTag.setVisibility(View.GONE);
-            tvEvaLute.setVisibility(View.GONE);
-            tvAddress.setVisibility(View.GONE);
-            btnBooking.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.GONE);
-            tvTitleImageHomeStay.setVisibility(View.GONE);
         } else if (getIntent().getSerializableExtra("vinHomes") != null) {
             ListVinHomes homes = (ListVinHomes) getIntent().getSerializableExtra("vinHomes");
             assert homes != null;

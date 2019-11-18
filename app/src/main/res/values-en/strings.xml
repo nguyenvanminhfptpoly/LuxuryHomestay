@@ -91,7 +91,7 @@
     <string name="story_post">Post story</string>
     <string name="title">Sign in</string>
     <string name="title_content">Friend and everyone have share</string>
-    <string name="title_header">hi</string>
+    <string name="title_header">hi: </string>
     <string name="todo">todo</string>
     <string name="user_get">Welcome</string>
     <string name="user_name">Username</string>
@@ -103,4 +103,7 @@
     <string name="welcome">Hi</string>
     <string name="has_tag_home_stay">hastag</string>
     <string name="format_date">đ/mm/yyyy</string>
+    <string name="selected_image">Selected Image</string>
+    <string name="take_image">take image</string>
+    <string name="take_photo">take photo</string>
 </resources>

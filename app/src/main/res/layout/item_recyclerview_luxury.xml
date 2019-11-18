@@ -24,6 +24,7 @@
             android:background="@drawable/img_home1"
             android:scaleType="centerCrop"
             android:contentDescription="@string/todo"
+            android:baselineAlignBottom="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -125,4 +125,7 @@
     <string name="need_help_footer">Cảm ơn</string>
     <string name="download_success">Lưu thành công</string>
     <string name="password">Mật khẩu</string>
+    <string name="selected_image">Chọn từ thư viện</string>
+    <string name="take_photo">Chọn ảnh</string>
+    <string name="take_image">Chụp ảnh</string>
 </resources>
