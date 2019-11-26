@@ -28,7 +28,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_gradient_red"/>
+            />
 
         <TextView
             android:id="@+id/tvTitle"
@@ -39,6 +39,8 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:text="@string/name_hs"
+            android:shadowDy="2"
+            android:shadowDx="2"
             app:layout_constraintBottom_toTopOf="@+id/tvDetail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -52,6 +54,9 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:text="@string/mo_ta"
+            android:shadowDy="2"
+            android:shadowDx="2"
+            android:shadowColor="@color/md_black_1000"
             app:layout_constraintBottom_toBottomOf="@+id/image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

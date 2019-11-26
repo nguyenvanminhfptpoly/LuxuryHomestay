@@ -104,7 +104,7 @@ public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements
     @Override
     public void onFailed() {
         hideLoading();
-        CustomToast.makeTake(this,getString(R.string.delete_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+        CustomToast.makeText(this,getString(R.string.delete_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
     }
 
     @Override

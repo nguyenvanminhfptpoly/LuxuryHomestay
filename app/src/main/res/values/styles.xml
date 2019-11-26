@@ -121,9 +121,6 @@
         <item name="android:textSize">22sp</item>
     </style>
 
-
-
-
     <style name="CustomProgressbar" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
         <item name="colorButtonNormal">#f50057</item>
         <item name="colorControlActivated">#33691e</item>

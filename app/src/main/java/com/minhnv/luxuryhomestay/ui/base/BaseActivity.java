@@ -8,11 +8,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.minhnv.luxuryhomestay.BaseApplication;
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.ViewModelProviderFactory;
 import com.minhnv.luxuryhomestay.data.local.preference.AppPreferenceHelper;
@@ -93,7 +91,7 @@ public abstract class BaseActivity<V extends BaseViewModel> extends AppCompatAct
     public void backToLogin(){
         Intent  intent = SignInActivity.newIntent(getApplicationContext());
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        CustomToast.makeTake(this,getString(R.string.internet_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+        CustomToast.makeText(this,getString(R.string.internet_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
         startActivity(intent);
     }
 

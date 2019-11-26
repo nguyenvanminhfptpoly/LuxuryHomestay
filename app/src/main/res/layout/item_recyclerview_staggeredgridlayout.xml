@@ -2,56 +2,124 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="370dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="20dp"
     android:id="@+id/itemTouchHomeStayHot"
-    android:layout_margin="4dp">
+    android:layout_margin="4dp"
+    app:cardBackgroundColor="?attr/switch_black_white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardViewdd"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+
         >
 
-        <com.androidnetworking.widget.ANImageView
-            android:id="@+id/imgHomeStayHot"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:background="@drawable/img_home1"
-            tools:layout_editor_absoluteX="-39dp"
-            tools:layout_editor_absoluteY="0dp" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="180dp"
+            android:layout_height="200dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_gradient_green"/>
+            <com.androidnetworking.widget.ANImageView
+                android:id="@+id/imgHomeStayHot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/img_home1"
+                android:scaleType="centerCrop" />
+
+        </com.google.android.material.card.MaterialCardView>
+
 
         <TextView
             android:id="@+id/tvNameHomStayHot"
+            style="@style/TextViewBold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/name_hs"
-            style="@style/TextViewBold"
-            app:layout_constraintBottom_toTopOf="@+id/tvAddressHomeStayHot"
+            android:textColor="?attr/switch_white_black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/materialCardView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tvNameHomStayHot"
+            app:layout_constraintTop_toBottomOf="@+id/tvNameHomStayHot">
+
+
+            <ImageView
+                android:id="@+id/imageView15"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/star" />
+
+            <ImageView
+                android:id="@+id/imageView16"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/star" />
+
+            <ImageView
+                android:id="@+id/imageView17"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/star" />
+
+            <ImageView
+                android:id="@+id/imageView18"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/star" />
+
+            <ImageView
+                android:id="@+id/imageView19"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/star" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tvAddressHomeStayHot"
+            style="@style/TextViewRegular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/addressHs"
-            style="@style/TextViewRegular"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="?attr/switch_white_black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+        <TextView
+            android:id="@+id/tvRatingDt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/_4_5"
+            style="@style/TextViewBold"
+            android:textColor="?attr/switch_white_black"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

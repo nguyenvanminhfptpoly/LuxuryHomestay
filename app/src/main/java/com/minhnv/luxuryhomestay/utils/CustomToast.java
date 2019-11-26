@@ -1,6 +1,5 @@
 package com.minhnv.luxuryhomestay.utils;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,7 @@ public class CustomToast extends Toast {
         super(context);
     }
 
-    public static Toast makeTake(Context context, String message, int duration, int type){
+    public static Toast makeText(Context context, String message, int duration, int type){
         Toast toast = new Toast(context);
         toast.setDuration(duration);
         View view = LayoutInflater.from(context).inflate(R.layout.custom_toast,null, false);

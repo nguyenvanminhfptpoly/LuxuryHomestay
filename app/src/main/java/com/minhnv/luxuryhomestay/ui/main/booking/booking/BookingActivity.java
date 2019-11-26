@@ -148,14 +148,14 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
     @Override
     public void onSuccess() {
         AppLogger.d(TAG, "onUploadImageSuccess: ");
-        CustomToast.makeTake(this,getString(R.string.booking_success),Toast.LENGTH_LONG,CustomToast.SUCCESS).show();
+        CustomToast.makeText(this,getString(R.string.booking_success),Toast.LENGTH_LONG,CustomToast.SUCCESS).show();
         hideLoading();
     }
 
     @Override
     public void onFailed() {
         hideLoading();
-        CustomToast.makeTake(this,getString(R.string.booking_failed),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+        CustomToast.makeText(this,getString(R.string.booking_failed),Toast.LENGTH_LONG,CustomToast.ERROR).show();
     }
 
     @Override
@@ -171,7 +171,7 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
                 viewmodel.booking(dateStart, dateEnd, countMember,nameHomeStay,address,idUser);
                 showLoading();
             } else {
-                CustomToast.makeTake(this,getString(R.string.booking_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+                CustomToast.makeText(this,getString(R.string.booking_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
             }
         }catch (NumberFormatException e){
             e.getMessage();
@@ -185,7 +185,7 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
         DatePickerDialog dialog = new DatePickerDialog(this,
                 (datePicker, year, month, date) -> {
                     if (date < mDay || month < mMonth || year < mYear) {
-                        CustomToast.makeTake(this,getString(R.string.date_valid),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+                        CustomToast.makeText(this,getString(R.string.date_valid),Toast.LENGTH_LONG,CustomToast.ERROR).show();
                     }
                     String dateEnd = "" + year + "-" + (month + 1) + "-" + date + "";
                     tvDateStart.setText(dateEnd);
@@ -199,7 +199,7 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
         DatePickerDialog dialog = new DatePickerDialog(this,
                 (datePicker, year, month, date) -> {
                     if (date < mDay || month < mMonth || year < mYear) {
-                        CustomToast.makeTake(this,getString(R.string.date_valid),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+                        CustomToast.makeText(this,getString(R.string.date_valid),Toast.LENGTH_LONG,CustomToast.ERROR).show();
                     }
                     String dateEnd = "" + year + "-" + (month + 1) + "-" + date + "";
                     tvDateEnd.setText(dateEnd);

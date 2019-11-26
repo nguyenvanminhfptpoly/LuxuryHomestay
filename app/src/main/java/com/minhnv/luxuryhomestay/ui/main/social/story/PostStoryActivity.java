@@ -134,7 +134,7 @@ public class PostStoryActivity extends BaseActivity<PostStoryViewModel> implemen
         file = new File(realPath);
         if (title.isEmpty() || file.length() == 0) {
             hideLoading();
-            Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show();
+            CustomToast.makeText(getApplicationContext(), getString(R.string.validate_booking),Toast.LENGTH_LONG,CustomToast.ERROR).show();
         } else {
             String filePath = file.getAbsolutePath();
             String[] nameImage = filePath.split("\\.");
@@ -164,9 +164,9 @@ public class PostStoryActivity extends BaseActivity<PostStoryViewModel> implemen
                                     assert result != null;
                                     if (result.equals("Success")) {
                                         hideLoading();
-                                        CustomToast.makeTake(getApplicationContext(), "Thêm thành công", Toast.LENGTH_LONG, CustomToast.SUCCESS).show();
+                                        CustomToast.makeText(getApplicationContext(), "Thêm thành công", Toast.LENGTH_LONG, CustomToast.SUCCESS).show();
                                     } else if (result.equals("Failed")) {
-                                        CustomToast.makeTake(getApplicationContext(), "Thêm không thành công", Toast.LENGTH_LONG, CustomToast.ERROR).show();
+                                        CustomToast.makeText(getApplicationContext(), "Thêm không thành công", Toast.LENGTH_LONG, CustomToast.ERROR).show();
                                     }
                                 }
 

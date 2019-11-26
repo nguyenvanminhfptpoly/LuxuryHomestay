@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.exifinterface.media.ExifInterface;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.minhnv.luxuryhomestay.R;
@@ -31,7 +33,7 @@ import com.r0adkll.slidr.model.SlidrInterface;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 import okhttp3.MediaType;
@@ -111,12 +113,50 @@ public class PostLuxuryActivity extends BaseActivity<PostLuxuryViewModel> implem
             try {
                 InputStream inputStream = getContentResolver().openInputStream(uri);
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                modifyOrientation(bitmap, realPath);
                 imgUploadImage.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public static Bitmap modifyOrientation(Bitmap bitmap, String image_absolute_path) throws IOException {
+        ExifInterface ei = new ExifInterface(image_absolute_path);
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                return rotate(bitmap, 90);
+
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return rotate(bitmap, 180);
+
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return rotate(bitmap, 270);
+
+            case ExifInterface.ORIENTATION_FLIP_HORIZONTAL:
+                return flip(bitmap, true, false);
+
+            case ExifInterface.ORIENTATION_FLIP_VERTICAL:
+                return flip(bitmap, false, true);
+
+            default:
+                return bitmap;
+        }
+    }
+
+    public static Bitmap rotate(Bitmap bitmap, float degrees) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degrees);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
+
+    public static Bitmap flip(Bitmap bitmap, boolean horizontal, boolean vertical) {
+        Matrix matrix = new Matrix();
+        matrix.preScale(horizontal ? -1 : 1, vertical ? -1 : 1);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
     public String getRealPathFromURI(Uri contentUri) {
@@ -141,7 +181,7 @@ public class PostLuxuryActivity extends BaseActivity<PostLuxuryViewModel> implem
          fileLuxury = new File(realPath);
         if(username.isEmpty() || address.isEmpty() || detail.isEmpty() || fileLuxury.length() == 0) {
             hideLoading();
-            Toast.makeText(this, getString(R.string.validate_booking), Toast.LENGTH_SHORT).show();
+            CustomToast.makeText(getApplicationContext(), getString(R.string.validate_booking),Toast.LENGTH_LONG,CustomToast.ERROR).show();
         }else {
             String fileLuxuryAbsolutePath = fileLuxury.getAbsolutePath();
             String[] split = fileLuxuryAbsolutePath.split("\\.");
@@ -167,10 +207,10 @@ public class PostLuxuryActivity extends BaseActivity<PostLuxuryViewModel> implem
                                 assert result != null;
                                 if (result.equals("Success")) {
                                     hideLoading();
-                                    CustomToast.makeTake(getApplicationContext(),"Thêm thành công",Toast.LENGTH_LONG,CustomToast.SUCCESS).show();
+                                    CustomToast.makeText(getApplicationContext(),"Thêm thành công",Toast.LENGTH_LONG,CustomToast.SUCCESS).show();
                                 }else if(result.equals("Failed")){
                                     hideLoading();
-                                    CustomToast.makeTake(getApplicationContext(),"Thêm không thành công",Toast.LENGTH_LONG,CustomToast.ERROR).show();
+                                    CustomToast.makeText(getApplicationContext(),"Thêm không thành công",Toast.LENGTH_LONG,CustomToast.ERROR).show();
                                 }
                             }
 

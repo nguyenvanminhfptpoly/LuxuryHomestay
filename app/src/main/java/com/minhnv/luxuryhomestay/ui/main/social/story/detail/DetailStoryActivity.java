@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.androidnetworking.widget.ANImageView;
@@ -25,7 +26,8 @@ public class DetailStoryActivity extends BaseActivity<DetailStoryViewModel> impl
     private TextView textView;
     private SlidrInterface slide;
     private FloatingActionButton fabDownload;
-    private String url,dirPath,fileName;
+    private String url, dirPath, fileName;
+    private ConstraintLayout constraintStory;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, DetailStoryActivity.class);
@@ -45,9 +47,11 @@ public class DetailStoryActivity extends BaseActivity<DetailStoryViewModel> impl
     private void initView() {
         imageView = findViewById(R.id.imgDetailStory);
         textView = findViewById(R.id.tvDetailStory);
-        initIntent();
-        fabDownload =  findViewById(R.id.fabDownload);
+
+        fabDownload = findViewById(R.id.fabDownload);
         fabDownload.setOnClickListener(this);
+        constraintStory = findViewById(R.id.constraintStory);
+        initIntent();
     }
 
     private void initIntent() {
@@ -59,6 +63,7 @@ public class DetailStoryActivity extends BaseActivity<DetailStoryViewModel> impl
         textView.setText(story.getTitle());
         url = story.getImage();
         fileName = story.getId() + ".jpg";
+
     }
 
     @Override
@@ -73,7 +78,7 @@ public class DetailStoryActivity extends BaseActivity<DetailStoryViewModel> impl
     @Override
     public void ActionUserListenerDownLoadFile() {
         dirPath = "/sdcard/Luxury/Wallpaper";
-        viewmodel.downLoad(url,dirPath,fileName,DetailStoryActivity.this);
+        viewmodel.downLoad(url, dirPath, fileName, DetailStoryActivity.this);
     }
 
     @Override
@@ -84,7 +89,7 @@ public class DetailStoryActivity extends BaseActivity<DetailStoryViewModel> impl
     @Override
     public void hideProgress() {
         hideLoading();
-        CustomToast.makeTake(DetailStoryActivity.this,getString(R.string.download_success), Toast.LENGTH_LONG,CustomToast.SUCCESS).show();
+        CustomToast.makeText(DetailStoryActivity.this, getString(R.string.download_success), Toast.LENGTH_LONG, CustomToast.SUCCESS).show();
     }
 
 

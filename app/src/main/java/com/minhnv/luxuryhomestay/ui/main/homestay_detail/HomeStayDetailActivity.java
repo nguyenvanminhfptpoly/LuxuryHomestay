@@ -36,6 +36,7 @@ import com.minhnv.luxuryhomestay.ui.main.booking.booking.BookingActivity;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.minhnv.luxuryhomestay.utils.CommonUtils;
 import com.minhnv.luxuryhomestay.utils.CustomToast;
+import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
@@ -73,6 +74,7 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_stay_detail);
+        slide = Slidr.attach(this);
         viewmodel = ViewModelProviders.of(this, factory).get(HomeStaysDetailViewModel.class);
         viewmodel.setNavigator(this);
 
@@ -112,7 +114,7 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
         recyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this, LinearLayoutManager.HORIZONTAL, false));
         adapter = new ImageDetailAdapter(imageDetails, getApplicationContext());
         recyclerView.setAdapter(adapter);
-        helperOneByOne.attachToRecyclerView(recyclerView);
+
 
         btnBooking.setOnClickListener(v -> {
             Intent intent = BookingActivity.newIntent(getApplicationContext());
@@ -215,14 +217,14 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
 
     @Override
     public void onSuccess() {
-        CustomToast.makeTake(this, getString(R.string.add_favorite_success), Toast.LENGTH_LONG, CustomToast.SUCCESS).show();
+        CustomToast.makeText(this, getString(R.string.add_favorite_success), Toast.LENGTH_LONG, CustomToast.SUCCESS).show();
         AppLogger.d(TAG, "onSuccess: ");
     }
 
     @Override
     public void onFailed() {
         hideLoading();
-        CustomToast.makeTake(this, getString(R.string.add_favorite_failed), Toast.LENGTH_LONG, CustomToast.ERROR).show();
+        CustomToast.makeText(this, getString(R.string.add_favorite_failed), Toast.LENGTH_LONG, CustomToast.ERROR).show();
     }
 
     @Override

@@ -174,14 +174,14 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
         startActivity(HomeActivity.newIntent(SignInActivity.this));
         finish();
         String message = getString(R.string.login_success);
-        CustomToast.makeTake(SignInActivity.this,message,Toast.LENGTH_LONG,CustomToast.SUCCESS).show();
+        CustomToast.makeText(SignInActivity.this,message,Toast.LENGTH_LONG,CustomToast.SUCCESS).show();
     }
 
     @Override
     public void handlerError(Throwable throwable) {
         AppLogger.d("failed" + throwable);
         hideLoading();
-        CustomToast.makeTake(SignInActivity.this,getString(R.string.login_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+        CustomToast.makeText(SignInActivity.this,getString(R.string.login_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
     }
 
     @Override
@@ -193,16 +193,16 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
             hideKeyboard();
             showLoading();
         } else if(!isNetworkConnected()) {
-            CustomToast.makeTake(SignInActivity.this,getString(R.string.login_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+            CustomToast.makeText(SignInActivity.this,getString(R.string.login_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
         } else {
-            CustomToast.makeTake(SignInActivity.this,getString(R.string.email_password_valid),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+            CustomToast.makeText(SignInActivity.this,getString(R.string.email_password_valid),Toast.LENGTH_LONG,CustomToast.ERROR).show();
         }
     }
 
     @Override
     public void onFailed() {
         hideLoading();
-        CustomToast.makeTake(SignInActivity.this,getString(R.string.login_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+        CustomToast.makeText(SignInActivity.this,getString(R.string.login_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
     }
 
     @Override
