@@ -77,14 +77,14 @@ public class SignUpActivity extends BaseActivity<SignUpViewModel> implements Sig
             viewmodel.signup(inputPassword, inputPhoneNumber, inputAddress);
             showLoading();
         } else {
-            CustomToast.makeTake(this,getString(R.string.email_password_valid),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+            CustomToast.makeText(this,getString(R.string.email_password_valid),Toast.LENGTH_LONG,CustomToast.ERROR).show();
         }
     }
 
     @Override
     public void onFailed() {
         hideLoading();
-        CustomToast.makeTake(this,getString(R.string.failed),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+        CustomToast.makeText(this,getString(R.string.failed),Toast.LENGTH_LONG,CustomToast.ERROR).show();
     }
 
     @Override
@@ -93,7 +93,7 @@ public class SignUpActivity extends BaseActivity<SignUpViewModel> implements Sig
         setResult(RESULT_OK);
         onBackPressed();
         finish();
-        CustomToast.makeTake(this,getString(R.string.add_successfully),Toast.LENGTH_LONG,CustomToast.SUCCESS).show();
+        CustomToast.makeText(this,getString(R.string.add_successfully),Toast.LENGTH_LONG,CustomToast.SUCCESS).show();
     }
 
     @Override

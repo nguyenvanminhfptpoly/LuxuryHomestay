@@ -5,17 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
+import com.minhnv.luxuryhomestay.ui.main.adapter.LinearLayoutManagerWithSmoothScroller;
 import com.minhnv.luxuryhomestay.ui.main.adapter.StaggeredRecyclerViewAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.StaggeredHomeStayViewHolder;
 import com.minhnv.luxuryhomestay.ui.main.homestay_detail.HomeStayDetailActivity;
@@ -25,6 +26,7 @@ import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -55,14 +57,17 @@ public class HomeStayHotActivity extends BaseActivity<HomeStayHotViewModel> impl
     }
 
     private void setUpRecyclerView() {
+        DividerItemDecoration itemDecorator = new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL);
+        itemDecorator.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(getApplicationContext(), R.drawable.item_decoration)));
         viewmodel.ServerLoadHomeStaysRating();
         RecyclerView recyclerView = findViewById(R.id.recyclerViewHomeStayHot);
         homestays = new ArrayList<>();
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+        recyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this));
         adapter = new StaggeredRecyclerViewAdapter(homestays, getApplicationContext());
         adapter.setUserAction(this);
         recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(itemDecorator);
     }
 
 

@@ -103,7 +103,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         setContentView(R.layout.activity_home);
         viewmodel = ViewModelProviders.of(this, factory).get(HomeViewModel.class);
         viewmodel.setNavigator(this);
-        switchToDarkMode();
+
         initView();
         setUpToolBar();
         setUpNavigationView();
@@ -113,16 +113,15 @@ public class HomeActivity extends BaseActivity<HomeViewModel> implements HomeNav
         setUpRecyclerViewVinHomes();
         ViewFlipper();
         setUpRecyclerView();
+        switchToDarkMode();
     }
 
     private void initView() {
         drawerLayout = findViewById(R.id.drawer_layout);
-        Button btnGotoBooking = findViewById(R.id.btnGotoBooking);
         Button btnDetailHSH = findViewById(R.id.buttonDetailHSH);
         Button btnDetailHSP = findViewById(R.id.btnDetailHSP);
         TextView tvNameUser = findViewById(R.id.tvNameUser);
 
-        btnGotoBooking.setOnClickListener(view -> startActivity(ListBookingActivity.newIntent(getApplicationContext())));
         btnDetailHSH.setOnClickListener(view ->
             startActivity(HomeStayHotActivity.newIntent(HomeActivity.this))
         );

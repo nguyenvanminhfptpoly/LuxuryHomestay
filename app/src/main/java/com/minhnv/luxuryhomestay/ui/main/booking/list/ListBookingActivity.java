@@ -100,7 +100,7 @@ public class ListBookingActivity extends BaseActivity<ListBookingViewModel> impl
     @Override
     public void onFailed() {
         hideLoading();
-        CustomToast.makeTake(this,getString(R.string.delete_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+        CustomToast.makeText(this,getString(R.string.delete_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
     }
 
     @Override

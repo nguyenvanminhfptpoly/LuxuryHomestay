@@ -3,8 +3,6 @@ package com.minhnv.luxuryhomestay.ui.main.adapter.viewholder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +17,7 @@ public class VinHomeDetailViewHolder extends RecyclerView.ViewHolder {
     private ANImageView image;
     private TextView tvTitle;
     private TextView tvDetail;
+    private TextView tvRatingVh;
     private MaterialCardView cardView;
 
     private VinHomeDetailViewHolder(@NonNull View itemView) {
@@ -27,6 +26,7 @@ public class VinHomeDetailViewHolder extends RecyclerView.ViewHolder {
         tvTitle = itemView.findViewById(R.id.tvNameVH);
         tvDetail = itemView.findViewById(R.id.tvAddressVH);
         cardView = itemView.findViewById(R.id.itemTouchVinHomes);
+        tvRatingVh = itemView.findViewById(R.id.tvRatingVH);
     }
     public void bind(ListVinHomes homes, CityDetailViewHolder.UserActionListener callBack){
         image.setDefaultImageResId(R.drawable.img_home1);
@@ -34,6 +34,7 @@ public class VinHomeDetailViewHolder extends RecyclerView.ViewHolder {
         image.setImageUrl(homes.getImage());
         tvTitle.setText(homes.getName());
         tvDetail.setText(homes.getCreateroom());
+        tvRatingVh.setText(homes.getRating());
 
         cardView.setOnClickListener(v -> callBack.onActionDetailByUser(getAdapterPosition()));
     }

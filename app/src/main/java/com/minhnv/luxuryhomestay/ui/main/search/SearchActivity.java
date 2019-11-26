@@ -19,9 +19,7 @@ import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
 import com.minhnv.luxuryhomestay.ui.main.adapter.CityDetailAdapter;
-import com.minhnv.luxuryhomestay.ui.main.adapter.HomeStaysAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.CityDetailViewHolder;
-import com.minhnv.luxuryhomestay.ui.main.booking.booking.BookingActivity;
 import com.minhnv.luxuryhomestay.ui.main.homestay_detail.HomeStayDetailActivity;
 import com.minhnv.luxuryhomestay.utils.AppLogger;
 import com.minhnv.luxuryhomestay.utils.CustomToast;
@@ -117,7 +115,7 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
                             adapter.set(response)
                         ));
         } else {
-            CustomToast.makeTake(this,getString(R.string.validate),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+            CustomToast.makeText(this,getString(R.string.validate),Toast.LENGTH_LONG,CustomToast.ERROR).show();
         }
 
     }

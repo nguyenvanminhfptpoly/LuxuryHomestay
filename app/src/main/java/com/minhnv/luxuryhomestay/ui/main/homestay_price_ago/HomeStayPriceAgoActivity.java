@@ -8,13 +8,15 @@ import android.os.SystemClock;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minhnv.luxuryhomestay.R;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
+import com.minhnv.luxuryhomestay.ui.main.adapter.LinearLayoutManagerWithSmoothScroller;
 import com.minhnv.luxuryhomestay.ui.main.adapter.StaggeredAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.StaggeredHomeStayViewHolder;
 import com.minhnv.luxuryhomestay.ui.main.homestay_detail.HomeStayDetailActivity;
@@ -24,6 +26,7 @@ import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -55,14 +58,17 @@ public class HomeStayPriceAgoActivity extends BaseActivity<HomeStayPriceViewMode
     }
 
     private void setUpRecyclerView() {
+        DividerItemDecoration itemDecorator = new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL);
+        itemDecorator.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(getApplicationContext(), R.drawable.item_decoration)));
         viewmodel.ServerLoadHomeStaysPriceAsc();
         RecyclerView recyclerView = findViewById(R.id.recyclerViewHomeStayPrice);
         homestays = new ArrayList<>();
         adapter = new StaggeredAdapter(homestays, getApplicationContext());
         adapter.setUserAction(this);
-        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+        recyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(itemDecorator);
     }
 
     @Override

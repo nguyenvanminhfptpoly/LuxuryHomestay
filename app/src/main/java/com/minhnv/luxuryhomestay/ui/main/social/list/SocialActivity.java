@@ -86,7 +86,7 @@ public class SocialActivity extends BaseActivity<SocialViewModel> implements Soc
         toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
         TextView tvNameUser = findViewById(R.id.tvNameUser);
-        String nameUser = getString(R.string.title_header) + " " + (appPreferenceHelper.getCurrentAddress() == null ? appPreferenceHelper.getCurrentPhoneNumber() : appPreferenceHelper.getCurrentAddress());
+        String nameUser = getString(R.string.title_header) + " " + (appPreferenceHelper.getCurrentPhoneNumber() == null ? appPreferenceHelper.getCurrentPassword() : appPreferenceHelper.getCurrentPhoneNumber());
         tvNameUser.setText(nameUser);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             luxuries.clear();

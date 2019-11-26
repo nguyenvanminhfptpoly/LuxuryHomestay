@@ -138,5 +138,7 @@ dependencies {
 
     implementation 'com.github.yalantis:ucrop:2.2.4'
 
+    implementation "jp.wasabeef:blurry:3.0.0"
+
 
 }

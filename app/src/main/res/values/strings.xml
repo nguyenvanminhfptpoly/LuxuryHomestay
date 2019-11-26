@@ -128,4 +128,6 @@
     <string name="selected_image">Chọn từ thư viện</string>
     <string name="take_photo">Chọn ảnh</string>
     <string name="take_image">Chụp ảnh</string>
+    <string name="guide">Hướng dẫn sử dụng</string>
+    <string name="_4_5">4.5</string>
 </resources>
