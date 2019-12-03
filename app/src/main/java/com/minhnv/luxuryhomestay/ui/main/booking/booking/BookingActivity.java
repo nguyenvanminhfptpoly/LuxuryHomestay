@@ -184,9 +184,6 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
     public void triggerCheckIn(int mYear, int mMonth, int mDay) {
         DatePickerDialog dialog = new DatePickerDialog(this,
                 (datePicker, year, month, date) -> {
-                    if (date < mDay || month < mMonth || year < mYear) {
-                        CustomToast.makeText(this,getString(R.string.date_valid),Toast.LENGTH_LONG,CustomToast.ERROR).show();
-                    }
                     String dateEnd = "" + year + "-" + (month + 1) + "-" + date + "";
                     tvDateStart.setText(dateEnd);
                 }, mYear, mMonth, mDay);
@@ -198,9 +195,6 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
     public void triggerCheckOut(int mYear, int mMonth, int mDay) {
         DatePickerDialog dialog = new DatePickerDialog(this,
                 (datePicker, year, month, date) -> {
-                    if (date < mDay || month < mMonth || year < mYear) {
-                        CustomToast.makeText(this,getString(R.string.date_valid),Toast.LENGTH_LONG,CustomToast.ERROR).show();
-                    }
                     String dateEnd = "" + year + "-" + (month + 1) + "-" + date + "";
                     tvDateEnd.setText(dateEnd);
                 }, mYear, mMonth, mDay);
