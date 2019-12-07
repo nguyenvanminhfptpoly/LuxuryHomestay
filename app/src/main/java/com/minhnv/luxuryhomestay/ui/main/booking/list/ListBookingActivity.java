@@ -72,6 +72,10 @@ public class ListBookingActivity extends BaseActivity<ListBookingViewModel> impl
         adapter = new BookingAdapter(bookings, getApplicationContext());
         adapter.setUserAction(this);
         recyclerView.setAdapter(adapter);
+
+        if(adapter.getItemCount() == 0){
+            Toast.makeText(this, getString(R.string.booking_empty_list), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void fetchData(){

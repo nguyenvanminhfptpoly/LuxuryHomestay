@@ -130,4 +130,6 @@
     <string name="take_image">Chụp ảnh</string>
     <string name="guide">Hướng dẫn sử dụng</string>
     <string name="_4_5">4.5</string>
+    <string name="homestay_love">Bạn chưa có homestay yêu thích nào</string>
+    <string name="booking_empty_list">Bạn chưa đặt phòng</string>
 </resources>
