@@ -61,10 +61,10 @@ public class UserResponse {
 
     public static class ServerSearchHomeStaysFollowRating {
         @Expose
-        @SerializedName("rating")
-        private int rating;
+        @SerializedName("address")
+        private String rating;
 
-        public ServerSearchHomeStaysFollowRating(int rating) {
+        public ServerSearchHomeStaysFollowRating(String rating) {
             this.rating = rating;
         }
 

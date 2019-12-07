@@ -23,7 +23,7 @@
     <string name="detail">Description</string>
     <string name="detail_hs">Description</string>
     <string name="download_success">Save successfully</string>
-    <string name="email_password_valid">Value error</string>
+    <string name="email_password_valid">Value error (10 characters)</string>
     <string name="error">Error</string>
     <string name="failed">Error when create account</string>
     <string name="favorite">My favorite homestay</string>
@@ -34,7 +34,7 @@
     <string name="guide_title">Our list of Homestay is popular with you every day.</string>
     <string name="have_account">Have an account? back</string>
     <string name="hi_there">Hi there</string>
-    <string name="hint_search">1 to 5 star for rating</string>
+    <string name="hint_search">Search city (Ha Noi, TPHCM, Da Lat)</string>
     <string name="home_stay_follow_city">Homestay in City</string>
     <string name="home_stay_hot">Homestay hot</string>
     <string name="home_stay_price">Best price for Homestay</string>
@@ -47,7 +47,7 @@
     <string name="logout">Log Out</string>
     <string name="luxury_post">"Post "</string>
     <string name="mo_ta">Homestay description</string>
-    <string name="name">My name</string>
+    <string name="name">My name (10 characters)</string>
     <string name="name_hs">Name Homestay</string>
     <string name="need_help">Need help</string>
     <string name="need_help_content">If you don\'t have an account, try click in text \"Don\'t have an account\" below to go to sign up, you can back sign in screen without enter value</string>
@@ -75,7 +75,7 @@
     <string name="select_name_hs">"Select Homestay in Home screen "</string>
     <string name="select_post">You want</string>
     <string name="sign_in">Sign In</string>
-    <string name="sign_up">Sign Out</string>
+    <string name="sign_up">Sign Up</string>
     <string name="size_null">List Booking is Empty</string>
     <string name="skip">Skip</string>
     <string name="slide_1_desc">cc</string>
@@ -94,7 +94,7 @@
     <string name="title_header">hi: </string>
     <string name="todo">todo</string>
     <string name="user_get">Welcome</string>
-    <string name="user_name">Username</string>
+    <string name="user_name">Username (10 characters)</string>
     <string name="username">Your name</string>
     <string name="validate">Enter enough value</string>
     <string name="validate_booking">Enter enough value</string>

@@ -22,13 +22,13 @@
     //signUp
     <string name="sign_up">Đăng Ký</string>
     <string name="have_account">Đã có tài khoản? Quay lại</string>
-    <string name="email_password_valid">Giá trị bạn nhập không đúng hoặc không đủ</string>
+    <string name="email_password_valid">Giá trị bạn nhập không đúng hoặc không đủ 10 kí tự</string>
     <string name="username">Tên Người Dùng</string>
     <string name="address">Địa Chỉ</string>
     <string name="add_successfully">Thêm Thành Công</string>
     <string name="failed">Lỗi Khi Tạo Tài Khoản</string>
-    <string name="name">Tên người dùng</string>
-    <string name="user_name">Tên Đăng Nhập</string>
+    <string name="name">Tên người dùng (10 kí tự)</string>
+    <string name="user_name">Tên Đăng Nhập (10 kí tự)</string>
 
     //home
     <string name="detail">Chi tiết</string>
@@ -42,7 +42,7 @@
     <string name="logout">Đăng xuất</string>
     <string name="search">Tìm Kiếm</string>
     <string name="validate">Nhập đủ dữ liệu</string>
-    <string name="hint_search">Đánh giá từ 1 đến 5 sao</string>
+    <string name="hint_search">Tìm kiếm theo thành phố (Đà lạt, TPHCM, Hà Nội)</string>
     <string name="price_km">Giá khuyến mãi</string>
     <string name="price_ago">Giá cũ</string>
     <string name="name_hs">Tên Homestay: </string>

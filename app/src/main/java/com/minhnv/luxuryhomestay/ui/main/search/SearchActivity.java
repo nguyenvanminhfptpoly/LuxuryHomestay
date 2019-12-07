@@ -62,7 +62,6 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
         btnSearch = findViewById(R.id.btnSearch);
         edRating = findViewById(R.id.includeSearch);
         edRating.setHint(R.string.hint_search);
-        edRating.setFilters(new InputFilter[]{new InputFilterMinMax("1","5")});
 
     }
     private void setUpRecyclerView(){
@@ -105,8 +104,7 @@ public class SearchActivity extends BaseActivity<SearchViewModel> implements Sea
     public void loadList() {
         String ratingString = edRating.getText().toString().trim();
         if (viewmodel.isRequestValid(ratingString)) {
-            int rating = Integer.parseInt(ratingString);
-            viewmodel.search(rating);
+            viewmodel.search(ratingString);
             showLoading();
             compositeDisposable.add(viewmodel.listPublishSubject.share()
                     .subscribeOn(schedulerProvider.io())

@@ -33,7 +33,7 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
         return !TextUtils.isEmpty(rating);
     }
 
-    public void search(int rating){
+    public void search(String rating){
         getCompositeDisposable().add(
                 getDataManager().doSearchHomeStayFollowRating(new UserResponse.ServerSearchHomeStaysFollowRating(rating))
                 .subscribeOn(getSchedulerProvider().io())

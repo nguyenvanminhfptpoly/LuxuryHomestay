@@ -19,6 +19,8 @@ import com.minhnv.luxuryhomestay.utils.CustomToast;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
+import java.util.Random;
+
 public class SignUpActivity extends BaseActivity<SignUpViewModel> implements SignUpNavigator {
     private static final String TAG = "SignUpActivity";
     private EditText username, address, phoneNumber;
@@ -71,10 +73,12 @@ public class SignUpActivity extends BaseActivity<SignUpViewModel> implements Sig
     @Override
     public void login() {
         String inputPassword = password.getText().toString().trim();
+        int random = new Random().nextInt(10);
+        String pass = inputPassword + random;
         String inputAddress = address.getText().toString().trim();
         String inputPhoneNumber = phoneNumber.getText().toString();
         if (viewmodel.isRequestValidate(inputPassword, inputPhoneNumber, inputAddress)) {
-            viewmodel.signup(inputPassword, inputPhoneNumber, inputAddress);
+            viewmodel.signup(pass, inputPhoneNumber, inputAddress);
             showLoading();
         } else {
             CustomToast.makeText(this,getString(R.string.email_password_valid),Toast.LENGTH_LONG,CustomToast.ERROR).show();

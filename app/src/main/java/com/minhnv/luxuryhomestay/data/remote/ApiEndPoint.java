@@ -10,7 +10,7 @@ class ApiEndPoint {
     static final String ENDPOINT_LIST_CITY =  BuildConfig.BASE_URL + "getcity.php";
     static final String ENDPOINT_HOMESTAY_RATING  =  BuildConfig.BASE_URL + "getlistrating.php";
     static final String ENDPOINT_HOMESTAY_PRICE_ASC =  BuildConfig.BASE_URL + "getlisthomestayprice.php";
-    static final String ENDPOINT_SEARCH_HOMESTAY =  BuildConfig.BASE_URL + "searchhomestay.php";
+    static final String ENDPOINT_SEARCH_HOMESTAY =  BuildConfig.BASE_URL + "search.php";
     static final String ENDPOINT_BOOKING =  BuildConfig.BASE_URL + "booking.php";
     static final String ENDPOINT_LIST_BOOKING =  BuildConfig.BASE_URL + "getlistbooking.php";
     static final String ENDPOINT_DELETE_BOOKING =  BuildConfig.BASE_URL + "deletebooking.php";
