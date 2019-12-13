@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
+import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener;
 import android.view.View;
 import android.widget.TextView;
 
@@ -24,6 +27,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailViewModel> implem
     private TextView tvDetailPost;
     private SlidrInterface slide;
     private ConstraintLayout contrainPostDetail;
+    private ScaleGestureDetector scaleGestureDetector;
+    private float mScaleFactor = 1.0f;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, SocialActivity.class);
@@ -44,6 +49,20 @@ public class PostDetailActivity extends BaseActivity<PostDetailViewModel> implem
         tvDetailPost = findViewById(R.id.tvDetailPost);
         initIntent();
         contrainPostDetail = findViewById(R.id.contrain_post_detail);
+        scaleGestureDetector = new ScaleGestureDetector(this, new SimpleOnScaleGestureListener(){
+            @Override
+            public boolean onScale(ScaleGestureDetector detector) {
+                mScaleFactor *= scaleGestureDetector.getScaleFactor();
+                imgPostDetail.setScaleX(mScaleFactor);
+                imgPostDetail.setScaleY(mScaleFactor);
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return scaleGestureDetector.onTouchEvent(event);
     }
 
     private void initIntent() {

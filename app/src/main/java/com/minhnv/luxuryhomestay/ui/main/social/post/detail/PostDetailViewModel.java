@@ -8,4 +8,6 @@ public class PostDetailViewModel extends BaseViewModel<PostDetailNavigator> {
     public PostDetailViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
     }
+
+
 }
