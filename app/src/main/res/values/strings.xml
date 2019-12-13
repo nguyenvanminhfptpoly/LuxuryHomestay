@@ -132,4 +132,19 @@
     <string name="_4_5">4.5</string>
     <string name="homestay_love">Bạn chưa có homestay yêu thích nào</string>
     <string name="booking_empty_list">Bạn chưa đặt phòng</string>
+    <string name="filter">Lọc</string>
+
+
+    <string-array name="price">
+        <item>từ 1000000 trở xuống</item>
+        <item>từ 5000000 trở xuống </item>
+    </string-array>
+
+    <string-array name="rating">
+        <item>1 sao</item>
+        <item>2 sao</item>
+        <item>3 sao</item>
+        <item>4 sao</item>
+        <item>5 sao</item>
+    </string-array>
 </resources>

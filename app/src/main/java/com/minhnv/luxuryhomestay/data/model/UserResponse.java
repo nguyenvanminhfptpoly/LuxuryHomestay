@@ -63,13 +63,20 @@ public class UserResponse {
         @Expose
         @SerializedName("address")
         private String rating;
+        @Expose
+        @SerializedName("rating")
+        private String rating2;
+        @Expose
+        @SerializedName("price")
+        private String priceAgo;
 
-        public ServerSearchHomeStaysFollowRating(String rating) {
+        public ServerSearchHomeStaysFollowRating(String rating, String rating2, String priceAgo) {
             this.rating = rating;
+            this.rating2 = rating2;
+            this.priceAgo = priceAgo;
         }
 
-        public ServerSearchHomeStaysFollowRating(BehaviorSubject<Integer> rating) {
-        }
+
     }
 
     public static class ServerBooking {

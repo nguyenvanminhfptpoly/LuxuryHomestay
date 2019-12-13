@@ -33,9 +33,9 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
         return !TextUtils.isEmpty(rating);
     }
 
-    public void search(String rating){
+    public void search(String rating,String rating2, String price){
         getCompositeDisposable().add(
-                getDataManager().doSearchHomeStayFollowRating(new UserResponse.ServerSearchHomeStaysFollowRating(rating))
+                getDataManager().doSearchHomeStayFollowRating(new UserResponse.ServerSearchHomeStaysFollowRating(rating,rating2, price))
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
