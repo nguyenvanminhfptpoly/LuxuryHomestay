@@ -71,9 +71,7 @@ public class FavoriteActivity extends BaseActivity<FavoriteViewModel> implements
         recyclerView.setAdapter(adapter);
         onNextList();
 
-        if(adapter.getItemCount() == 0){
-            Toast.makeText(FavoriteActivity.this, getString(R.string.homestay_love), Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     private void onNextList(){

@@ -130,8 +130,7 @@
     </style>
 
     <style name="WindowTransitionAnimation">
-        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
-        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+       
     </style>
 
 </resources>
