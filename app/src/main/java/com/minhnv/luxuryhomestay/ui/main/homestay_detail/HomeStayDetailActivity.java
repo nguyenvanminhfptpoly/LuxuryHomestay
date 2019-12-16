@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +27,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.androidnetworking.widget.ANImageView;
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.minhnv.luxuryhomestay.R;
+import com.minhnv.luxuryhomestay.data.model.Comment;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
 import com.minhnv.luxuryhomestay.data.model.ImageDetail;
 import com.minhnv.luxuryhomestay.data.model.ListVinHomes;
 import com.minhnv.luxuryhomestay.ui.base.BaseActivity;
+import com.minhnv.luxuryhomestay.ui.main.adapter.CommentAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.ImageDetailAdapter;
 import com.minhnv.luxuryhomestay.ui.main.adapter.LinearLayoutManagerWithSmoothScroller;
 import com.minhnv.luxuryhomestay.ui.main.adapter.SnapHelperOneByOne;
@@ -40,28 +45,45 @@ import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewModel> implements HomeStayDetailNavigator {
     private static final String TAG = "HomeStayDetailActivity";
     private TextView tvName, tvAddress, tvHasTag, tvPrice, tvEvaLute;
     private ReadMoreTextView tvDetail;
     private ANImageView imgDetail;
-    private String nameImage,nameHS, addressHS;
+    private String nameImage, nameHS, addressHS;
     private SlidrInterface slide;
     private Button viewRating, btnBooking;
     private Animator curentAnimator;
     private int shortAnimationDuration;
     private List<ImageDetail> imageDetails;
-    private ImageDetailAdapter adapter;
+    @Inject
+    public ImageDetailAdapter adapter;
     private int idHomeStay;
     private SnapHelperOneByOne helperOneByOne;
     private RecyclerView recyclerView;
+    private TextView tvCmt;
+
     /**
      * Một số hình ảnh của HomeStay
      */
     private TextView tvTitleImageHomeStay;
-
+    private RecyclerView recyclerViewComment;
+    private ImageView firstStar;
+    private ImageView secondStar;
+    private ImageView thirdStar;
+    private ImageView fourStar;
+    private ImageView fiveStar;
+    private int ratingSelect;
+    private EditText edCmt;
+    private Button btnPostComment;
+    @Inject
+    public CommentAdapter commentAdapter;
+    private List<Comment> comments;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, HomeStayDetailActivity.class);
@@ -83,6 +105,7 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
 
     private void initView() {
         helperOneByOne = new SnapHelperOneByOne();
+        tvCmt = findViewById(R.id.tvCmt);
         tvName = findViewById(R.id.tvNameHomeStaysDetail);
         tvAddress = findViewById(R.id.tvAddressHomeStayDetail);
         tvPrice = findViewById(R.id.tvPriceHomeStayDetail);
@@ -103,8 +126,6 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
         imgDetail.setErrorImageResId(R.drawable.uploadfailed);
 
 
-
-
         recyclerView = findViewById(R.id.recyclerViewListImage);
         tvTitleImageHomeStay = findViewById(R.id.tvTitleImageHomeStay);
         initIntent();
@@ -122,6 +143,71 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
             intent.putExtra("bookingAddress", addressHS);
             intent.putExtra("image", nameImage);
             startActivity(intent);
+        });
+        recyclerViewComment = findViewById(R.id.recyclerViewComment);
+        comments = new ArrayList<>();
+        viewmodel.ServerloadListComment();
+        recyclerViewComment.setHasFixedSize(true);
+        recyclerViewComment.setLayoutManager(new LinearLayoutManager(this));
+        commentAdapter = new CommentAdapter(comments, getApplicationContext());
+        recyclerViewComment.setAdapter(commentAdapter);
+
+        firstStar = findViewById(R.id.firstStar);
+        secondStar = findViewById(R.id.secondStar);
+        thirdStar = findViewById(R.id.thirdStar);
+        fourStar = findViewById(R.id.fourStar);
+        fiveStar = findViewById(R.id.fiveStar);
+        edCmt = findViewById(R.id.edComment);
+        btnPostComment = findViewById(R.id.btnPostComment);
+
+        firstStar.setOnClickListener(v -> {
+            ratingSelect = 1;
+            firstStar.setImageResource(R.drawable.ic_star_yellow_24dp);
+            secondStar.setImageResource(R.drawable.ic_star_border_black_24dp);
+            thirdStar.setImageResource(R.drawable.ic_star_border_black_24dp);
+            fourStar.setImageResource(R.drawable.ic_star_border_black_24dp);
+            fiveStar.setImageResource(R.drawable.ic_star_border_black_24dp);
+        });
+        secondStar.setOnClickListener(v-> {
+            ratingSelect = 2;
+            firstStar.setImageResource(R.drawable.ic_star_yellow_24dp);
+            secondStar.setImageResource(R.drawable.ic_star_yellow_24dp);
+            thirdStar.setImageResource(R.drawable.ic_star_border_black_24dp);
+            fourStar.setImageResource(R.drawable.ic_star_border_black_24dp);
+            fiveStar.setImageResource(R.drawable.ic_star_border_black_24dp);
+        });
+        thirdStar.setOnClickListener(v->{
+            ratingSelect = 3;
+            firstStar.setImageResource(R.drawable.ic_star_yellow_24dp);
+            secondStar.setImageResource(R.drawable.ic_star_yellow_24dp);
+            thirdStar.setImageResource(R.drawable.ic_star_yellow_24dp);
+            fourStar.setImageResource(R.drawable.ic_star_border_black_24dp);
+            fiveStar.setImageResource(R.drawable.ic_star_border_black_24dp);
+        });
+        fourStar.setOnClickListener(v->{
+            ratingSelect = 4;
+            firstStar.setImageResource(R.drawable.ic_star_yellow_24dp);
+            secondStar.setImageResource(R.drawable.ic_star_yellow_24dp);
+            thirdStar.setImageResource(R.drawable.ic_star_yellow_24dp);
+            fourStar.setImageResource(R.drawable.ic_star_yellow_24dp);
+            fiveStar.setImageResource(R.drawable.ic_star_border_black_24dp);
+        });
+        fiveStar.setOnClickListener(v-> {
+            ratingSelect = 5;
+            firstStar.setImageResource(R.drawable.ic_star_yellow_24dp);
+            secondStar.setImageResource(R.drawable.ic_star_yellow_24dp);
+            thirdStar.setImageResource(R.drawable.ic_star_yellow_24dp);
+            fourStar.setImageResource(R.drawable.ic_star_yellow_24dp);
+            fiveStar.setImageResource(R.drawable.ic_star_yellow_24dp);
+        });
+        btnPostComment.setOnClickListener(v -> {
+            String username = appPreferenceHelper.getCurrentAddress();
+            String comment = edCmt.getText().toString();
+            int rating = ratingSelect;
+            if(viewmodel.isRequestValid(username, comment, rating)){
+                viewmodel.addComment(username, comment, rating, idHomeStay);
+                showLoading();
+            }
         });
     }
 
@@ -212,7 +298,7 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
 
     @Override
     public void HandlerError(Throwable throwable) {
-        AppLogger.d(TAG, "HandlerError: " + throwable);
+        Log.d(TAG, "HandlerError: "+throwable);
     }
 
     @Override
@@ -245,6 +331,39 @@ public class HomeStayDetailActivity extends BaseActivity<HomeStaysDetailViewMode
         viewmodel.loadList(idHomeStay);
         compositeDisposable.add(viewmodel.listPublishSubject.share()
                 .subscribe(data -> adapter.set(data)));
+    }
+
+    @Override
+    public void ratingFailed() {
+        Toast.makeText(this, "bạn chưa đánh giá", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void CommentIsEmpty() {
+        Toast.makeText(this, "bạn chưa nhận xét", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void commentFailed() {
+        hideLoading();
+        Toast.makeText(this, "Đã xảy ra lỗi", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void commentSuccess() {
+        viewmodel.ServerloadListComment();
+        viewmodel.ServerLoadImageDetail();
+        hideLoading();
+    }
+
+    @Override
+    public void LoadListComment() {
+        viewmodel.getListComment(idHomeStay);
+        compositeDisposable.add(viewmodel.listPublishSubjectCmt.share()
+        .subscribe(data -> {
+            Collections.reverse(comments);
+            commentAdapter.set(data);}
+        ));
     }
 
 }

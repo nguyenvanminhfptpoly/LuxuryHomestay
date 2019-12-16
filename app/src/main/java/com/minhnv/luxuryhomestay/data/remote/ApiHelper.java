@@ -2,6 +2,7 @@ package com.minhnv.luxuryhomestay.data.remote;
 
 import com.minhnv.luxuryhomestay.data.model.Booking;
 import com.minhnv.luxuryhomestay.data.model.City;
+import com.minhnv.luxuryhomestay.data.model.Comment;
 import com.minhnv.luxuryhomestay.data.model.Favorite;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
@@ -59,4 +60,8 @@ public interface ApiHelper {
     Observable<List<ImageDetail>> doLoadListImageDetail(UserResponse.ServerGetImageDetail detail);
 
     Observable<List<UserInfo>> doLoadInformationUser(UserResponse.ServerGetUser user);
+
+    Observable<String> doAddCommentHomestay(UserResponse.ServerComment comment);
+
+    Observable<List<Comment>> doGetListCmt(UserResponse.ServerGetListCmt cmt);
 }

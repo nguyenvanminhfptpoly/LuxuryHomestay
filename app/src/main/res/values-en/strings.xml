@@ -4,7 +4,7 @@
     <string name="add_favorite_failed">Cannot add favorite!</string>
     <string name="add_favorite_success">Add favorite successfully !</string>
     <string name="add_successfully">Add successfully</string>
-    <string name="address">Address</string>
+    <string name="usernamed">Address</string>
     <string name="addressHs">Address Homestay</string>
     <string name="booking">Booking</string>
     <string name="booking_error">Enter enough value or try connect internet</string>
@@ -107,4 +107,5 @@
     <string name="take_image">take image</string>
     <string name="take_photo">take photo</string>
     <string name="guide">How to used</string>
+    <string name="username_address">A</string>
 </resources>

@@ -166,19 +166,20 @@ public class BookingActivity extends BaseActivity<BookingViewModel> implements B
         String countMember = edCountMember.getText().toString().trim();
         String nameHomeStay = tvNameHomeStay.getText().toString();
         String address = tvAddressHomeStay.getText().toString();
-        try {
-            int idUser = Integer.parseInt(appPreferenceHelper.getCurrentId());
-            if (viewmodel.isRequestValid(dateStart, dateEnd, countMember,nameHomeStay,address) && isNetworkConnected()) {
-                viewmodel.booking(dateStart, dateEnd, countMember,nameHomeStay,address,idUser);
-                showLoading();
-            } else {
-                CustomToast.makeText(this,getString(R.string.booking_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+        String username = appPreferenceHelper.getCurrentAddress();
+        String phonenumber = appPreferenceHelper.getCurrentPhoneNumber();
+            try {
+                int idUser = Integer.parseInt(appPreferenceHelper.getCurrentId());
+
+                if (viewmodel.isRequestValid(dateStart, dateEnd, countMember,nameHomeStay,address) && isNetworkConnected()) {
+                    viewmodel.booking(dateStart, dateEnd, countMember,nameHomeStay,address,idUser,username, phonenumber);
+                    showLoading();
+                } else {
+                    CustomToast.makeText(this,getString(R.string.booking_error),Toast.LENGTH_LONG,CustomToast.ERROR).show();
+                }
+            }catch (NumberFormatException e){
+                e.getMessage();
             }
-        }catch (NumberFormatException e){
-            e.getMessage();
-        }
-
-
     }
 
     @Override

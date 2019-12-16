@@ -31,9 +31,9 @@ public class BookingViewModel extends BaseViewModel<BookingNavigator> {
         return !TextUtils.isEmpty(InputCountMember);
     }
 
-    public void booking(String DateStart,String DateEnd,String CountMember,String nameHomeStay,String address,int idUser){
+    public void booking(String DateStart,String DateEnd,String CountMember,String nameHomeStay,String address,int idUser,String username, String phonenumber){
         getCompositeDisposable().add(
-                getDataManager().doServerBooking(new UserResponse.ServerBooking(DateStart,DateEnd,CountMember,nameHomeStay,address,idUser))
+                getDataManager().doServerBooking(new UserResponse.ServerBooking(DateStart,DateEnd,CountMember,nameHomeStay,address,idUser,username,phonenumber))
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {

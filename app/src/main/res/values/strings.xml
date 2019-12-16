@@ -24,7 +24,7 @@
     <string name="have_account">Đã có tài khoản? Quay lại</string>
     <string name="email_password_valid">Giá trị bạn nhập không đúng hoặc không đủ 10 kí tự</string>
     <string name="username">Tên Người Dùng</string>
-    <string name="address">Địa Chỉ</string>
+    <string name="usernamed">Địa Chỉ</string>
     <string name="add_successfully">Thêm Thành Công</string>
     <string name="failed">Lỗi Khi Tạo Tài Khoản</string>
     <string name="name">Tên người dùng (10 kí tự)</string>
@@ -133,6 +133,9 @@
     <string name="homestay_love">Bạn chưa có homestay yêu thích nào</string>
     <string name="booking_empty_list">Bạn chưa đặt phòng</string>
     <string name="filter">Lọc</string>
+    <string name="comment">Viết Bài Đánh giá</string>
+    <string name="c_c_nh_gi">Các đánh giá</string>
+    <string name="t_n_ng_i_d_ng">Tên người dùng</string>
 
 
     <string-array name="price">

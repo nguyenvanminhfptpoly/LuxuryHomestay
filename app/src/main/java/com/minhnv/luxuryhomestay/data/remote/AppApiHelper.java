@@ -3,6 +3,7 @@ package com.minhnv.luxuryhomestay.data.remote;
 import com.google.gson.Gson;
 import com.minhnv.luxuryhomestay.data.model.Booking;
 import com.minhnv.luxuryhomestay.data.model.City;
+import com.minhnv.luxuryhomestay.data.model.Comment;
 import com.minhnv.luxuryhomestay.data.model.Favorite;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
@@ -194,6 +195,22 @@ public class AppApiHelper implements ApiHelper {
                 .addBodyParameter(user)
                 .build()
                 .getObjectListObservable(UserInfo.class);
+    }
+
+    @Override
+    public Observable<String> doAddCommentHomestay(UserResponse.ServerComment comment) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_COMMENT)
+                .addBodyParameter(comment)
+                .build()
+                .getStringObservable();
+    }
+
+    @Override
+    public Observable<List<Comment>> doGetListCmt(UserResponse.ServerGetListCmt cmt) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_LIST_CMT)
+                .addBodyParameter(cmt)
+                .build()
+                .getObjectListObservable(Comment.class);
     }
 
 }

@@ -110,5 +110,20 @@ public class SignUpActivity extends BaseActivity<SignUpViewModel> implements Sig
         AppLogger.d(TAG, "onInsertFailed: ");
     }
 
+    @Override
+    public void validatePassword() {
+        Toast.makeText(this, "Password phải là số và lớn hơn 5 kí tự", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void validatePhoneNumber() {
+        Toast.makeText(this, "Số điện thoại sai định dạng", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void validateName() {
+        Toast.makeText(this, "Bạn chưa nhập tên", Toast.LENGTH_SHORT).show();
+    }
+
 
 }

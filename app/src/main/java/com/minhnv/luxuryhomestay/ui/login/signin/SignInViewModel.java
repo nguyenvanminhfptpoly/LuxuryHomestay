@@ -27,20 +27,21 @@ public class SignInViewModel extends BaseViewModel<SignInNavigator> {
 
     public boolean isRequestValid(String phoneNumber,String password){
         if(TextUtils.isEmpty(phoneNumber)){
+
             return false;
         }
         return !TextUtils.isEmpty(password);
     }
 
-    public void signin(String phonenumber,String password){
+    public void signin(String pass,String phone){
         getCompositeDisposable().add(getDataManager()
-            .doServerSignIn(new UserResponse.ServerSignInRequest(phonenumber,password))
+            .doServerSignIn(new UserResponse.ServerSignInRequest(pass,phone))
             .subscribeOn(getSchedulerProvider().io())
             .observeOn(getSchedulerProvider().ui())
             .subscribe(response -> {
                 if(response.equals("Success")){
-                    getDataManager().setCurrentPassword(phonenumber);
-                    getDataManager().setCurrentPhoneNumber(password);
+                    getDataManager().setCurrentPassword(pass);
+                    getDataManager().setCurrentPhoneNumber(phone);
                     getNavigator().onSuccess();
                 }else if(response.equals("Failed") || response.equals("Null")){
                     getNavigator().onFailed();

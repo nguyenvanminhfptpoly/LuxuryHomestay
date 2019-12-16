@@ -7,4 +7,5 @@ public interface BookingNavigator {
     void doServerBooking();
     void triggerCheckIn(int mYear,int mMonth,int mDay);
     void triggerCheckOut(int mYear,int mMonth,int mDay);
+
 }

@@ -11,6 +11,8 @@ import com.minhnv.luxuryhomestay.ui.main.adapter.viewholder.ImageDetailViewHolde
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class ImageDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<ImageDetail> imageDetails;
     private Context context;
@@ -18,6 +20,10 @@ public class ImageDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public ImageDetailAdapter(List<ImageDetail> imageDetails, Context context) {
         this.imageDetails = imageDetails;
         this.context = context;
+    }
+
+    @Inject
+    public ImageDetailAdapter() {
     }
 
     @NonNull

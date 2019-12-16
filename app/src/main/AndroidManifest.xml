@@ -21,7 +21,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup">
-        <activity android:name=".ui.main.social.post.edit.ImagePickerActivity"></activity>
+        <activity android:name=".ui.main.homestay_detail.comment.CommentActivity"></activity>
+        <activity android:name=".ui.main.social.post.edit.ImagePickerActivity" />
         <activity android:name=".ui.main.social.post.detail.PostDetailActivity" />
         <activity
             android:name=".ui.main.social.story.detail.DetailStoryActivity"

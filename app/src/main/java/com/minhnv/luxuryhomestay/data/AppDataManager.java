@@ -7,6 +7,7 @@ import com.minhnv.luxuryhomestay.data.local.db.DbHelper;
 import com.minhnv.luxuryhomestay.data.local.preference.PreferenceHelper;
 import com.minhnv.luxuryhomestay.data.model.Booking;
 import com.minhnv.luxuryhomestay.data.model.City;
+import com.minhnv.luxuryhomestay.data.model.Comment;
 import com.minhnv.luxuryhomestay.data.model.Favorite;
 import com.minhnv.luxuryhomestay.data.model.Homestay;
 import com.minhnv.luxuryhomestay.data.model.HomestayPrice;
@@ -117,7 +118,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public void updateUserInfo(String password, String phoneNumber, String address) {
-        setCurrentAddress(address);
+        setCurrentPassword(address);
         setCurrentPhoneNumber(phoneNumber);
         setCurrentAddress(address);
 
@@ -226,6 +227,16 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<List<UserInfo>> doLoadInformationUser(UserResponse.ServerGetUser user) {
         return apiHelper.doLoadInformationUser(user);
+    }
+
+    @Override
+    public Observable<String> doAddCommentHomestay(UserResponse.ServerComment comment) {
+        return apiHelper.doAddCommentHomestay(comment);
+    }
+
+    @Override
+    public Observable<List<Comment>> doGetListCmt(UserResponse.ServerGetListCmt cmt) {
+        return apiHelper.doGetListCmt(cmt);
     }
 
 

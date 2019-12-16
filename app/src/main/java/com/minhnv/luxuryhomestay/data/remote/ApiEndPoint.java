@@ -25,5 +25,7 @@ class ApiEndPoint {
     static final String ENDPOINT_DELETE_STORY =  BuildConfig.BASE_URL + "deletestories.php";
     static final String ENDPOINT_GET_IMAGE_DATA =  BuildConfig.BASE_URL + "getimagedetail.php";
     static final String ENDPOINT_GET_USER = BuildConfig.BASE_URL + "getuser.php";
+    static final String ENDPOINT_COMMENT = BuildConfig.BASE_URL + "usercomment.php";
+    static final String ENDPOINT_LIST_CMT = BuildConfig.BASE_URL + "getListRating.php";
 
 }

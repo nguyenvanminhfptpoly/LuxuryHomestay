@@ -3,8 +3,6 @@ package com.minhnv.luxuryhomestay.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import io.reactivex.subjects.BehaviorSubject;
-
 public class UserResponse {
 
     public static class ServerSignUpRequest {
@@ -92,14 +90,20 @@ public class UserResponse {
         private String address;
         @SerializedName("iduser")
         private int idUser;
+        @SerializedName("username")
+        private String username;
+        @SerializedName("phonenumber")
+        private String phonenumber;
 
-        public ServerBooking(String dateStart, String dateEnd, String countMember, String nameHomeStay, String address,int idUser) {
+        public ServerBooking(String dateStart, String dateEnd, String countMember, String nameHomeStay, String address, int idUser, String username, String phonenumber) {
             this.dateStart = dateStart;
             this.dateEnd = dateEnd;
             this.countMember = countMember;
             this.nameHomeStay = nameHomeStay;
             this.address = address;
             this.idUser = idUser;
+            this.username = username;
+            this.phonenumber = phonenumber;
         }
     }
 
@@ -193,6 +197,33 @@ public class UserResponse {
 
         public ServerListBooking(int idUser) {
             this.idUser = idUser;
+        }
+    }
+
+    public static class ServerComment{
+        @SerializedName("username")
+        private String username;
+        @SerializedName("comment")
+        private String comment;
+        @SerializedName("rating")
+        private int rating;
+        @SerializedName("idHomestay")
+        private int idHomestay;
+
+        public ServerComment(String username, String comment, int rating, int idHomestay) {
+            this.username = username;
+            this.comment = comment;
+            this.rating = rating;
+            this.idHomestay = idHomestay;
+        }
+    }
+
+    public static class ServerGetListCmt{
+        @SerializedName("idHomestay")
+        private int idHomestay;
+
+        public ServerGetListCmt(int idHomestay) {
+            this.idHomestay = idHomestay;
         }
     }
 

@@ -2,6 +2,7 @@ package com.minhnv.luxuryhomestay.di.activity;
 
 import com.minhnv.luxuryhomestay.di.activity.home.HomeScope;
 import com.minhnv.luxuryhomestay.di.activity.main.booking.BookingScope;
+import com.minhnv.luxuryhomestay.di.activity.main.detail.DetailScope;
 import com.minhnv.luxuryhomestay.di.activity.main.favorite.FavoriteScope;
 import com.minhnv.luxuryhomestay.di.activity.main.homestay_city.HomeCityScope;
 import com.minhnv.luxuryhomestay.di.activity.main.homestay_hot.HomeHotScope;
@@ -67,6 +68,7 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector
     abstract HomeStayCityActivity homestayCityActivity();
 
+    @DetailScope
     @ContributesAndroidInjector
     abstract HomeStayDetailActivity homeStayDetailActivity();
 
@@ -100,5 +102,7 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
     abstract PostDetailActivity postDetailActivity();
+
+
 
 }

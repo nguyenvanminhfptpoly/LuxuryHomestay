@@ -41,8 +41,8 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
 
     private static final String TAG = "SignInActivity";
     private static final int CODE_SIGN_UP_REQUEST = 1001;
-    private EditText passWord;
-    private EditText phoneNumber;
+    private EditText phone;
+    private EditText pass;
     private SharedPreferences.Editor editor;
     public static final String PASSWORD = "PASSWORD";
     public static final String PHONENUMBER = "PHONENUMBER";
@@ -71,12 +71,12 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
     private void initView() {
         tvSignUp = findViewById(R.id.tvSignUp);
         btnLogin = findViewById(R.id.btnLogin);
-        passWord = findViewById(R.id.includePassWords);
-        phoneNumber = findViewById(R.id.includeCountMember);
+        phone = findViewById(R.id.includePassWords);
+        pass = findViewById(R.id.includeCountMember);
         tvNeedHelp = findViewById(R.id.tvNeedHelp);
 
-        phoneNumber.setText(appPreferenceHelper.getCurrentPassword());
-        passWord.setText(appPreferenceHelper.getCurrentPhoneNumber());
+        pass.setText(appPreferenceHelper.getCurrentPassword());
+        phone.setText(appPreferenceHelper.getCurrentPhoneNumber());
 
         tvSignUp.setOnClickListener(view -> {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
@@ -186,8 +186,8 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
 
     @Override
     public void login() {
-        String InputPhoneNumber = passWord.getText().toString().trim();
-        String InputPassword = phoneNumber.getText().toString().trim();
+        String InputPhoneNumber = phone.getText().toString().trim();
+        String InputPassword = pass.getText().toString().trim();
         if (viewmodel.isRequestValid(InputPhoneNumber, InputPassword) && isNetworkConnected()) {
             viewmodel.signin(InputPassword,InputPhoneNumber);
             hideKeyboard();
@@ -209,8 +209,8 @@ public class SignInActivity extends BaseActivity<SignInViewModel> implements Sig
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode== RESULT_OK && requestCode == CODE_SIGN_UP_REQUEST) {
-            passWord.setText(appPreferenceHelper.getCurrentPhoneNumber());
-            phoneNumber.setText(appPreferenceHelper.getCurrentPassword());
+            phone.setText(appPreferenceHelper.getCurrentPhoneNumber());
+            pass.setText(appPreferenceHelper.getCurrentPassword());
         }
     }
 

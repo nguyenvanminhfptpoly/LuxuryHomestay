@@ -15,7 +15,6 @@
         android:background="?attr/switch_black_white"
         >
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="0dp"

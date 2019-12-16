@@ -91,7 +91,7 @@
                     android:id="@+id/tvAddressHomeStayDetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/address"
+                    android:text="@string/username"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginStart="30dp"
@@ -165,6 +165,112 @@
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/bg_booking"
                     android:text="@string/booking" />
+
+                <TextView
+                    android:id="@+id/tvCmt"
+                    style="@style/TextViewBackgroundLight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/c_c_nh_gi"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="20dp"
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="20dp"
+                    >
+                    <LinearLayout
+                        android:id="@+id/linearLayout6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/firstStar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_star_border_black_24dp" />
+
+                        <ImageView
+                            android:id="@+id/secondStar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_star_border_black_24dp" />
+
+                        <ImageView
+                            android:id="@+id/thirdStar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_star_border_black_24dp" />
+
+                        <ImageView
+                            android:id="@+id/fourStar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_star_border_black_24dp" />
+
+                        <ImageView
+                            android:id="@+id/fiveStar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_star_border_black_24dp" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/edComment"
+                        style="@style/EditTextBackGround"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:ems="10"
+                        android:hint="@string/comment"
+                        android:inputType="textPersonName"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/btnPostComment"
+                        app:layout_constraintTop_toBottomOf="@id/linearLayout6"
+                         />
+
+                    <Button
+                        android:id="@+id/btnPostComment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_booking"
+                        android:text="@string/luxury_post"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.898"
+
+
+                        app:layout_constraintTop_toTopOf="@id/edComment" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </androidx.core.widget.NestedScrollView>

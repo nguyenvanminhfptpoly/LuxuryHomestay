@@ -19,12 +19,15 @@ public class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
 
     public boolean isRequestValidate(String password, String phonenumber, String address) {
         if (TextUtils.isEmpty(password) || password.length() < 5) {
+            getNavigator().validatePassword();
             return false;
         }
         if (TextUtils.isEmpty(phonenumber) || phonenumber.length() < 10) {
+            getNavigator().validatePhoneNumber();
             return false;
         }
-        if (TextUtils.isEmpty(address) || address.length() <= 10) {
+        if (TextUtils.isEmpty(address)) {
+            getNavigator().validateName();
             return false;
         }
         return (!TextUtils.isEmpty(address));

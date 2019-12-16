@@ -6,4 +6,9 @@ public interface HomeStayDetailNavigator {
     void onFailed();
     void addFavorite();
     void loadImageDetail();
+    void ratingFailed();
+    void CommentIsEmpty();
+    void commentFailed();
+    void commentSuccess();
+    void LoadListComment();
 }

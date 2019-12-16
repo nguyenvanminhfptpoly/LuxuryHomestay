@@ -10,4 +10,9 @@ public interface SignUpNavigator {
     void onInsertSuccess();
     void onInsertFailed();
 
+    //validate
+    void validatePassword();
+    void validatePhoneNumber();
+    void validateName();
+
 }
