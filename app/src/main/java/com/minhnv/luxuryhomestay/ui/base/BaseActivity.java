@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjection;
 import io.reactivex.disposables.CompositeDisposable;
 
-public abstract class BaseActivity<V extends BaseViewModel> extends AppCompatActivity implements BaseFragment.Callback {
+public abstract class  BaseActivity<V extends BaseViewModel> extends AppCompatActivity implements BaseFragment.Callback {
     @Inject
     public  ViewModelProviderFactory factory;
     @Inject

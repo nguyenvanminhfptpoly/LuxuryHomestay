@@ -11,7 +11,6 @@
         <item name="switch_yellow_blue">#fedd02</item>
         <item name="background_dark">#fff</item>
         <item name="switch_white_black">#121212</item>
-        <item name="android:windowAnimationStyle">@style/WindowTransitionAnimation</item>
         <item name="android:colorBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
@@ -26,7 +25,6 @@
         <item name="switch_yellow_blue">#00e676</item>
         <item name="background_dark">#001520</item>
         <item name="switch_white_black">#fff</item>
-        <item name="android:windowAnimationStyle">@style/WindowTransitionAnimation</item>
         <item name="android:colorBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>

@@ -47,11 +47,8 @@ public class HomeStayPriceViewHolder extends RecyclerView.ViewHolder {
         tvDetail.setText(homestay.getAddress());
         tvPrice.setText(CommonUtils.FormatCredits(homestay.getPrice()));
         String priceAgo = (CommonUtils.FormatCredits(homestay.getPriceago())) + " " + Math.round(percent) + "%";
-        SpannableStringBuilder builder = new SpannableStringBuilder(priceAgo);
-        StrikethroughSpan span = new StrikethroughSpan();
-        builder.setSpan(span,0,15, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        tvPriceAgo.setText(builder);
+        tvPriceAgo.setText(priceAgo);
         cardView.setOnClickListener(v ->{
             if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
                 return;
